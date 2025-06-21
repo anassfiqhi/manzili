@@ -9,7 +9,7 @@ export default function CheckoutLayout({
 }) {
   return (
     <div className="w-full bg-white relative small:min-h-screen">
-      <div className="h-16 bg-white border-b ">
+      <div className="h-[67px] bg-black border-b ">
         <nav className="flex h-full items-center content-container justify-between">
           <LocalizedClientLink
             href="/cart"
