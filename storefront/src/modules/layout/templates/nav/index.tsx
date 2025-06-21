@@ -31,15 +31,14 @@ export default async function Nav() {
           </div>
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
+            <div className="flex items-center gap-x-6 h-full">
                 <LocalizedClientLink
                   className="hover:text-ui-fg-base"
                   href="/search"
                   scroll={false}
                   data-testid="nav-search-link"
                 >
-                  <SearchIcon className="w-4 h-4" />
-                  Search
+                  <SearchIcon className="w-6 h-6 text-white" />
                 </LocalizedClientLink>
               
               <LocalizedClientLink
