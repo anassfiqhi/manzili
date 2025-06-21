@@ -12,6 +12,8 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
+import { ShoppingBagIcon } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
 const CartDropdown = ({
   cart: cartState,
@@ -81,7 +83,15 @@ const CartDropdown = ({
             className="hover:text-ui-fg-base"
             href="/cart"
             data-testid="nav-cart-link"
-          >{`Cart (${totalItems})`}</LocalizedClientLink>
+          >
+            {/* // `Cart (${totalItems})` */}
+            <ShoppingBagIcon className="w-6 h-6 text-white relative" >
+              <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums absolute top-0 right-0 z-10">
+                {totalItems}
+              </Badge>
+            </ShoppingBagIcon>
+            
+          </LocalizedClientLink>
         </Popover.Button>
         <Transition
           show={cartDropdownOpen}
