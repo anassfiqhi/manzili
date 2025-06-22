@@ -85,12 +85,15 @@ const CartDropdown = ({
             data-testid="nav-cart-link"
           >
             {/* // `Cart (${totalItems})` */}
-            <ShoppingBagIcon className="w-6 h-6 text-red-500 relative" >
-              <Badge className="z-10 h-5 min-w-5 rounded-full px-1 font-mono tabular-nums absolute top-0 right-0">
+            <div className="relative">
+              <ShoppingBagIcon className="w-6 h-6 text-red-500" >
+              </ShoppingBagIcon>
+              <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums absolute top-0 right-0">
                 {totalItems}
               </Badge>
-            </ShoppingBagIcon>
-            
+            </div>
+
+
           </LocalizedClientLink>
         </Popover.Button>
         <Transition
