@@ -24,11 +24,20 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase pl-4 font-[Outfit] text-white"
+              className="txt-compact-xlarge-plus capitalize pl-4 font-[Outfit] text-white"
               data-testid="nav-store-link"
             >
               Manzili Store
             </LocalizedClientLink>
+
+            <LocalizedClientLink
+              href="/store"
+              className="text-base capitalize pl-4 font-[Outfit] text-white hidden lg:inline"
+              data-testid="nav-store-link"
+            >
+              Products
+            </LocalizedClientLink>
+
           </div>
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
