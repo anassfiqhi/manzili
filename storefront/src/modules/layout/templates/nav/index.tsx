@@ -5,7 +5,7 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
-import { MenuIcon, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
+import { Badge, MenuIcon, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -32,15 +32,15 @@ export default async function Nav() {
 
           <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
             <div className="flex items-center gap-x-6 h-full">
-                <LocalizedClientLink
-                  className="hover:text-ui-fg-base"
-                  href="/search"
-                  scroll={false}
-                  data-testid="nav-search-link"
-                >
-                  <SearchIcon className="w-6 h-6 text-white" />
-                </LocalizedClientLink>
-              
+              <LocalizedClientLink
+                className="hover:text-ui-fg-base"
+                href="/search"
+                scroll={false}
+                data-testid="nav-search-link"
+              >
+                <SearchIcon className="w-6 h-6 text-white" />
+              </LocalizedClientLink>
+
               <LocalizedClientLink
                 className="hover:text-ui-fg-base"
                 href="/account"
@@ -56,7 +56,11 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  <ShoppingBagIcon className="w-6 h-6 text-white" />
+                  <ShoppingBagIcon className="w-6 h-6 text-white" >
+                    <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums absolute top-0 right-0">
+                      0
+                    </Badge>
+                  </ShoppingBagIcon>
                 </LocalizedClientLink>
               }
             >
