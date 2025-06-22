@@ -60,7 +60,7 @@ export default async function Nav() {
                   <div className="relative">
                     <ShoppingBagIcon className="w-6 h-6 text-white" >
                     </ShoppingBagIcon>
-                    <Badge className="flex items-center justify-center bg-red-600 text-white h-3 min-w-3 p-0 rounded-full font-mono tabular-nums absolute top-[-4px] right-[-4px]">
+                    <Badge className="flex items-center justify-center bg-red-600 text-white w-[14px] h-[14px] p-0 rounded-full font-mono tabular-nums absolute top-[-4px] right-[-4px]">
                       0
                     </Badge>
                   </div>
