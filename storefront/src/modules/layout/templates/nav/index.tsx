@@ -56,7 +56,7 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  <ShoppingBagIcon className="w-6 h-6 text-white" >
+                  <ShoppingBagIcon className="relative w-6 h-6 text-white" >
                     <Badge className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums absolute top-0 right-0">
                       0
                     </Badge>
