@@ -1,8 +1,7 @@
 "use client"
 
-import { Popover, Transition } from "@headlessui/react"
-import { Text, clx, useToggleState } from "@medusajs/ui"
-import { Fragment } from "react"
+import { clx, useToggleState } from "@medusajs/ui"
+import { useState } from "react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
@@ -10,12 +9,7 @@ import { HttpTypes } from "@medusajs/types"
 import { ArrowRightIcon, MenuIcon, XIcon } from "lucide-react"
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
@@ -29,11 +23,12 @@ const SideMenuItems = {
 
 const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
   const toggleState = useToggleState()
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="h-full">
       <div className="flex items-center h-full">
-        <Drawer direction="left">
+        <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
           <DrawerTrigger>
             <MenuIcon className="lg:hidden w-6 h-6 text-white" />
           </DrawerTrigger>
@@ -47,7 +42,7 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
               className="flex flex-col h-full rounded-rounded justify-between p-6"
             >
               <div className="flex justify-end" id="xmark">
-                <button data-testid="close-menu-button" onClick={close}>
+                <button data-testid="close-menu-button" onClick={() => setIsOpen(false)}>
                   <XIcon />
                 </button>
               </div>
@@ -58,7 +53,7 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
                       <LocalizedClientLink
                         href={href}
                         className="text-3xl leading-10 hover:text-ui-fg-disabled"
-                        onClick={close}
+                        onClick={() => setIsOpen(false)}
                         data-testid={`${name.toLowerCase()}-link`}
                       >
                         {name}
@@ -86,10 +81,6 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
                     )}
                   />
                 </div>
-                <Text className="flex justify-between txt-compact-small">
-                  © {new Date().getFullYear()} Medusa Store. All rights
-                  reserved.
-                </Text>
               </div>
             </div>
             {/* <DrawerFooter>
