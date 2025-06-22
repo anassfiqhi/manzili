@@ -88,7 +88,7 @@ const CartDropdown = ({
             <div className="relative">
               <ShoppingBagIcon className="w-6 h-6 text-white" >
               </ShoppingBagIcon>
-              <Badge className="flex items-center justify-center bg-[#b1b1b1] text-black text-xs w-[20px] h-[20px] p-0 rounded-full font-mono tabular-nums absolute top-[-10px] right-[-10px]">
+              <Badge className="flex items-center justify-center bg-[#b1b1b1] text-black text-xs w-[20px] h-[20px] p-0 rounded-full font-mono tabular-nums absolute top-[-8px] right-[-8px]">
                 {totalItems}
               </Badge>
             </div>
