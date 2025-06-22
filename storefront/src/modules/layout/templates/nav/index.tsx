@@ -5,7 +5,7 @@ import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
-import { SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
+import { MenuIcon, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -26,7 +26,7 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
               data-testid="nav-store-link"
             >
-              Medusa Store
+              Manzili Store
             </LocalizedClientLink>
           </div>
 
@@ -62,6 +62,7 @@ export default async function Nav() {
             >
               <CartButton />
             </Suspense>
+            <MenuIcon className="lg:hidden w-6 h-6 text-white" />
           </div>
         </nav>
       </header>
