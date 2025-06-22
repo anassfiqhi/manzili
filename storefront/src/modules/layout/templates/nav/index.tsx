@@ -4,7 +4,6 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
-import SideMenu from "@modules/layout/components/side-menu"
 import { Badge, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
 import SideMenuDrawer from "@modules/layout/components/side-menu-drawer"
 
