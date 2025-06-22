@@ -68,7 +68,6 @@ export default async function Nav() {
             >
               <CartButton />
             </Suspense>
-            <MenuIcon className="lg:hidden w-6 h-6 text-white" />
           </div>
         </nav>
       </header>
