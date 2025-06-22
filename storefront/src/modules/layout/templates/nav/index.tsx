@@ -24,7 +24,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase pl-4 font-[Outfit]"
+              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase pl-4 font-[Outfit] text-white"
               data-testid="nav-store-link"
             >
               Manzili Store
