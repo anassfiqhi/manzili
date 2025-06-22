@@ -30,6 +30,7 @@
     "@meilisearch/instant-meilisearch": "^0.7.1",
     "@paypal/paypal-js": "^5.0.6",
     "@paypal/react-paypal-js": "^7.8.1",
+    "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-slot": "^1.2.3",
     "@stripe/react-stripe-js": "^1.7.2",
     "@stripe/stripe-js": "^1.29.0",
@@ -52,6 +53,7 @@
     "server-only": "^0.0.1",
     "tailwind-merge": "^3.3.1",
     "tailwindcss-radix": "^2.8.0",
+    "vaul": "^1.1.2",
     "webpack": "^5"
   },
   "devDependencies": {
