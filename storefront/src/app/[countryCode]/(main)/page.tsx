@@ -4,6 +4,7 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
+import { HeroCarousel } from "@/modules/home/components/hero-carousel"
 
 export const metadata: Metadata = {
   title: "Medusa Next.js Starter Template",
@@ -25,6 +26,7 @@ export default async function Home({
 
   return (
     <>
+      <HeroCarousel />
       <Hero />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
