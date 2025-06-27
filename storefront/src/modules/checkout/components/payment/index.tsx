@@ -176,7 +176,7 @@ const Payment = ({
                     onChange={(e) => {
                       setCardBrand(
                         e.brand &&
-                          e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
+                        e.brand.charAt(0).toUpperCase() + e.brand.slice(1)
                       )
                       setError(e.error?.message || null)
                       setCardComplete(e.complete)
@@ -247,9 +247,8 @@ const Payment = ({
                   data-testid="payment-details-summary"
                 >
                   <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
-                    {paymentInfoMap[selectedPaymentMethod]?.icon || (
-                      isManual(selectedPaymentMethod) ? <BanknoteIcon className="w-4 h-4" /> :<CreditCard />
-                    )}
+                    {paymentInfoMap[selectedPaymentMethod]?.icon ??
+                      (isManual(selectedPaymentMethod) ? <BanknoteIcon className="w-4 h-4" /> : <CreditCard />)}
                   </Container>
                   <Text>
                     {isStripeFunc(selectedPaymentMethod) && cardBrand
