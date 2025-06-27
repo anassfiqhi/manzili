@@ -11,9 +11,10 @@ import { StripeCardElementOptions } from "@stripe/stripe-js"
 
 import Divider from "@modules/common/components/divider"
 import PaymentContainer from "@modules/checkout/components/payment-container"
-import { isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
+import { isManual, isStripe as isStripeFunc, paymentInfoMap } from "@lib/constants"
 import { StripeContext } from "@modules/checkout/components/payment-wrapper"
 import { initiatePaymentSession } from "@lib/data/cart"
+import { BanknoteIcon } from "lucide-react"
 
 const Payment = ({
   cart,
@@ -247,7 +248,7 @@ const Payment = ({
                 >
                   <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
                     {paymentInfoMap[selectedPaymentMethod]?.icon || (
-                      <CreditCard />
+                      isManual(selectedPaymentMethod) ? <BanknoteIcon className="w-6 h-6" /> :<CreditCard />
                     )}
                   </Container>
                   <Text>
