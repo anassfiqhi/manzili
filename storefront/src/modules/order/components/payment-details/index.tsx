@@ -1,9 +1,10 @@
 import { Container, Heading, Text } from "@medusajs/ui"
 
-import { isStripe, paymentInfoMap } from "@lib/constants"
+import { isManual, isStripe, paymentInfoMap } from "@lib/constants"
 import Divider from "@modules/common/components/divider"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
+import { BanknoteIcon } from "lucide-react"
 
 type PaymentDetailsProps = {
   order: HttpTypes.StoreOrder
@@ -28,7 +29,7 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
                 className="txt-medium text-ui-fg-subtle"
                 data-testid="payment-method"
               >
-                {paymentInfoMap[payment.provider_id].title}
+                {isManual(payment.provider_id) ? 'Cash on delivery' : paymentInfoMap[payment.provider_id].title}
               </Text>
             </div>
             <div className="flex flex-col w-2/3">
@@ -37,7 +38,7 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
               </Text>
               <div className="flex gap-2 txt-medium text-ui-fg-subtle items-center">
                 <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
-                  {paymentInfoMap[payment.provider_id].icon}
+                  {isManual(payment.provider_id) ? <BanknoteIcon className="w-4 h-4" /> : paymentInfoMap[payment.provider_id].icon}
                 </Container>
                 <Text data-testid="payment-amount">
                   {isStripe(payment.provider_id) && payment.data?.card_last4
