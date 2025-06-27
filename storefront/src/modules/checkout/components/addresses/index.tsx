@@ -39,7 +39,7 @@ const Addresses = ({
     router.push(pathname + "?step=address")
   }
 
-  const [message, formAction] = useFormState(setAddresses, null)
+  const [message, formAction] = useFormState(setAddresses, '')
 
   return (
     <div className="bg-white">
