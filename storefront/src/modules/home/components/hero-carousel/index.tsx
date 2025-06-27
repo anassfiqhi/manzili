@@ -23,18 +23,18 @@ export function HeroCarousel() {
 
   return (
     <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
-      <CarouselContent>
-        <CarouselItem className="w-full">
+      <CarouselContent className="!ml-0">
+        <CarouselItem className="!pl-0 w-full">
           <div>
             <img src='/banner1.png' alt='banner 1' />
           </div>
         </CarouselItem>
-        <CarouselItem className="w-full">
+        <CarouselItem className="!pl-0 w-full">
           <div>
             <img src='/banner2.png' alt='banner 2' />
           </div>
         </CarouselItem>
-        <CarouselItem className="w-full">
+        <CarouselItem className="!pl-0 w-full">
           <div>
             <img src='/banner3.png' alt='banner 3' />
           </div>
