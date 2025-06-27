@@ -7,7 +7,7 @@ import Radio from "@modules/common/components/radio"
 
 import PaymentTest from "../payment-test"
 import { isManual } from "@lib/constants"
-import { TruckIcon } from "lucide-react"
+import { BanknoteIcon } from "lucide-react"
 
 type PaymentContainerProps = {
   paymentProviderId: string
@@ -49,7 +49,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
             )}
           </div>
           <span className="justify-self-end text-ui-fg-base">
-            {isManual(paymentProviderId) ? <TruckIcon className="w-4 h-4" /> : paymentInfoMap[paymentProviderId]?.icon}
+            {isManual(paymentProviderId) ? <BanknoteIcon className="w-6 h-6" /> : paymentInfoMap[paymentProviderId]?.icon}
           </span>
         </div>
         {isManual(paymentProviderId) && isDevelopment && (
