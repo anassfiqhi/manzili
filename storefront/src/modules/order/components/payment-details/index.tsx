@@ -34,7 +34,7 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
             </div>
             <div className="flex flex-col w-2/3">
               <Text className="txt-medium-plus text-ui-fg-base mb-1">
-                Payment details
+                Payment detailsssss
               </Text>
               <div className="flex gap-2 txt-medium text-ui-fg-subtle items-center">
                 <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
