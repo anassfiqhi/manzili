@@ -16,7 +16,7 @@ export default async function Footer() {
           <div>
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+              className=""
             >
               Medusa Store
             </LocalizedClientLink>
