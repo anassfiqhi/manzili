@@ -141,7 +141,7 @@ const ShippingAddress = ({
           autoComplete="postal-code"
           value={formData["shipping_address.postal_code"]}
           onChange={handleChange}
-          required
+          // required
           data-testid="shipping-postal-code-input"
         />
         <Input
@@ -168,7 +168,7 @@ const ShippingAddress = ({
           autoComplete="address-level1"
           value={formData["shipping_address.province"]}
           onChange={handleChange}
-          required
+          // required
           data-testid="shipping-province-input"
         />
       </div>
