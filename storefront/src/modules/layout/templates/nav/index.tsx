@@ -12,7 +12,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-[67px] mx-auto border-b duration-200 bg-black border-ui-border-base">
+      <header className="relative h-[67px] mx-auto duration-200 bg-black border-ui-border-base">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
           <div className="h-full flex items-center">
             <div className="h-full">
