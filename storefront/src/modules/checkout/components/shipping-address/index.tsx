@@ -127,14 +127,14 @@ const ShippingAddress = ({
           required
           data-testid="shipping-address-input"
         />
-        <Input
+        {/* <Input
           label="Company"
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
           autoComplete="organization"
           data-testid="shipping-company-input"
-        />
+        /> */}
         <Input
           label="Postal code"
           name="shipping_address.postal_code"
@@ -162,7 +162,7 @@ const ShippingAddress = ({
           required
           data-testid="shipping-country-select"
         />
-        <Input
+        {/* <Input
           label="State / Province"
           name="shipping_address.province"
           autoComplete="address-level1"
@@ -170,7 +170,7 @@ const ShippingAddress = ({
           onChange={handleChange}
           // required
           data-testid="shipping-province-input"
-        />
+        /> */}
       </div>
       <div className="my-8">
         <Checkbox
@@ -199,6 +199,7 @@ const ShippingAddress = ({
           autoComplete="tel"
           value={formData["shipping_address.phone"]}
           onChange={handleChange}
+          required
           data-testid="shipping-phone-input"
         />
       </div>
