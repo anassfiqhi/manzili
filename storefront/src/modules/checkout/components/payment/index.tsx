@@ -248,7 +248,7 @@ const Payment = ({
                 >
                   <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
                     {paymentInfoMap[selectedPaymentMethod]?.icon || (
-                      isManual(selectedPaymentMethod) ? <BanknoteIcon className="w-6 h-6" /> :<CreditCard />
+                      isManual(selectedPaymentMethod) ? <BanknoteIcon className="w-4 h-4" /> :<CreditCard />
                     )}
                   </Container>
                   <Text>

@@ -49,7 +49,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
             )}
           </div>
           <span className="justify-self-end text-ui-fg-base">
-            {isManual(paymentProviderId) ? <BanknoteIcon className="w-6 h-6" /> : paymentInfoMap[paymentProviderId]?.icon}
+            {isManual(paymentProviderId) ? <BanknoteIcon className="w-4 h-4" /> : paymentInfoMap[paymentProviderId]?.icon}
           </span>
         </div>
         {isManual(paymentProviderId) && isDevelopment && (
