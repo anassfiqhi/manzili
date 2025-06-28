@@ -131,11 +131,9 @@ const Addresses = ({
                     <Text className="txt-medium text-ui-fg-subtle">
                       {cart.shipping_address.phone}
                     </Text>
-                    {cart.email && (
-                      <Text className="txt-medium text-ui-fg-subtle">
-                        {cart.email}
-                      </Text>
-                    )}
+                    <Text className="txt-medium text-ui-fg-subtle">
+                      {cart.email}
+                    </Text>
                   </div>
 
                   <div

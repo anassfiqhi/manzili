@@ -1,7 +1,7 @@
 import { test, expect } from "../../index"
 
-test.describe("Checkout without email tests", async () => {
-  test("Checkout flow without email", async ({
+test.describe("Checkout with default email tests", async () => {
+  test("Checkout flow with default email when none provided", async ({
     cartPage,
     checkoutPage,
     orderPage,
@@ -39,7 +39,7 @@ test.describe("Checkout without email tests", async () => {
       })
 
       await test.step("Enter in the contact info (phone only, no email)", async () => {
-        // Note: We're not filling the email field
+        // Note: We're not filling the email field, so it will use the default
         await checkoutPage.shippingPhoneInput.fill("3031112222")
         await checkoutPage.submitAddressButton.click()
       })
@@ -53,7 +53,7 @@ test.describe("Checkout without email tests", async () => {
       await orderPage.container.waitFor({ state: "visible" })
     })
 
-    await test.step("Verify order completion without email", async () => {
+    await test.step("Verify order completion with default email", async () => {
       // Verify that the order page loads successfully
       await expect(orderPage.container).toBeVisible()
       
@@ -63,8 +63,9 @@ test.describe("Checkout without email tests", async () => {
       // Verify that the order date is displayed
       await expect(orderPage.orderDate).toBeVisible()
       
-      // Verify that no email confirmation message is shown
-      await expect(orderPage.orderEmail).not.toBeVisible()
+      // Verify that email confirmation message is shown (with default email)
+      await expect(orderPage.orderEmail).toBeVisible()
+      await expect(orderPage.orderEmail).toContainText("guest@manzili.com")
     })
   })
 }) 

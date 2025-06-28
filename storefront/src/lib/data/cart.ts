@@ -321,7 +321,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         province: formData.get("shipping_address.province") || "N/A",
         phone: formData.get("shipping_address.phone"),
       },
-      ...(email && email.trim() && { email: email.trim() }),
+      email: email && email.trim() ? email.trim() : "guest@manzili.com",
     } as any
 
     const sameAsBilling = formData.get("same_as_billing")

@@ -79,7 +79,8 @@ const Shipping: React.FC<ShippingProps> = ({
         </Heading>
         {!isOpen &&
           cart?.shipping_address &&
-          cart?.billing_address && (
+          cart?.billing_address &&
+          cart?.email && (
             <Text>
               <button
                 onClick={handleEdit}
