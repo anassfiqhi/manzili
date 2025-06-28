@@ -135,6 +135,7 @@ const ShippingAddress = ({
           autoComplete="organization"
           data-testid="shipping-company-input"
           hidden
+
         />
         <Input
           label="Postal code"
@@ -145,6 +146,7 @@ const ShippingAddress = ({
           // required
           data-testid="shipping-postal-code-input"
           hidden
+
         />
         <Input
           label="City"
@@ -173,6 +175,7 @@ const ShippingAddress = ({
           // required
           data-testid="shipping-province-input"
           hidden
+          className="hidden"
         />
       </div>
       <div className="my-8">
