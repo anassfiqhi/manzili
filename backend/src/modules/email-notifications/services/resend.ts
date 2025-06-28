@@ -42,6 +42,11 @@ export class ResendNotificationService extends AbstractNotificationProviderServi
     this.resend = new Resend(this.config_.apiKey)
   }
 
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email.trim())
+  }
+
   async send(
     notification: NotificationTypes.ProviderSendNotificationDTO
   ): Promise<NotificationTypes.ProviderSendNotificationResultsDTO> {
@@ -50,6 +55,11 @@ export class ResendNotificationService extends AbstractNotificationProviderServi
     }
     if (notification.channel === 'sms') {
       throw new MedusaError(MedusaError.Types.INVALID_DATA, `SMS notification not supported`)
+    }
+
+    // Validate email address
+    if (!notification.to || !notification.to.trim() || !this.isValidEmail(notification.to)) {
+      throw new MedusaError(MedusaError.Types.INVALID_DATA, `Invalid email address: ${notification.to}`)
     }
 
     // Generate the email content using the template
