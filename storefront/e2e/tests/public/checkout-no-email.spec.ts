@@ -39,7 +39,7 @@ test.describe("Checkout with phone-based guest email tests", async () => {
       })
 
       await test.step("Enter in the contact info (phone only, no email)", async () => {
-        // Note: We're not filling the email field, so the backend will generate a guest email based on phone number
+        // Note: We're not filling the email field, so the frontend will generate a guest email based on phone number
         await checkoutPage.shippingPhoneInput.fill("3031112222")
         await checkoutPage.submitAddressButton.click()
       })

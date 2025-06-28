@@ -307,6 +307,24 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     }
 
     const email = formData.get("email") as string
+    const phone = formData.get("shipping_address.phone") as string
+    
+    // Generate guest email based on phone number if no email is provided
+    const generateGuestEmailFromPhone = (phoneNumber: string): string => {
+      if (!phoneNumber || !phoneNumber.trim()) {
+        // Fallback to random number if no phone number
+        const randomNumber = Math.floor(Math.random() * 1000000)
+        return `guest${randomNumber}@fakeemail.fake`
+      }
+      
+      // Clean phone number (remove spaces, dashes, parentheses, etc.)
+      const cleanPhone = phoneNumber.replace(/[\s\-\(\)]/g, '')
+      
+      // Use full phone number for uniqueness
+      return `guest${cleanPhone}@fakeemail.fake`
+    }
+    
+    const finalEmail = email && email.trim() ? email.trim() : generateGuestEmailFromPhone(phone)
     
     const data = {
       shipping_address: {
@@ -321,7 +339,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         province: formData.get("shipping_address.province") || "N/A",
         phone: formData.get("shipping_address.phone"),
       },
-      email: email && email.trim() ? email.trim() : undefined,
+      email: finalEmail,
     } as any
 
     const sameAsBilling = formData.get("same_as_billing")
