@@ -312,16 +312,14 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     // Generate guest email based on phone number if no email is provided
     const generateGuestEmailFromPhone = (phoneNumber: string): string => {
       if (!phoneNumber || !phoneNumber.trim()) {
-        // Fallback to random number if no phone number
-        const randomNumber = Math.floor(Math.random() * 1000000)
-        return `guest${randomNumber}@fakeemail.fake`
+        throw new Error("No phone number found when placing an order")
       }
       
       // Clean phone number (remove spaces, dashes, parentheses, etc.)
       const cleanPhone = phoneNumber.replace(/[\s\-\(\)]/g, '')
       
       // Use full phone number for uniqueness
-      return `guest${cleanPhone}@fakeemail.fake`
+      return `${cleanPhone}@noemail.fake`
     }
     
     const finalEmail = email && email.trim() ? email.trim() : generateGuestEmailFromPhone(phone)
