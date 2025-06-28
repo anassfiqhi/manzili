@@ -296,7 +296,6 @@ export async function submitPromotionForm(
   }
 }
 
-// TODO: Pass a POJO instead of a form entity here
 export async function setAddresses(currentState: unknown, formData: FormData) {
   try {
     if (!formData) {
@@ -308,14 +307,6 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     }
 
     const email = formData.get("email") as string
-    
-    // Generate random guest email if no email is provided
-    const generateRandomGuestEmail = () => {
-      const randomNumber = Math.floor(Math.random() * 1000000)
-      return `guest${randomNumber}@fakeemail.fake`
-    }
-    
-    const finalEmail = email && email.trim() ? email.trim() : generateRandomGuestEmail()
     
     const data = {
       shipping_address: {
@@ -330,7 +321,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         province: formData.get("shipping_address.province") || "N/A",
         phone: formData.get("shipping_address.phone"),
       },
-      email: finalEmail,
+      email: email && email.trim() ? email.trim() : undefined,
     } as any
 
     const sameAsBilling = formData.get("same_as_billing")
