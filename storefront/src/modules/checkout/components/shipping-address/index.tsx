@@ -18,7 +18,11 @@ const ShippingAddress = ({
   checked: boolean
   onChange: () => void
 }) => {
-  const [formData, setFormData] = useState<Record<string, any>>({})
+  const [formData, setFormData] = useState<Record<string, any>>({
+    "shipping_address.company": "N/A",
+    "shipping_address.postal_code": "00000",
+    "shipping_address.province": "N/A",
+  })
 
   const countriesInRegion = useMemo(
     () => cart?.region?.countries?.map((c) => c.iso_2),
@@ -44,11 +48,11 @@ const ShippingAddress = ({
         "shipping_address.first_name": address?.first_name || "",
         "shipping_address.last_name": address?.last_name || "",
         "shipping_address.address_1": address?.address_1 || "",
-        "shipping_address.company": address?.company || "",
-        "shipping_address.postal_code": address?.postal_code || "",
+        "shipping_address.company": address?.company || "N/A",
+        "shipping_address.postal_code": address?.postal_code || "00000",
         "shipping_address.city": address?.city || "",
         "shipping_address.country_code": address?.country_code || "",
-        "shipping_address.province": address?.province || "",
+        "shipping_address.province": address?.province || "N/A",
         "shipping_address.phone": address?.phone || "",
       }))
 
@@ -68,6 +72,14 @@ const ShippingAddress = ({
     if (cart && !cart.email && customer?.email) {
       setFormAddress(undefined, customer.email)
     }
+
+    // Ensure default values are always set for hidden fields
+    setFormData((prevState) => ({
+      ...prevState,
+      "shipping_address.company": prevState["shipping_address.company"] || "N/A",
+      "shipping_address.postal_code": prevState["shipping_address.postal_code"] || "00000",
+      "shipping_address.province": prevState["shipping_address.province"] || "N/A",
+    }))
   }, [cart]) // Add cart as a dependency
 
   const handleChange = (
@@ -127,7 +139,7 @@ const ShippingAddress = ({
           required
           data-testid="shipping-address-input"
         />
-        <Input
+        {/* <Input
           label="Company"
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
@@ -135,9 +147,8 @@ const ShippingAddress = ({
           autoComplete="organization"
           data-testid="shipping-company-input"
           hidden
-
-        />
-        <Input
+        /> */}
+        {/* <Input
           label="Postal code"
           name="shipping_address.postal_code"
           autoComplete="postal-code"
@@ -146,8 +157,7 @@ const ShippingAddress = ({
           // required
           data-testid="shipping-postal-code-input"
           hidden
-
-        />
+        /> */}
         <Input
           label="City"
           name="shipping_address.city"
@@ -166,7 +176,7 @@ const ShippingAddress = ({
           required
           data-testid="shipping-country-select"
         />
-        <Input
+        {/* <Input
           label="State / Province"
           name="shipping_address.province"
           autoComplete="address-level1"
@@ -175,8 +185,7 @@ const ShippingAddress = ({
           // required
           data-testid="shipping-province-input"
           hidden
-          className="hidden"
-        />
+        /> */}
       </div>
       <div className="my-8">
         <Checkbox
