@@ -308,6 +308,15 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
     }
 
     const email = formData.get("email") as string
+    
+    // Generate random guest email if no email is provided
+    const generateRandomGuestEmail = () => {
+      const randomNumber = Math.floor(Math.random() * 1000000)
+      return `guest${randomNumber}@fakeemail.fake`
+    }
+    
+    const finalEmail = email && email.trim() ? email.trim() : generateRandomGuestEmail()
+    
     const data = {
       shipping_address: {
         first_name: formData.get("shipping_address.first_name"),
@@ -321,7 +330,7 @@ export async function setAddresses(currentState: unknown, formData: FormData) {
         province: formData.get("shipping_address.province") || "N/A",
         phone: formData.get("shipping_address.phone"),
       },
-      email: email && email.trim() ? email.trim() : "guest@manzili.com",
+      email: finalEmail,
     } as any
 
     const sameAsBilling = formData.get("same_as_billing")

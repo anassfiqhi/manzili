@@ -1,7 +1,7 @@
 import { test, expect } from "../../index"
 
-test.describe("Checkout with default email tests", async () => {
-  test("Checkout flow with default email when none provided", async ({
+test.describe("Checkout with random guest email tests", async () => {
+  test("Checkout flow with random guest email when none provided", async ({
     cartPage,
     checkoutPage,
     orderPage,
@@ -39,7 +39,7 @@ test.describe("Checkout with default email tests", async () => {
       })
 
       await test.step("Enter in the contact info (phone only, no email)", async () => {
-        // Note: We're not filling the email field, so it will use the default
+        // Note: We're not filling the email field, so it will generate a random guest email
         await checkoutPage.shippingPhoneInput.fill("3031112222")
         await checkoutPage.submitAddressButton.click()
       })
@@ -53,7 +53,7 @@ test.describe("Checkout with default email tests", async () => {
       await orderPage.container.waitFor({ state: "visible" })
     })
 
-    await test.step("Verify order completion with default email", async () => {
+    await test.step("Verify order completion with random guest email", async () => {
       // Verify that the order page loads successfully
       await expect(orderPage.container).toBeVisible()
       
@@ -63,9 +63,10 @@ test.describe("Checkout with default email tests", async () => {
       // Verify that the order date is displayed
       await expect(orderPage.orderDate).toBeVisible()
       
-      // Verify that email confirmation message is shown (with default email)
+      // Verify that email confirmation message is shown (with random guest email)
       await expect(orderPage.orderEmail).toBeVisible()
-      await expect(orderPage.orderEmail).toContainText("guest@manzili.com")
+      // Check that the email follows the guest pattern (guest + number + @fakeemail.fake)
+      await expect(orderPage.orderEmail).toHaveText(/guest\d+@fakeemail\.fake/)
     })
   })
 }) 

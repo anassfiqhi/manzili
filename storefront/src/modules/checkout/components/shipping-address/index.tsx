@@ -198,7 +198,7 @@ const ShippingAddress = ({
       </div>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <Input
-          label="Email (optional - will use guest@manzili.com if not provided)"
+          label="Email (optional - will use random guest email if not provided)"
           name="email"
           type="email"
           title="Enter a valid email address."
