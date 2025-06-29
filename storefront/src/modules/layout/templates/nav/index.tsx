@@ -24,7 +24,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase pl-4 font-[Outfit] text-white text-2xl"
+              className="txt-compact-xlarge-plus uppercase pl-4 font-sans text-white text-2xl"
               data-testid="nav-store-link"
             >
               Manzili <span className="hidden md:inline">Store</span>
@@ -36,21 +36,21 @@ export default async function Nav() {
 
             <LocalizedClientLink
               href="/store"
-              className="text-sm capitalize font-[Outfit] text-white hidden lg:inline"
+              className="text-sm capitalize font-sans text-white hidden lg:inline"
               data-testid="nav-store-link"
             >
               Store
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/categories"
-              className="text-sm capitalize font-[Outfit] text-white hidden lg:inline"
+              className="text-sm capitalize font-sans text-white hidden lg:inline"
               data-testid="nav-categories-link"
             >
               Categories
             </LocalizedClientLink>
             <LocalizedClientLink
               href="/collections"
-              className="text-sm capitalize font-[Outfit] text-white hidden lg:inline"
+              className="text-sm capitalize font-sans text-white hidden lg:inline"
               data-testid="nav-collections-link"
             >
               Collections
