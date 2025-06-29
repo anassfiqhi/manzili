@@ -27,7 +27,7 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus uppercase pl-4 font-[Outfit] text-white text-2xl"
               data-testid="nav-store-link"
             >
-              Manzili <span className="hidden xl:inline">Store</span>
+              Manzili <span className="hidden md:inline">Store</span>
             </LocalizedClientLink>
 
           </div>
