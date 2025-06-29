@@ -42,16 +42,16 @@ export default async function Nav() {
               Store
             </LocalizedClientLink>
             <LocalizedClientLink
-              href="/store"
+              href="/categories"
               className="text-sm capitalize font-[Outfit] text-white hidden lg:inline"
-              data-testid="nav-store-link"
+              data-testid="nav-categories-link"
             >
               Categories
             </LocalizedClientLink>
             <LocalizedClientLink
-              href="/store"
+              href="/collections"
               className="text-sm capitalize font-[Outfit] text-white hidden lg:inline"
-              data-testid="nav-store-link"
+              data-testid="nav-collections-link"
             >
               Collections
             </LocalizedClientLink>
