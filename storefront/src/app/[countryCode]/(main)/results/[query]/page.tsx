@@ -5,6 +5,8 @@ import SearchResultsTemplate from "@modules/search/templates/search-results-temp
 import { search } from "@modules/search/actions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Search",
   description: "Explore all of our products.",
