@@ -48,48 +48,9 @@ export default async function Nav() {
               Store
             </LocalizedClientLink>
             {/* Categories Hover Card */}
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <button
-                  className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
-                  data-testid="nav-categories-link"
-                  type="button"
-                >
-                  <LocalizedClientLink
-                    href="/categories"
-                    className="text-sm capitalize font-sans text-white hidden lg:inline"
-                    data-testid="nav-categories-link"
-                  >
-
-                    Categories
-                  </LocalizedClientLink>
-                </button>
-              </HoverCardTrigger>
-              <HoverCardContent className="p-0 w-screen">
-                <CategoriesList />
-              </HoverCardContent>
-            </HoverCard>
+            <CategoriesHoverCard />
             {/* Collections Hover Card */}
-            <HoverCard>
-              <HoverCardTrigger asChild>
-                <button
-                  className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
-                  data-testid="nav-collections-link"
-                  type="button"
-                >
-                  <LocalizedClientLink
-                    href="/collections"
-                    className="text-sm capitalize font-sans text-white hidden lg:inline"
-                    data-testid="nav-collections-link"
-                  >
-                    Collections
-                  </LocalizedClientLink>
-                </button>
-              </HoverCardTrigger>
-              <HoverCardContent className="p-0 w-screen">
-                <CollectionsList />
-              </HoverCardContent>
-            </HoverCard>
+            <CollectionsHoverCard />
 
           </div>
 
@@ -138,57 +99,101 @@ export default async function Nav() {
   )
 }
 
-const CategoriesList = async () => {
+const CategoriesHoverCard = async () => {
   const product_categories = await listCategories()
   const topLevelCategories = product_categories.filter(
     (category: StoreProductCategory) => !category.parent_category
   )
+
+  // Don't render the hover card if there are no categories
+  if (topLevelCategories.length === 0) {
+    return null
+  }
+
   return (
-    <div className="p-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {topLevelCategories.map((category: StoreProductCategory) => (
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <button
+          className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
+          data-testid="nav-categories-link"
+          type="button"
+        >
           <LocalizedClientLink
-            key={category.id}
-            href={`/categories/${category.handle}`}
-            className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
-            data-testid="hover-category-link"
+            href="/categories"
+            className="text-sm capitalize font-sans text-white hidden lg:inline"
+            data-testid="nav-categories-link"
           >
-            <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
-              <Thumbnail thumbnail={undefined} size="medium" />
-            </div>
-            <span className="text-base font-medium text-center mt-2">{category.name}</span>
+            Categories
           </LocalizedClientLink>
-        ))}
-        {topLevelCategories.length === 0 && (
-          <div className="col-span-full text-center text-sm text-ui-fg-subtle">No categories available.</div>
-        )}
-      </div>
-    </div>
+        </button>
+      </HoverCardTrigger>
+      <HoverCardContent className="p-0 w-screen shadow-none border-none">
+        <div className="p-6 mx-auto w-11/12 bg-white shadow-md outline-none border-none rounded-md">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {topLevelCategories.map((category: StoreProductCategory) => (
+              <LocalizedClientLink
+                key={category.id}
+                href={`/categories/${category.handle}`}
+                className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
+                data-testid="hover-category-link"
+              >
+                <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+                  <Thumbnail thumbnail={undefined} size="medium" />
+                </div>
+                <span className="text-base font-medium text-center mt-2">{category.name}</span>
+              </LocalizedClientLink>
+            ))}
+          </div>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   )
 }
 
-const CollectionsList = async () => {
+const CollectionsHoverCard = async () => {
   const { collections } = await getCollectionsList(0, 100)
+
+  // Don't render the hover card if there are no collections
+  if (collections.length === 0) {
+    return null
+  }
+
   return (
-    <div className="p-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {collections.map((collection: HttpTypes.StoreCollection) => (
+    <HoverCard>
+      <HoverCardTrigger asChild>
+        <button
+          className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
+          data-testid="nav-collections-link"
+          type="button"
+        >
           <LocalizedClientLink
-            key={collection.id}
-            href={`/collections/${collection.handle}`}
-            className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
-            data-testid="hover-collection-link"
+            href="/collections"
+            className="text-sm capitalize font-sans text-white hidden lg:inline"
+            data-testid="nav-collections-link"
           >
-            <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
-              <Thumbnail thumbnail={undefined} size="medium" />
-            </div>
-            <span className="text-base font-medium text-center mt-2">{collection.title}</span>
+            Collections
           </LocalizedClientLink>
-        ))}
-        {collections.length === 0 && (
-          <div className="col-span-full text-center text-sm text-ui-fg-subtle">No collections available.</div>
-        )}
-      </div>
-    </div>
+        </button>
+      </HoverCardTrigger>
+      <HoverCardContent className="p-0 w-screen shadow-none border-none">
+        <div className="p-6 mx-auto w-11/12 bg-white shadow-md outline-none border-none rounded-md">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {collections.map((collection: HttpTypes.StoreCollection) => (
+              <LocalizedClientLink
+                key={collection.id}
+                href={`/collections/${collection.handle}`}
+                className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
+                data-testid="hover-collection-link"
+              >
+                <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+                  <Thumbnail thumbnail={undefined} size="medium" />
+                </div>
+                <span className="text-base font-medium text-center mt-2">{collection.title}</span>
+              </LocalizedClientLink>
+            ))}
+          </div>
+        </div>
+      </HoverCardContent>
+    </HoverCard>
   )
 }
