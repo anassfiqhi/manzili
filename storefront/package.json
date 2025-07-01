@@ -32,6 +32,7 @@
     "@paypal/paypal-js": "^5.0.6",
     "@paypal/react-paypal-js": "^7.8.1",
     "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-hover-card": "^1.1.14",
     "@radix-ui/react-navigation-menu": "^1.2.13",
     "@radix-ui/react-slot": "^1.2.3",
     "@stripe/react-stripe-js": "^1.7.2",
