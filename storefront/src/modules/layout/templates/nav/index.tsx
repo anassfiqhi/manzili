@@ -6,6 +6,12 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import { Badge, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
 import SideMenuDrawer from "@modules/layout/components/side-menu-drawer"
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
+import { listCategories } from "@lib/data/categories"
+import { StoreProductCategory } from "@medusajs/types"
+import { getCollectionsList } from "@lib/data/collections"
+import { HttpTypes } from "@medusajs/types"
+import Thumbnail from "@modules/products/components/thumbnail"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -41,20 +47,49 @@ export default async function Nav() {
             >
               Store
             </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/categories"
-              className="text-sm capitalize font-sans text-white hidden lg:inline"
-              data-testid="nav-categories-link"
-            >
-              Categories
-            </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/collections"
-              className="text-sm capitalize font-sans text-white hidden lg:inline"
-              data-testid="nav-collections-link"
-            >
-              Collections
-            </LocalizedClientLink>
+            {/* Categories Hover Card */}
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <button
+                  className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
+                  data-testid="nav-categories-link"
+                  type="button"
+                >
+                  <LocalizedClientLink
+                    href="/categories"
+                    className="text-sm capitalize font-sans text-white hidden lg:inline"
+                    data-testid="nav-categories-link"
+                  >
+
+                    Categories
+                  </LocalizedClientLink>
+                </button>
+              </HoverCardTrigger>
+              <HoverCardContent className="p-0 w-screen">
+                <CategoriesList />
+              </HoverCardContent>
+            </HoverCard>
+            {/* Collections Hover Card */}
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <button
+                  className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
+                  data-testid="nav-collections-link"
+                  type="button"
+                >
+                  <LocalizedClientLink
+                    href="/collections"
+                    className="text-sm capitalize font-sans text-white hidden lg:inline"
+                    data-testid="nav-collections-link"
+                  >
+                    Collections
+                  </LocalizedClientLink>
+                </button>
+              </HoverCardTrigger>
+              <HoverCardContent className="p-0 w-screen">
+                <CollectionsList />
+              </HoverCardContent>
+            </HoverCard>
 
           </div>
 
@@ -99,6 +134,61 @@ export default async function Nav() {
           </div>
         </nav>
       </header>
+    </div>
+  )
+}
+
+const CategoriesList = async () => {
+  const product_categories = await listCategories()
+  const topLevelCategories = product_categories.filter(
+    (category: StoreProductCategory) => !category.parent_category
+  )
+  return (
+    <div className="p-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {topLevelCategories.map((category: StoreProductCategory) => (
+          <LocalizedClientLink
+            key={category.id}
+            href={`/categories/${category.handle}`}
+            className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
+            data-testid="hover-category-link"
+          >
+            <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+              <Thumbnail thumbnail={undefined} size="medium" />
+            </div>
+            <span className="text-base font-medium text-center mt-2">{category.name}</span>
+          </LocalizedClientLink>
+        ))}
+        {topLevelCategories.length === 0 && (
+          <div className="col-span-full text-center text-sm text-ui-fg-subtle">No categories available.</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+const CollectionsList = async () => {
+  const { collections } = await getCollectionsList(0, 100)
+  return (
+    <div className="p-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {collections.map((collection: HttpTypes.StoreCollection) => (
+          <LocalizedClientLink
+            key={collection.id}
+            href={`/collections/${collection.handle}`}
+            className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
+            data-testid="hover-collection-link"
+          >
+            <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+              <Thumbnail thumbnail={undefined} size="medium" />
+            </div>
+            <span className="text-base font-medium text-center mt-2">{collection.title}</span>
+          </LocalizedClientLink>
+        ))}
+        {collections.length === 0 && (
+          <div className="col-span-full text-center text-sm text-ui-fg-subtle">No collections available.</div>
+        )}
+      </div>
     </div>
   )
 }
