@@ -13,6 +13,8 @@ import { MenuIcon } from "lucide-react"
 const SideMenuItems = {
   Home: "/",
   Store: "/store",
+  Categories: "/categories",
+  Collections: "/collections",
   Search: "/search",
   Account: "/account",
   Cart: "/cart",
