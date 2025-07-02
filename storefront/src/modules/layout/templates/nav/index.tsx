@@ -128,8 +128,8 @@ const CategoriesHoverCard = async () => {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 mx-auto max-w-[80vw] bg-white shadow-md outline-none border-none rounded-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="p-6 mx-auto w-fit bg-white shadow-md outline-none border-none rounded-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {topLevelCategories.map((category: StoreProductCategory) => (
               <LocalizedClientLink
                 key={category.id}
@@ -176,8 +176,8 @@ const CollectionsHoverCard = async () => {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 mx-auto max-w-[80vw] bg-white shadow-md outline-none border-none rounded-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="p-6 mx-auto w-fit bg-white shadow-md outline-none border-none rounded-md">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {collections.map((collection: HttpTypes.StoreCollection) => (
               <LocalizedClientLink
                 key={collection.id}
