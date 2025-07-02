@@ -1,14 +1,20 @@
 "use client"
 
-import { Popover, Transition } from "@headlessui/react"
-import { ArrowRightMini, XMark } from "@medusajs/icons"
-import { Text, clx, useToggleState } from "@medusajs/ui"
-import { Fragment } from "react"
+import { clx, useToggleState } from "@medusajs/ui"
+import { useState, useEffect } from "react"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CountrySelect from "../country-select"
 import { HttpTypes } from "@medusajs/types"
-import { MenuIcon } from "lucide-react"
+import { ArrowRightIcon, MenuIcon, XIcon } from "lucide-react"
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion"
+import { listCategories } from "@lib/data/categories"
+import { getCollectionsList } from "@lib/data/collections"
 
 const SideMenuItems = {
   Home: "/",
@@ -22,89 +28,188 @@ const SideMenuItems = {
 
 const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
   const toggleState = useToggleState()
+  const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [collections, setCollections] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const cats = await listCategories();
+        setCategories(cats || []);
+        const { collections: cols } = await getCollectionsList(0, 100);
+        setCollections(cols || []);
+      } catch (e) {
+        // handle error
+      }
+    }
+    if (isOpen) fetchData();
+  }, [isOpen]);
 
   return (
     <div className="h-full">
       <div className="flex items-center h-full">
-        <Popover className="h-full flex">
-          {({ open, close }) => (
-            <>
-              <div className="relative flex h-full">
-                <Popover.Button
-                  data-testid="nav-menu-button"
-                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
-                >
-
-                <MenuIcon className="lg:hidden w-6 h-6 text-white" />
-                </Popover.Button>
+        <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
+          <DrawerTrigger>
+            <MenuIcon className="lg:hidden w-6 h-6 text-white" />
+          </DrawerTrigger>
+          <DrawerContent className="h-full bg-white w-3/4">
+            <div
+              data-testid="nav-menu-popup"
+              className="flex flex-col h-full rounded-rounded justify-between p-6"
+            >
+              <div className="flex justify-end" id="xmark">
+                <button data-testid="close-menu-button" onClick={() => setIsOpen(false)}>
+                  <XIcon />
+                </button>
               </div>
-
-              <Transition
-                show={open}
-                as={Fragment}
-                enter="transition ease-out duration-150"
-                enterFrom="opacity-0"
-                enterTo="opacity-100 backdrop-blur-2xl"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 backdrop-blur-2xl"
-                leaveTo="opacity-0"
-              >
-                <Popover.Panel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-30 inset-x-0 text-sm text-ui-fg-on-color m-2 backdrop-blur-2xl">
-                  <div
-                    data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
-                  >
-                    <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
-                        <XMark />
-                      </button>
-                    </div>
-                    <ul className="flex flex-col gap-6 items-start justify-start">
-                      {Object.entries(SideMenuItems).map(([name, href]) => {
-                        return (
-                          <li key={name}>
-                            <LocalizedClientLink
-                              href={href}
-                              className="text-3xl leading-10 hover:text-ui-fg-disabled"
-                              onClick={close}
-                              data-testid={`${name.toLowerCase()}-link`}
-                            >
-                              {name}
-                            </LocalizedClientLink>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                    <div className="flex flex-col gap-y-6">
-                      <div
-                        className="flex justify-between"
-                        onMouseEnter={toggleState.open}
-                        onMouseLeave={toggleState.close}
+              <ul className="flex flex-col gap-6 items-start justify-start">
+                {Object.entries(SideMenuItems).map(([name, href]) => {
+                  if (name === "Categories") {
+                    if (categories.length === 0) {
+                      return (
+                        <li key={name}>
+                          <LocalizedClientLink
+                            href={href}
+                            className="text-3xl leading-10 hover:text-ui-fg-disabled"
+                            onClick={() => setIsOpen(false)}
+                            data-testid={`${name.toLowerCase()}-link`}
+                          >
+                            {name}
+                          </LocalizedClientLink>
+                        </li>
+                      )
+                    }
+                    return (
+                      <li key={name} className="w-full">
+                        <Accordion type="single" collapsible>
+                          <AccordionItem value="categories" className="border-b-0">
+                            <AccordionTrigger className="p-0">
+                              <button
+                                type="button"
+                                className="text-3xl leading-10 hover:text-ui-fg-disabled flex w-full items-center justify-between bg-transparent border-0 p-0 cursor-pointer"
+                                tabIndex={0}
+                              >
+                                <LocalizedClientLink
+                                  href="/categories"
+                                  className="hover:text-ui-fg-disabled no-underline font-normal"
+                                  data-testid="categories-link"
+                                >
+                                  Categories
+                                </LocalizedClientLink>
+                              </button>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="pt-4 pl-4 flex flex-col gap-2">
+                                {categories.map((cat) => (
+                                  <li key={cat.id}>
+                                    <LocalizedClientLink
+                                      href={`/categories/${cat.handle}`}
+                                      className="text-lg leading-8 hover:text-ui-fg-disabled"
+                                      onClick={() => setIsOpen(false)}
+                                    >
+                                      {cat.name}
+                                    </LocalizedClientLink>
+                                  </li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </li>
+                    )
+                  }
+                  if (name === "Collections") {
+                    if (collections.length === 0) {
+                      return (
+                        <li key={name}>
+                          <LocalizedClientLink
+                            href={href}
+                            className="text-3xl leading-10 hover:text-ui-fg-disabled"
+                            onClick={() => setIsOpen(false)}
+                            data-testid={`${name.toLowerCase()}-link`}
+                          >
+                            {name}
+                          </LocalizedClientLink>
+                        </li>
+                      )
+                    }
+                    return (
+                      <li key={name} className="w-full">
+                        <Accordion type="single" collapsible>
+                          <AccordionItem value="collections" className="border-b-0">
+                            <AccordionTrigger className="p-0">
+                              <button
+                                type="button"
+                                className="text-3xl leading-10 hover:text-ui-fg-disabled flex w-full items-center justify-between bg-transparent border-0 p-0 cursor-pointer"
+                                tabIndex={0}
+                              >
+                                <LocalizedClientLink
+                                  href="/collections"
+                                  className="hover:text-ui-fg-disabled no-underline font-normal"
+                                  data-testid="collections-link"
+                                >
+                                  Collections
+                                </LocalizedClientLink>
+                              </button>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <ul className="pt-4 pl-4 flex flex-col gap-2">
+                                {collections.map((col) => (
+                                  <li key={col.id}>
+                                    <LocalizedClientLink
+                                      href={`/collections/${col.handle}`}
+                                      className="text-lg leading-8 hover:text-ui-fg-disabled"
+                                      onClick={() => setIsOpen(false)}
+                                    >
+                                      {col.title}
+                                    </LocalizedClientLink>
+                                  </li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </li>
+                    )
+                  }
+                  return (
+                    <li key={name}>
+                      <LocalizedClientLink
+                        href={href}
+                        className="text-3xl leading-10 hover:text-ui-fg-disabled"
+                        onClick={() => setIsOpen(false)}
+                        data-testid={`${name.toLowerCase()}-link`}
                       >
-                        {regions && (
-                          <CountrySelect
-                            toggleState={toggleState}
-                            regions={regions}
-                          />
-                        )}
-                        <ArrowRightMini
-                          className={clx(
-                            "transition-transform duration-150",
-                            toggleState.state ? "-rotate-90" : ""
-                          )}
-                        />
-                      </div>
-                      <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Manzili Store. All rights
-                        reserved.
-                      </Text>
-                    </div>
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </>
-          )}
-        </Popover>
+                        {name}
+                      </LocalizedClientLink>
+                    </li>
+                  )
+                })}
+              </ul>
+              <div className="flex flex-col gap-y-6">
+                <div
+                  className="flex justify-between"
+                  onMouseEnter={toggleState.open}
+                  onMouseLeave={toggleState.close}
+                >
+                  {regions && (
+                    <CountrySelect
+                      toggleState={toggleState}
+                      regions={regions}
+                    />
+                  )}
+                  <ArrowRightIcon
+                    className={clx(
+                      "transition-transform duration-150",
+                      toggleState.state ? "-rotate-90" : ""
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
     </div>
   )
