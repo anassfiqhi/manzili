@@ -140,7 +140,7 @@ const CategoriesHoverCard = async () => {
               <LocalizedClientLink
                 key={category.id}
                 href={`/categories/${category.handle}`}
-                className="flex flex-col items-center group hover:shadow-lg transition-shadow"
+                className="flex flex-col items-center group"
                 data-testid="hover-category-link"
               >
                 <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
@@ -187,7 +187,7 @@ const CollectionsHoverCard = async () => {
               <LocalizedClientLink
                 key={collection.id}
                 href={`/collections/${collection.handle}`}
-                className="flex flex-col items-center group hover:shadow-lg transition-shadow"
+                className="flex flex-col items-center group"
                 data-testid="hover-collection-link"
               >
                 <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
