@@ -112,7 +112,6 @@ const CategoriesHoverCard = async () => {
     (category: StoreProductCategory) => !category.parent_category
   )
 
-  // Don't render the hover card if there are no categories
   if (topLevelCategories.length === 0) {
     return null
   }
@@ -135,32 +134,22 @@ const CategoriesHoverCard = async () => {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 mx-auto w-fit bg-white shadow-md outline-none border-none rounded-md" style={{ height: '30vh' }}>
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full h-full"
-          >
-            <CarouselContent className="h-full">
-              {topLevelCategories.map((category: StoreProductCategory) => (
-                <CarouselItem key={category.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 h-full">
-                  <LocalizedClientLink
-                    href={`/categories/${category.handle}`}
-                    className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
-                    data-testid="hover-category-link"
-                  >
-                    <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
-                      <Thumbnail thumbnail={undefined} size="medium" />
-                    </div>
-                    <span className="text-base font-medium text-center mt-2">{category.name}</span>
-                  </LocalizedClientLink>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {topLevelCategories.map((category: StoreProductCategory) => (
+              <LocalizedClientLink
+                key={category.id}
+                href={`/categories/${category.handle}`}
+                className="flex flex-col items-center group hover:shadow-lg transition-shadow"
+                data-testid="hover-category-link"
+              >
+                <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
+                  <Thumbnail thumbnail={undefined} size="medium" />
+                </div>
+                <span className="text-base font-medium text-center mt-4">{category.name}</span>
+              </LocalizedClientLink>
+            ))}
+          </div>
         </div>
       </HoverCardContent>
     </HoverCard>
@@ -170,7 +159,6 @@ const CategoriesHoverCard = async () => {
 const CollectionsHoverCard = async () => {
   const { collections } = await getCollectionsList(0, 100)
 
-  // Don't render the hover card if there are no collections
   if (collections.length === 0) {
     return null
   }
@@ -193,32 +181,22 @@ const CollectionsHoverCard = async () => {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 mx-auto w-fit bg-white shadow-md outline-none border-none rounded-md" style={{ height: '30vh' }}>
-          <Carousel
-            opts={{
-              align: "start",
-            }}
-            className="w-full h-full"
-          >
-            <CarouselContent className="h-full">
-              {collections.map((collection: HttpTypes.StoreCollection) => (
-                <CarouselItem key={collection.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4 h-full">
-                  <LocalizedClientLink
-                    href={`/collections/${collection.handle}`}
-                    className="flex flex-col items-center bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow h-full"
-                    data-testid="hover-collection-link"
-                  >
-                    <div className="w-full aspect-square mb-4 flex items-center justify-center overflow-hidden rounded-lg bg-gray-100">
-                      <Thumbnail thumbnail={undefined} size="medium" />
-                    </div>
-                    <span className="text-base font-medium text-center mt-2">{collection.title}</span>
-                  </LocalizedClientLink>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {collections.map((collection: HttpTypes.StoreCollection) => (
+              <LocalizedClientLink
+                key={collection.id}
+                href={`/collections/${collection.handle}`}
+                className="flex flex-col items-center group hover:shadow-lg transition-shadow"
+                data-testid="hover-collection-link"
+              >
+                <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
+                  <Thumbnail thumbnail={undefined} size="medium" />
+                </div>
+                <span className="text-base font-medium text-center mt-4">{collection.title}</span>
+              </LocalizedClientLink>
+            ))}
+          </div>
         </div>
       </HoverCardContent>
     </HoverCard>
