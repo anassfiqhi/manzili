@@ -53,8 +53,8 @@ export function HeroCarousel() {
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-28">
-                <h2 className="text-5xl text-white"><b>We deliver </b>the ideal</h2>
-                <p className="text-white">Our carefully curated selection of bath products is designed to elevate your bathing ritual to new heights.</p>
+                <h2 className="text-5xl text-white"><b>Your bathroom </b>vision made possible.</h2>
+                <p className="text-white">Imagine stepping into your newly renovated bathroom, greeted by the soft glow of carefully placed lighting and the soothing sound of a cascading waterfall shower.</p>
               </div>
             </div>
           </div>
@@ -70,8 +70,8 @@ export function HeroCarousel() {
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-28">
-                <h2 className="text-5xl text-white"><b>We deliver </b>the ideal</h2>
-                <p className="text-white">Our carefully curated selection of bath products is designed to elevate your bathing ritual to new heights.</p>
+                <h2 className="text-5xl text-white"><b>Bathroom design </b>showroom</h2>
+                <p className="text-white">The finest materials combined with traditional manufacturing skills make for the perfect look</p>
               </div>
             </div>
           </div>
