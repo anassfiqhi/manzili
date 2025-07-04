@@ -26,7 +26,7 @@ export function HeroCarousel() {
     <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
       <CarouselContent className="!ml-0">
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-[45vh] md:h-[6vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
+          <div className="w-full h-[45vh] md:h-[60vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
             <Image 
               src="/banner1.png" 
               alt="banner 1" 
@@ -37,7 +37,7 @@ export function HeroCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-[45vh] md:h-[6vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
+          <div className="w-full h-[45vh] md:h-[60vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
             <Image 
               src="/banner2.png" 
               alt="banner 2" 
@@ -48,7 +48,7 @@ export function HeroCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-[45vh] md:h-[6vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
+          <div className="w-full h-[45vh] md:h-[60vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
             <Image 
               src="/banner3.png" 
               alt="banner 3" 
