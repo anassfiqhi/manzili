@@ -135,18 +135,18 @@ const CategoriesHoverCard = async () => {
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
         <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {topLevelCategories.map((category: StoreProductCategory) => (
               <LocalizedClientLink
                 key={category.id}
                 href={`/categories/${category.handle}`}
-                className="flex flex-col items-center group"
+                className="flex flex-col items-center group w-32"
                 data-testid="hover-category-link"
               >
                 <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
                   <Thumbnail thumbnail={undefined} size="medium" />
                 </div>
-                <span className="text-base font-medium text-center mt-4">{category.name}</span>
+                <span className="text-base font-medium text-center mt-4 truncate w-full" title={category.name}>{category.name}</span>
               </LocalizedClientLink>
             ))}
           </div>
@@ -182,18 +182,18 @@ const CollectionsHoverCard = async () => {
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
         <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {collections.map((collection: HttpTypes.StoreCollection) => (
               <LocalizedClientLink
                 key={collection.id}
                 href={`/collections/${collection.handle}`}
-                className="flex flex-col items-center group"
+                className="flex flex-col items-center group w-32"
                 data-testid="hover-collection-link"
               >
                 <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
                   <Thumbnail thumbnail={undefined} size="medium" />
                 </div>
-                <span className="text-base font-medium text-center mt-4">{collection.title}</span>
+                <span className="text-base font-medium text-center mt-4 truncate w-full" title={collection.title}>{collection.title}</span>
               </LocalizedClientLink>
             ))}
           </div>
