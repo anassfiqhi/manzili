@@ -26,18 +26,36 @@ export function HeroCarousel() {
     <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
       <CarouselContent className="!ml-0">
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-full">
-            <Image src="/banner1.png" alt="banner 1" layout="responsive" width={1920} height={600} sizes="100vw" className="w-full h-auto" />
+          <div className="w-full h-[45vh] md:h-[6vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
+            <Image 
+              src="/banner1.png" 
+              alt="banner 1" 
+              fill
+              sizes="100vw" 
+              className="object-cover" 
+            />
           </div>
         </CarouselItem>
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-full">
-            <Image src="/banner2.png" alt="banner 2" layout="responsive" width={1920} height={600} sizes="100vw" className="w-full h-auto" />
+          <div className="w-full h-[45vh] md:h-[6vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
+            <Image 
+              src="/banner2.png" 
+              alt="banner 2" 
+              fill
+              sizes="100vw" 
+              className="object-cover" 
+            />
           </div>
         </CarouselItem>
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-full">
-            <Image src="/banner3.png" alt="banner 3" layout="responsive" width={1920} height={600} sizes="100vw" className="w-full h-auto" />
+          <div className="w-full h-[45vh] md:h-[6vh] lg:h-[75vh] xl:h-[85vh] 2xl:h-[45vh] relative">
+            <Image 
+              src="/banner3.png" 
+              alt="banner 3" 
+              fill
+              sizes="100vw" 
+              className="object-cover" 
+            />
           </div>
         </CarouselItem>
       </CarouselContent>
