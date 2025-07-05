@@ -50,9 +50,9 @@ export function HeroCarousel() {
                     <MoveRight className="ml-2 h-4 w-4 text-black" />
                   </LocalizedClientLink>
                   <LocalizedClientLink
-                    href="/categories"
+                    href="/store"
                     className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
-                    data-testid="categories-link"
+                    data-testid="store-link"
                   >
                     Show our products
                     <MoveRight className="ml-2 h-4 w-4 text-white" />
@@ -85,9 +85,9 @@ export function HeroCarousel() {
                     <MoveRight className="ml-2 h-4 w-4 text-black" />
                   </LocalizedClientLink>
                   <LocalizedClientLink
-                    href="/categories"
+                    href="/store"
                     className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
-                    data-testid="categories-link"
+                    data-testid="store-link"
                   >
                     Show our products
                     <MoveRight className="ml-2 h-4 w-4 text-white" />
@@ -120,9 +120,9 @@ export function HeroCarousel() {
                     <MoveRight className="ml-2 h-4 w-4 text-black" />
                   </LocalizedClientLink>
                   <LocalizedClientLink
-                    href="/categories"
+                    href="/store"
                     className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
-                    data-testid="categories-link"
+                    data-testid="store-link"
                   >
                     Show our products
                     <MoveRight className="ml-2 h-4 w-4 text-white" />
