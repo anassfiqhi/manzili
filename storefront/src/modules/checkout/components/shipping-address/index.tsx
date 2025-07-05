@@ -217,6 +217,14 @@ const ShippingAddress = ({
           onChange={handleChange}
           required
           data-testid="shipping-phone-input"
+          pattern="[0-9+\-\s\(\)]+"
+          inputMode="numeric"
+          onKeyPress={(e) => {
+            const char = String.fromCharCode(e.which)
+            if (!/[0-9+\-\s\(\)]/.test(char)) {
+              e.preventDefault()
+            }
+          }}
         />
       </div>
     </>
