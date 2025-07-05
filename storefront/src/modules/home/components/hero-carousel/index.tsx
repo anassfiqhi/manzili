@@ -37,7 +37,7 @@ export function HeroCarousel() {
               className="object-cover"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
-              <div className="mx-auto px-4 py-[40px] md:py-[60px] md:max-w-[1440px] md:px-6 md:ml-0">
+              <div className="mx-auto px-4 py-[40px] md:py-[60px] md:max-w-[1440px] md:px-6 md:ml-0 xl:mx-auto">
                 <h2 className="text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>We deliver </b>the ideal</h2>
                 <p className="text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Our carefully curated selection of bath products is designed to elevate your bathing ritual to new heights.</p>
                 <div className="flex flex-col min-[376px]:flex-row justify-center items-center gap-3">
@@ -72,7 +72,7 @@ export function HeroCarousel() {
               className="object-cover"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
-              <div className="mx-auto px-4 py-[40px] md:py-[60px] md:max-w-[1440px] md:px-6 md:ml-0">
+              <div className="mx-auto px-4 py-[40px] md:py-[60px] md:max-w-[1440px] md:px-6 md:ml-0 xl:mx-auto">
                 <h2 className="text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Your bathroom </b>vision made possible.</h2>
                 <p className="text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Imagine stepping into your newly renovated bathroom, greeted by the soft glow of carefully placed lighting and the soothing sound of a cascading waterfall shower.</p>
                 <div className="flex flex-col min-[376px]:flex-row justify-center items-center gap-3">
@@ -107,7 +107,7 @@ export function HeroCarousel() {
               className="object-cover"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
-              <div className="mx-auto px-4 py-[40px] md:py-[60px] md:max-w-[1440px] md:px-6 md:ml-0">
+              <div className="mx-auto px-4 py-[40px] md:py-[60px] md:max-w-[1440px] md:px-6 md:ml-0 xl:mx-auto">
                 <h2 className="text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Bathroom design </b>showroom</h2>
                 <p className="text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>The finest materials combined with traditional manufacturing skills make for the perfect look</p>
                 <div className="flex flex-col min-[376px]:flex-row justify-center items-center gap-3">
