@@ -94,13 +94,13 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
                                 className="text-3xl leading-10 hover:text-ui-fg-disabled flex w-full items-center justify-between bg-transparent border-0 p-0 cursor-pointer"
                                 tabIndex={0}
                               >
-                                <LocalizedClientLink
+                                <a
                                   href="/categories"
                                   className="hover:text-ui-fg-disabled no-underline font-normal"
                                   data-testid="categories-link"
                                 >
                                   Categories
-                                </LocalizedClientLink>
+                                </a>
                               </button>
                             </AccordionTrigger>
                             <AccordionContent>
@@ -148,13 +148,13 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
                                 className="text-3xl leading-10 hover:text-ui-fg-disabled flex w-full items-center justify-between bg-transparent border-0 p-0 cursor-pointer"
                                 tabIndex={0}
                               >
-                                <LocalizedClientLink
+                                <a
                                   href="/collections"
                                   className="hover:text-ui-fg-disabled no-underline font-normal"
                                   data-testid="collections-link"
                                 >
                                   Collections
-                                </LocalizedClientLink>
+                                </a>
                               </button>
                             </AccordionTrigger>
                             <AccordionContent>

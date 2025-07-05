@@ -4,7 +4,7 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
-import { Badge, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
+import { MoveDownIcon, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
 import SideMenuDrawer from "@modules/layout/components/side-menu-drawer"
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
 import { listCategories } from "@lib/data/categories"
@@ -120,24 +120,27 @@ const CategoriesHoverCard = async () => {
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
+          className="text-sm capitalize font-sans text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-categories-link"
           type="button"
         >
-          <LocalizedClientLink
+          <a
             href="/categories"
             className="text-sm capitalize font-sans text-white hidden lg:inline"
             data-testid="nav-categories-link"
           >
             Categories
-          </LocalizedClientLink>
+          </a>
+          <MoveDownIcon 
+            className="w-3 h-3 text-white transition-transform duration-200 group-data-[state=open]:rotate-180" 
+          />
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
         <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] overflow-y-auto">
           <div className="flex flex-wrap justify-center gap-8">
             {topLevelCategories.map((category: StoreProductCategory) => (
-              <LocalizedClientLink
+              <a
                 key={category.id}
                 href={`/categories/${category.handle}`}
                 className="flex flex-col items-center group w-32"
@@ -147,7 +150,7 @@ const CategoriesHoverCard = async () => {
                   <Thumbnail thumbnail={undefined} size="medium" />
                 </div>
                 <span className="text-base font-medium text-center mt-4 truncate w-full" title={category.name}>{category.name}</span>
-              </LocalizedClientLink>
+              </a>
             ))}
           </div>
         </div>
@@ -167,24 +170,27 @@ const CollectionsHoverCard = async () => {
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-sans text-white hidden lg:inline focus:outline-none h-full"
+          className="text-sm capitalize font-sans text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-collections-link"
           type="button"
         >
-          <LocalizedClientLink
+          <a
             href="/collections"
             className="text-sm capitalize font-sans text-white hidden lg:inline"
             data-testid="nav-collections-link"
           >
             Collections
-          </LocalizedClientLink>
+          </a>
+          <MoveDownIcon 
+            className="w-2 h-2 text-white transition-transform duration-200 group-data-[state=open]:rotate-180" 
+          />
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
         <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] overflow-y-auto">
           <div className="flex flex-wrap justify-center gap-8">
             {collections.map((collection: HttpTypes.StoreCollection) => (
-              <LocalizedClientLink
+              <a
                 key={collection.id}
                 href={`/collections/${collection.handle}`}
                 className="flex flex-col items-center group w-32"
@@ -194,7 +200,7 @@ const CollectionsHoverCard = async () => {
                   <Thumbnail thumbnail={undefined} size="medium" />
                 </div>
                 <span className="text-base font-medium text-center mt-4 truncate w-full" title={collection.title}>{collection.title}</span>
-              </LocalizedClientLink>
+              </a>
             ))}
           </div>
         </div>
