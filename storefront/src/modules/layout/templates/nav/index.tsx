@@ -37,7 +37,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase pl-4 font-sans text-white text-2xl"
+              className="txt-compact-xlarge-plus uppercase pl-4 font-[outfit] text-white text-2xl"
               data-testid="nav-store-link"
             >
               Manzili <span className="hidden md:inline">Store</span>
@@ -49,7 +49,7 @@ export default async function Nav() {
 
             <LocalizedClientLink
               href="/store"
-              className="text-sm capitalize font-sans text-white hidden lg:inline"
+              className="text-sm capitalize font-[outfit] text-white hidden lg:inline"
               data-testid="nav-store-link"
             >
               Store
@@ -120,13 +120,13 @@ const CategoriesHoverCard = async () => {
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-sans text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
+          className="text-sm capitalize font-[outfit] text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-categories-link"
           type="button"
         >
           <a
             href="/categories"
-            className="text-sm capitalize font-sans text-white hidden lg:inline"
+            className="text-sm capitalize font-[outfit] text-white hidden lg:inline"
             data-testid="nav-categories-link"
           >
             Categories
@@ -170,13 +170,13 @@ const CollectionsHoverCard = async () => {
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-sans text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
+          className="text-sm capitalize font-[outfit] text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-collections-link"
           type="button"
         >
           <a
             href="/collections"
-            className="text-sm capitalize font-sans text-white hidden lg:inline"
+            className="text-sm capitalize font-[outfit] text-white hidden lg:inline"
             data-testid="nav-collections-link"
           >
             Collections
