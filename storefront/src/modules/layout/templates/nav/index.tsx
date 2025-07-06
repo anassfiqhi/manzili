@@ -138,9 +138,9 @@ const CategoriesHoverCard = async () => {
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
         <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] flex items-center">
-          <div className="relative w-full">
+          <div className="relative w-full overflow-hidden">
             <Carousel opts={{ align: 'start', loop: false }}>
-              <CarouselContent className="pl-0 relative w-4/5 mx-auto overflow-hidden">
+              <CarouselContent className="pl-0 relative w-4/5 mx-auto">
                 {topLevelCategories.map((category: StoreProductCategory) => (
                   <CarouselItem key={category.id} className="basis-1/4 max-w-xs flex justify-center">
                     <a
