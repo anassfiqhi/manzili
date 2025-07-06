@@ -1,10 +1,10 @@
 "use client"
 
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, type CarouselApi } from "@/components/ui/carousel"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import LocalizedClientLink from "@/modules/common/components/localized-client-link"
-import { MoveRight } from "lucide-react"
+import { MoveLeftIcon, MoveRight, MoveRightIcon } from "lucide-react"
 
 export function HeroCarousel() {
   const [api, setApi] = useState<CarouselApi>()
@@ -133,6 +133,15 @@ export function HeroCarousel() {
           </div>
         </CarouselItem>
       </CarouselContent>
+      <div className="hidden absolute min-h-[35px] w-fit bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 md:flex md:justify-center md:items-center">
+        <CarouselPrevious icon={<MoveLeftIcon
+          className="w-2 h-2 text-black"
+        />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed]" />
+        <span className="text-[14px] min-w-11 text-center text-white">{current.toString().padStart(2, '0')}/{count.toString().padStart(2, '0')}</span>
+        <CarouselNext icon={<MoveRightIcon
+          className="w-2 h-2 text-black"
+        />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed]" />
+      </div>
     </Carousel>
   )
 }
