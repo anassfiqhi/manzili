@@ -156,8 +156,8 @@ const CategoriesHoverCard = async () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="-left-1" />
-              <CarouselNext className="-right-1" />
+              <CarouselPrevious className="left-4" />
+              <CarouselNext className="right-4" />
             </Carousel>
           </div>
         </div>
