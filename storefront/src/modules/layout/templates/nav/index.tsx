@@ -137,21 +137,28 @@ const CategoriesHoverCard = async () => {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] overflow-y-auto">
-          <div className="flex flex-wrap justify-center gap-8">
-            {topLevelCategories.map((category: StoreProductCategory) => (
-              <a
-                key={category.id}
-                href={`/categories/${category.handle}`}
-                className="flex flex-col items-center group w-32"
-                data-testid="hover-category-link"
-              >
-                <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
-                  <Thumbnail thumbnail={undefined} size="medium" />
-                </div>
-                <span className="text-base font-medium text-center mt-4 truncate w-full" title={category.name}>{category.name}</span>
-              </a>
-            ))}
+        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] flex items-center">
+          <div className="relative w-full">
+            <Carousel opts={{ align: 'start', loop: false }}>
+              <CarouselContent className="pl-0 relative w-4/5 mx-auto">
+                {topLevelCategories.map((category: StoreProductCategory) => (
+                  <CarouselItem key={category.id} className="basis-1/4 max-w-xs flex justify-center">
+                    <a
+                      href={`/categories/${category.handle}`}
+                      className="flex flex-col items-center group w-48"
+                      data-testid="hover-category-link"
+                    >
+                      <div className="w-32 h-32 flex items-center justify-center rounded-2xl border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
+                        <Thumbnail thumbnail={undefined} size="medium" />
+                      </div>
+                      <span className="text-base font-medium text-center mt-4 truncate w-full" title={category.name}>{category.name}</span>
+                    </a>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="-left-1" />
+              <CarouselNext className="-right-1" />
+            </Carousel>
           </div>
         </div>
       </HoverCardContent>
@@ -187,21 +194,28 @@ const CollectionsHoverCard = async () => {
         </button>
       </HoverCardTrigger>
       <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] overflow-y-auto">
-          <div className="flex flex-wrap justify-center gap-8">
-            {collections.map((collection: HttpTypes.StoreCollection) => (
-              <a
-                key={collection.id}
-                href={`/collections/${collection.handle}`}
-                className="flex flex-col items-center group w-32"
-                data-testid="hover-collection-link"
-              >
-                <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
-                  <Thumbnail thumbnail={undefined} size="medium" />
-                </div>
-                <span className="text-base font-medium text-center mt-4 truncate w-full" title={collection.title}>{collection.title}</span>
-              </a>
-            ))}
+        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] flex items-center">
+          <div className="relative w-full">
+            <Carousel opts={{ align: 'start', loop: false }}>
+              <CarouselContent className="pl-0">
+                {collections.map((collection: HttpTypes.StoreCollection) => (
+                  <CarouselItem key={collection.id} className="basis-1/4 max-w-xs flex justify-center">
+                    <a
+                      href={`/collections/${collection.handle}`}
+                      className="flex flex-col items-center group w-48"
+                      data-testid="hover-collection-link"
+                    >
+                      <div className="w-32 h-32 flex items-center justify-center rounded-2xl border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
+                        <Thumbnail thumbnail={undefined} size="medium" />
+                      </div>
+                      <span className="text-base font-medium text-center mt-4 truncate w-full" title={collection.title}>{collection.title}</span>
+                    </a>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="-left-4" />
+              <CarouselNext className="-right-4" />
+            </Carousel>
           </div>
         </div>
       </HoverCardContent>
