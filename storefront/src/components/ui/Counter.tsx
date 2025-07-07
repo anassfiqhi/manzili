@@ -1,3 +1,4 @@
+import { MinusIcon, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 
 interface CounterProps {
@@ -36,7 +37,7 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
   };
 
   return (
-    <div className="flex items-center border-2 border-gray-400 rounded-full font-inherit select-none w-[100px] h-[35px]">
+    <div className="flex items-center border border-solid border-gray-400 rounded-full font-inherit select-none w-[100px] h-[35px]">
       <button
         onClick={handleDecrement}
         className={`w-[33px] h-[33px] flex items-center justify-center text-gray-800 transition-colors text-sm ${
@@ -48,7 +49,7 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
         aria-label="Decrease"
         disabled={value <= min}
       >
-        –
+        <MinusIcon className="w-3 h-3" />
       </button>
       <input
         type="number"
@@ -70,7 +71,7 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
         aria-label="Increase"
         disabled={value >= max}
       >
-        +
+        <PlusIcon className="w-3 h-3" />
       </button>
     </div>
   );
