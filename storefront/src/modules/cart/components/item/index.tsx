@@ -105,7 +105,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
               initial={item.quantity}
               min={1}
               max={maxQuantity}
-              onChange={changeQuantity}
+              onChange={(value) => changeQuantity(parseInt(value))}
             />
             {updating && <Spinner />}
           </div>

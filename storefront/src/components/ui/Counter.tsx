@@ -26,6 +26,15 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let newValue = parseInt(e.target.value, 10);
+    if (isNaN(newValue)) newValue = min;
+    if (newValue < min) newValue = min;
+    if (newValue > max) newValue = max;
+    setValue(newValue);
+    onChange?.(newValue);
+  };
+
   return (
     <div
       style={{
@@ -58,16 +67,24 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
       >
         –
       </button>
-      <span
+      <input
+        type="number"
+        value={value}
+        min={min}
+        max={max}
+        onChange={handleInputChange}
         style={{
           minWidth: "2.5rem",
+          maxWidth: "3.5rem",
           textAlign: "center",
           fontWeight: 600,
           fontSize: "2rem",
+          border: "none",
+          outline: "none",
+          background: "transparent",
         }}
-      >
-        {value}
-      </span>
+        aria-label="Quantity"
+      />
       <button
         onClick={handleIncrement}
         style={{
