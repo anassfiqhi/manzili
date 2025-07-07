@@ -36,10 +36,10 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
   };
 
   return (
-    <div className="flex items-center border-2 border-gray-400 rounded-full px-6 py-1 font-inherit select-none">
+    <div className="flex items-center border-2 border-gray-400 rounded-full font-inherit select-none w-[100px] h-[35px]">
       <button
         onClick={handleDecrement}
-        className={`text-3xl w-10 h-10 flex items-center justify-center text-gray-800 transition-colors ${
+        className={`w-[33px] h-[33px] flex items-center justify-center text-gray-800 transition-colors text-sm ${
           value > min 
             ? "cursor-pointer hover:text-gray-600" 
             : "cursor-not-allowed text-gray-400"
@@ -56,12 +56,12 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
         min={min}
         max={max}
         onChange={handleInputChange}
-        className="text-center font-semibold text-3xl border-none outline-none bg-transparent w-16"
+        className="text-center font-semibold text-sm border-none outline-none bg-transparent flex-1"
         aria-label="Quantity"
       />
       <button
         onClick={handleIncrement}
-        className={`text-3xl w-10 h-10 flex items-center justify-center text-gray-800 transition-colors ${
+        className={`w-[33px] h-[33px] flex items-center justify-center text-gray-800 transition-colors text-sm ${
           value < max 
             ? "cursor-pointer hover:text-gray-600" 
             : "cursor-not-allowed text-gray-400"
