@@ -12,7 +12,7 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
-import { ShoppingBagIcon } from "lucide-react"
+import { MoveRightIcon, ShoppingBagIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 const CartDropdown = ({
@@ -218,7 +218,7 @@ const CartDropdown = ({
                     <LocalizedClientLink href="/store">
                       <>
                         <span className="sr-only">Go to all products page</span>
-                        <Button onClick={close}>Explore products</Button>
+                        <Button className="flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm h-9 text-white border-black border-solid rounded-full hover:bg-white hover:text-black" onClick={close}>Explore products <MoveRightIcon className="ml-2 h-4 w-4" /></Button>
                       </>
                     </LocalizedClientLink>
                   </div>
