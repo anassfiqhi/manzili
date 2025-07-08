@@ -189,7 +189,7 @@ const CollectionsHoverCard = async () => {
             Collections
           </a>
           <MoveDownIcon 
-            className="w-2 h-2 text-white transition-transform duration-200 group-data-[state=open]:rotate-180" 
+            className="w-3 h-3 text-white transition-transform duration-200 group-data-[state=open]:rotate-180" 
           />
         </button>
       </HoverCardTrigger>

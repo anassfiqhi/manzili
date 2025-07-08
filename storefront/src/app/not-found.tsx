@@ -16,7 +16,7 @@ export default function NotFound() {
         The page you tried to access does not exist.
       </p>
       <Link
-        className="flex gap-x-1 items-center group"
+        className="flex gap-x-1 items-center group text-black"
         href="/"
       >
         <Text className="text-ui-fg-interactive">Go to frontpage</Text>
