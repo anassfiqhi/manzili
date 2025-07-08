@@ -57,7 +57,7 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
         min={min}
         max={max}
         onChange={handleInputChange}
-        className="text-center font-semibold text-sm border-none outline-none bg-transparent flex-1"
+        className="text-center font-semibold text-sm border-none outline-none bg-transparent flex-1 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         aria-label="Quantity"
       />
       <button
