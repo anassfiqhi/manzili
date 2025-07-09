@@ -218,7 +218,7 @@ const CartDropdown = ({
                     <LocalizedClientLink href="/store">
                       <>
                         <span className="sr-only">Go to all products page</span>
-                        <Button className="flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm h-9 text-white border-black border-solid rounded-full hover:bg-white hover:text-black" onClick={close}>Explore products <MoveRightIcon className="ml-2 h-4 w-4" /></Button>
+                        <Button className="flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm h-9 text-white border-black border-solid rounded-full hover:bg-white hover:text-black active:bg-white" onClick={close}>Explore products <MoveRightIcon className="ml-2 h-4 w-4" /></Button>
                       </>
                     </LocalizedClientLink>
                   </div>
