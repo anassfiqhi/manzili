@@ -8,8 +8,16 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
+import PriceFilter from "@/components/ui/price-filter"
+import { getProductsList } from "@lib/data/products"
+import { getPriceRangeFromProducts } from "@lib/util/get-price-range"
+import { getRegion } from "@lib/data/regions"
 
-export default function CategoryTemplate({
+type StoreProductParamsWithCategory = HttpTypes.StoreProductParams & {
+  category_id?: string[]
+}
+
+export default async function CategoryTemplate({
   categories,
   sortBy,
   page,
@@ -28,12 +36,31 @@ export default function CategoryTemplate({
 
   if (!category || !countryCode) notFound()
 
+  // Fetch products for this category to calculate price range
+  const { response: { products } } = await getProductsList({
+    queryParams: { 
+      category_id: [category.id],
+      limit: 100 // Get more products to have a better price range
+    } as StoreProductParamsWithCategory,
+    countryCode,
+  })
+
+  const priceRange = getPriceRangeFromProducts(products)
+  const region = await getRegion(countryCode)
+
   return (
     <div
       className="flex flex-col small:flex-row small:items-start py-6 content-container"
       data-testid="category-container"
     >
-      <RefinementList sortBy={sort} data-testid="sort-by-container" />
+      <div>
+        <PriceFilter 
+          min={priceRange?.min || 0}
+          max={priceRange?.max || 1000}
+          currency={priceRange?.currency_code || region?.currency_code || '$'}
+        />
+        <RefinementList sortBy={sort} data-testid="sort-by-container" />
+      </div>
       <div className="w-full">
         <div className="flex flex-row mb-8 text-2xl-semi gap-4">
           {parents &&

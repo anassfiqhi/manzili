@@ -51,7 +51,7 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
       <div className="flex items-center h-full">
         <Drawer direction="left" open={isOpen} onOpenChange={setIsOpen}>
           <DrawerTrigger>
-            <MenuIcon className="lg:hidden w-6 h-6 text-white" />
+            <MenuIcon className="lg:hidden w-6 h-6 text-black stroke-[1.3px]" />
           </DrawerTrigger>
           <DrawerContent className="h-full bg-white w-3/4">
             {/* <DrawerHeader>

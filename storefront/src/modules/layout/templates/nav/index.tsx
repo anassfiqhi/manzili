@@ -25,7 +25,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-              <header className="relative h-[67px] mx-auto duration-200 bg-white border-ui-border-base">
+      <header className="relative h-[67px] mx-auto duration-200 bg-white/65 backdrop-blur-lg border-ui-border-base  border-b border-gray-950/5 dark:border-white/10">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular md:max-w-5xl">
           <div className="h-full flex items-center">
             <div className="h-full">
@@ -131,8 +131,8 @@ const CategoriesHoverCard = async () => {
           >
             Categories
           </a>
-          <MoveDownIcon 
-            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180" 
+          <MoveDownIcon
+            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
@@ -188,8 +188,8 @@ const CollectionsHoverCard = async () => {
           >
             Collections
           </a>
-          <MoveDownIcon 
-            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180" 
+          <MoveDownIcon
+            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
@@ -213,8 +213,8 @@ const CollectionsHoverCard = async () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="-left-4" />
-              <CarouselNext className="-right-4" />
+              <CarouselPrevious className="-left-4 bg-white border-b border-gray-950/5 dark:border-white/10" />
+              <CarouselNext className="-right-4 bg-white border-b border-gray-950/5 dark:border-white/10" />
             </Carousel>
           </div>
         </div>
