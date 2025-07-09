@@ -25,7 +25,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-[67px] mx-auto duration-200 bg-black border-ui-border-base">
+              <header className="relative h-[67px] mx-auto duration-200 bg-white border-ui-border-base">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular md:max-w-5xl">
           <div className="h-full flex items-center">
             <div className="h-full">
@@ -37,7 +37,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase pl-4 font-[outfit] text-white text-2xl"
+              className="txt-compact-xlarge-plus uppercase pl-4 font-[outfit] text-black text-2xl"
               data-testid="nav-store-link"
             >
               Manzili <span className="hidden md:inline">Store</span>
@@ -49,7 +49,7 @@ export default async function Nav() {
 
             <LocalizedClientLink
               href="/store"
-              className="text-sm capitalize font-[outfit] text-white hidden lg:inline"
+              className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
               data-testid="nav-store-link"
             >
               Store
@@ -69,7 +69,7 @@ export default async function Nav() {
                 scroll={false}
                 data-testid="nav-search-link"
               >
-                <SearchIcon className="w-6 h-6 text-white" />
+                <SearchIcon className="w-6 h-6 text-black stroke-[1.5px]" />
               </LocalizedClientLink>
 
               <LocalizedClientLink
@@ -77,7 +77,7 @@ export default async function Nav() {
                 href="/account"
                 data-testid="nav-account-link"
               >
-                <UserIcon className="w-6 h-6 text-white" />
+                <UserIcon className="w-6 h-6 text-black stroke-[1.5px]" />
               </LocalizedClientLink>
             </div>
             <Suspense
@@ -88,7 +88,7 @@ export default async function Nav() {
                   data-testid="nav-cart-link"
                 >
                   <div className="relative">
-                    <ShoppingBagIcon className="w-6 h-6 text-white" >
+                    <ShoppingBagIcon className="w-6 h-6 text-black stroke-[1.5px]" >
                     </ShoppingBagIcon>
                     {/* <Badge className="flex items-center justify-center bg-[#b1b1b1] text-black text-xs- w-[14px] h-[14px] p-0 rounded-full font-mono tabular-nums absolute top-[-4px] right-[-4px]">
                       0
@@ -120,19 +120,19 @@ const CategoriesHoverCard = async () => {
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-[outfit] text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
+          className="text-sm capitalize font-[outfit] text-black hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-categories-link"
           type="button"
         >
           <a
             href="/categories"
-            className="text-sm capitalize font-[outfit] text-white hidden lg:inline"
+            className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
             data-testid="nav-categories-link"
           >
             Categories
           </a>
           <MoveDownIcon 
-            className="w-3 h-3 text-white transition-transform duration-200 group-data-[state=open]:rotate-180" 
+            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180" 
           />
         </button>
       </HoverCardTrigger>
@@ -177,19 +177,19 @@ const CollectionsHoverCard = async () => {
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-[outfit] text-white hidden lg:flex focus:outline-none h-full items-center gap-1 group"
+          className="text-sm capitalize font-[outfit] text-black hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-collections-link"
           type="button"
         >
           <a
             href="/collections"
-            className="text-sm capitalize font-[outfit] text-white hidden lg:inline"
+            className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
             data-testid="nav-collections-link"
           >
             Collections
           </a>
           <MoveDownIcon 
-            className="w-3 h-3 text-white transition-transform duration-200 group-data-[state=open]:rotate-180" 
+            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180" 
           />
         </button>
       </HoverCardTrigger>
