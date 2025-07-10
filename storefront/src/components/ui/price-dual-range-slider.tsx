@@ -43,8 +43,8 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
       return labelFormatter(value);
     }
     
-    // Replace Moroccan currency code "MAD" with "DH"
-    const displayCurrency = currency === 'MAD' ? 'DH' : currency;
+    // Replace Moroccan currency code "MAD" with "DH" (case insensitive)
+    const displayCurrency = currency?.toUpperCase() === 'MAD' ? 'DH' : currency;
     return `${value} ${displayCurrency}`;
   };
 
