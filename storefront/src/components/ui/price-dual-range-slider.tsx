@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { DualRangeSlider } from '@/components/ui/dual-range-slider';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface PriceDualRangeSliderProps {
   min?: number;
@@ -26,15 +26,26 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   labelFormatter
 }) => {
   const [values, setValues] = useState<[number, number]>(defaultValue);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Sync with external value changes
   useEffect(() => {
     setValues(defaultValue);
   }, [defaultValue]);
 
+  // Debounced handler
+  const debouncedOnValueChange = useCallback((newValues: [number, number]) => {
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+    debounceTimeout.current = setTimeout(() => {
+      onValueChange?.(newValues);
+    }, 300);
+  }, [onValueChange]);
+
   const handleValueChange = (newValues: [number, number]) => {
     setValues(newValues);
-    onValueChange?.(newValues);
+    debouncedOnValueChange(newValues);
   };
 
   const formatLabel = (value: number | undefined) => {
