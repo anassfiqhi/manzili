@@ -42,7 +42,10 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
     if (labelFormatter) {
       return labelFormatter(value);
     }
-    return `${currency}${value}`;
+    
+    // Replace Moroccan currency code "MAD" with "DH"
+    const displayCurrency = currency === 'MAD' ? 'DH' : currency;
+    return `${value} ${displayCurrency}`;
   };
 
   return (
