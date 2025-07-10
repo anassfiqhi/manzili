@@ -6,17 +6,19 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "./paginated-products"
 import PriceFilter from "@/components/ui/price-filter"
 import { getProductsList } from "@lib/data/products"
-import { getPriceRangeFromProducts } from "@lib/util/get-price-range"
+import { getPriceRangeFromProducts, filterProductsByPriceRange } from "@lib/util/get-price-range"
 import { getRegion } from "@lib/data/regions"
 
 const StoreTemplate = async ({
   sortBy,
   page,
   countryCode,
+  searchParams,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  searchParams?: { minPrice?: string; maxPrice?: string }
 }) => {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -31,6 +33,14 @@ const StoreTemplate = async ({
 
   const priceRange = getPriceRangeFromProducts(products)
   const region = await getRegion(countryCode)
+
+  // Apply price filtering if parameters are provided
+  let filteredProducts = products
+  if (searchParams?.minPrice && searchParams?.maxPrice) {
+    const minPrice = parseInt(searchParams.minPrice)
+    const maxPrice = parseInt(searchParams.maxPrice)
+    filteredProducts = filterProductsByPriceRange(products, minPrice, maxPrice)
+  }
 
   return (
     <div
@@ -54,6 +64,7 @@ const StoreTemplate = async ({
             sortBy={sort}
             page={pageNumber}
             countryCode={countryCode}
+            filteredProducts={filteredProducts}
           />
         </Suspense>
       </div>

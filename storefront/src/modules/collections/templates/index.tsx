@@ -7,7 +7,7 @@ import PaginatedProducts from "@modules/store/templates/paginated-products"
 import { HttpTypes } from "@medusajs/types"
 import PriceFilter from "@/components/ui/price-filter"
 import { getProductsList } from "@lib/data/products"
-import { getPriceRangeFromProducts } from "@lib/util/get-price-range"
+import { getPriceRangeFromProducts, filterProductsByPriceRange } from "@lib/util/get-price-range"
 import { getRegion } from "@lib/data/regions"
 
 type StoreProductParamsWithCollection = HttpTypes.StoreProductParams & {
@@ -19,11 +19,13 @@ export default async function CollectionTemplate({
   collection,
   page,
   countryCode,
+  searchParams,
 }: {
   sortBy?: SortOptions
   collection: HttpTypes.StoreCollection
   page?: string
   countryCode: string
+  searchParams?: { minPrice?: string; maxPrice?: string }
 }) {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -39,6 +41,14 @@ export default async function CollectionTemplate({
 
   const priceRange = getPriceRangeFromProducts(products)
   const region = await getRegion(countryCode)
+
+  // Apply price filtering if parameters are provided
+  let filteredProducts = products
+  if (searchParams?.minPrice && searchParams?.maxPrice) {
+    const minPrice = parseInt(searchParams.minPrice)
+    const maxPrice = parseInt(searchParams.maxPrice)
+    filteredProducts = filterProductsByPriceRange(products, minPrice, maxPrice)
+  }
 
   return (
     <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
@@ -60,6 +70,7 @@ export default async function CollectionTemplate({
             page={pageNumber}
             collectionId={collection.id}
             countryCode={countryCode}
+            filteredProducts={filteredProducts}
           />
         </Suspense>
       </div>

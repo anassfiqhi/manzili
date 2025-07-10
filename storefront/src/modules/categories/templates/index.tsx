@@ -10,7 +10,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import { HttpTypes } from "@medusajs/types"
 import PriceFilter from "@/components/ui/price-filter"
 import { getProductsList } from "@lib/data/products"
-import { getPriceRangeFromProducts } from "@lib/util/get-price-range"
+import { getPriceRangeFromProducts, filterProductsByPriceRange } from "@lib/util/get-price-range"
 import { getRegion } from "@lib/data/regions"
 
 type StoreProductParamsWithCategory = HttpTypes.StoreProductParams & {
@@ -22,11 +22,13 @@ export default async function CategoryTemplate({
   sortBy,
   page,
   countryCode,
+  searchParams,
 }: {
   categories: HttpTypes.StoreProductCategory[]
   sortBy?: SortOptions
   page?: string
   countryCode: string
+  searchParams?: { minPrice?: string; maxPrice?: string }
 }) {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
@@ -47,6 +49,14 @@ export default async function CategoryTemplate({
 
   const priceRange = getPriceRangeFromProducts(products)
   const region = await getRegion(countryCode)
+
+  // Apply price filtering if parameters are provided
+  let filteredProducts = products
+  if (searchParams?.minPrice && searchParams?.maxPrice) {
+    const minPrice = parseInt(searchParams.minPrice)
+    const maxPrice = parseInt(searchParams.maxPrice)
+    filteredProducts = filterProductsByPriceRange(products, minPrice, maxPrice)
+  }
 
   return (
     <div
@@ -102,6 +112,7 @@ export default async function CategoryTemplate({
             page={pageNumber}
             categoryId={category.id}
             countryCode={countryCode}
+            filteredProducts={filteredProducts}
           />
         </Suspense>
       </div>

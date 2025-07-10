@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { DualRangeSlider } from '@/components/ui/dual-range-slider';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface PriceDualRangeSliderProps {
   min?: number;
@@ -26,6 +26,11 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   labelFormatter
 }) => {
   const [values, setValues] = useState<[number, number]>(defaultValue);
+
+  // Sync with external value changes
+  useEffect(() => {
+    setValues(defaultValue);
+  }, [defaultValue]);
 
   const handleValueChange = (newValues: [number, number]) => {
     setValues(newValues);

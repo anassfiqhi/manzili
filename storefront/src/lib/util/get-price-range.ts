@@ -39,4 +39,25 @@ export function getPriceRangeFromProducts(
     max: Math.ceil(maxPrice),
     currency_code,
   }
+}
+
+export function filterProductsByPriceRange(
+  products: HttpTypes.StoreProduct[],
+  minPrice: number,
+  maxPrice: number
+): HttpTypes.StoreProduct[] {
+  if (!products || products.length === 0) {
+    return []
+  }
+
+  return products.filter((product) => {
+    const { cheapestPrice } = getProductPrice({ product })
+    
+    if (!cheapestPrice) {
+      return false
+    }
+
+    const price = cheapestPrice.calculated_price_number
+    return price >= minPrice && price <= maxPrice
+  })
 } 
