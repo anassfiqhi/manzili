@@ -50,7 +50,7 @@ const PriceFilter = ({
     <PriceDualRangeSlider 
       min={min}
       max={max}
-      step={10}
+      step={1}
       defaultValue={[minPrice, maxPrice]}
       currency={currency}
       onValueChange={handlePriceChange}
