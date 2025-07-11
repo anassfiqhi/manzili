@@ -201,6 +201,7 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
                     <CountrySelect
                       toggleState={toggleState}
                       regions={regions}
+                      countryNameLang="fr"
                     />
                   )}
                   <ArrowRightIcon

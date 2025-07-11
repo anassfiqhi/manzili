@@ -8,6 +8,11 @@ import { StateType } from "@lib/hooks/use-toggle-state"
 import { useParams, usePathname } from "next/navigation"
 import { updateRegion } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
+import countries from "i18n-iso-countries"
+
+// Track registered locales to avoid duplicate registration
+const registeredLocales = new Set<string>(["fr"])
+countries.registerLocale(require("i18n-iso-countries/langs/fr.json"))
 
 type CountryOption = {
   country: string
@@ -18,9 +23,10 @@ type CountryOption = {
 type CountrySelectProps = {
   toggleState: StateType
   regions: HttpTypes.StoreRegion[]
+  countryNameLang?: string // Optional language code for country names, default to 'fr'
 }
 
-const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
+const CountrySelect = ({ toggleState, regions, countryNameLang = "fr" }: CountrySelectProps) => {
   const [current, setCurrent] = useState<
     | { country: string | undefined; region: string; label: string | undefined }
     | undefined
@@ -51,6 +57,23 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
     }
   }, [options, countryCode])
 
+  // Helper to dynamically register and get country name in selected language
+  const getCountryName = (code: string, fallback?: string) => {
+    if (!code) return fallback || ""
+    // Dynamically register locale if not already
+    if (!registeredLocales.has(countryNameLang)) {
+      try {
+        countries.registerLocale(require(`i18n-iso-countries/langs/${countryNameLang}.json`))
+        registeredLocales.add(countryNameLang)
+      } catch (e) {
+        // Fallback if locale file not found
+      }
+    }
+    return (
+      countries.getName(code.toUpperCase(), countryNameLang) || fallback || code.toUpperCase()
+    )
+  }
+
   const handleChange = (option: CountryOption) => {
     updateRegion(option.country, currentPath)
     close()
@@ -69,7 +92,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
       >
         <Listbox.Button className="py-1 w-full">
           <div className="txt-compact-small flex items-start gap-x-2">
-            <span>Shipping to:</span>
+            <span>Livraison vers&nbsp;:</span>
             {current && (
               <span className="txt-compact-small flex items-center gap-x-2">
                 <ReactCountryFlag
@@ -80,7 +103,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
                   }}
                   countryCode={current.country ?? ""}
                 />
-                {current.label}
+                {getCountryName(current.country ?? "", current.label)}
               </span>
             )}
           </div>
@@ -112,7 +135,7 @@ const CountrySelect = ({ toggleState, regions }: CountrySelectProps) => {
                       }}
                       countryCode={o?.country ?? ""}
                     />{" "}
-                    {o?.label}
+                    {getCountryName(o?.country ?? "", o?.label)}
                   </Listbox.Option>
                 )
               })}
