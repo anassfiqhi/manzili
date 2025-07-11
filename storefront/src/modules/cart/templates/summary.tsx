@@ -7,6 +7,7 @@ import Divider from "@modules/common/components/divider"
 import DiscountCode from "@modules/checkout/components/discount-code"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { HttpTypes } from "@medusajs/types"
+import { MoveRightIcon } from "lucide-react"
 
 type SummaryProps = {
   cart: HttpTypes.StoreCart & {
@@ -39,7 +40,7 @@ const Summary = ({ cart }: SummaryProps) => {
         href={"/checkout?step=" + step}
         data-testid="checkout-button"
       >
-        <Button className="w-full h-10">Aller au paiement</Button>
+        <Button className="w-full h-10 flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm text-white border-black border-solid rounded-full hover:text-black hover:bg-transparent">Aller au paiement <MoveRightIcon className="ml-2 h-4 w-4 hover:text-black" /></Button>
       </LocalizedClientLink>
     </div>
   )
