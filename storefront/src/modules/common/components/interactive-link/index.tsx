@@ -23,7 +23,7 @@ const InteractiveLink = ({
     >
       <Text className="text-ui-fg-interactive text-black hover:underline hover:underline-offset-2">{children}</Text>
       <ArrowUpRightMini
-        className="group-hover:rotate-45 ease-in-out duration-150"
+        className="group-hover:rotate-45 ease-in-out duration-150 text-black"
         color="var(--fg-interactive)"
       />
     </LocalizedClientLink>
