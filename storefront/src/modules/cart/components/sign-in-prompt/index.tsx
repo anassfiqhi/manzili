@@ -1,5 +1,6 @@
 import { Button, Heading, Text } from "@medusajs/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { MoveRightIcon } from "lucide-react"
 
 const SignInPrompt = () => {
   return (
@@ -14,8 +15,9 @@ const SignInPrompt = () => {
       </div>
       <div>
         <LocalizedClientLink href="/account">
-          <Button variant="secondary" className="h-10 flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm text-white border-black border-solid rounded-full" data-testid="sign-in-button">
+          <Button className="h-10 flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm text-white border-black border-solid rounded-full" data-testid="sign-in-button">
             Se connecter
+            <MoveRightIcon className="ml-2 h-4 w-4" />
           </Button>
         </LocalizedClientLink>
       </div>
