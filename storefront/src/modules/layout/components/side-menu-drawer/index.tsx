@@ -17,13 +17,13 @@ import { listCategories } from "@lib/data/categories"
 import { getCollectionsList } from "@lib/data/collections"
 
 const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Categories: "/categories",
-  Collections: "/collections",
-  Search: "/search",
-  Account: "/account",
-  Cart: "/cart",
+  Accueil: "/",
+  Boutique: "/store",
+  "Catégories": "/categories",
+  "Collections": "/collections",
+  "Recherche": "/search",
+  "Compte": "/account",
+  "Panier": "/cart",
 }
 
 const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
@@ -69,7 +69,7 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
               </div>
               <ul className="flex flex-col gap-6 items-start justify-start">
                 {Object.entries(SideMenuItems).map(([name, href]) => {
-                  if (name === "Categories") {
+                  if (name === "Catégories") {
                     if (categories.length === 0) {
                       return (
                         <li key={name}>
@@ -99,7 +99,7 @@ const SideMenuDrawer = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }
                                   className="hover:text-ui-fg-disabled no-underline font-normal"
                                   data-testid="categories-link"
                                 >
-                                  Categories
+                                  Catégories
                                 </a>
                               </button>
                             </AccordionTrigger>
