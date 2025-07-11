@@ -52,7 +52,7 @@ export default async function Nav() {
               className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
               data-testid="nav-store-link"
             >
-              Store
+              Boutique
             </LocalizedClientLink>
             {/* Categories Hover Card */}
             <CategoriesHoverCard />
@@ -129,7 +129,7 @@ const CategoriesHoverCard = async () => {
             className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
             data-testid="nav-categories-link"
           >
-            Categories
+            Catégories
           </a>
           <MoveDownIcon
             className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180"

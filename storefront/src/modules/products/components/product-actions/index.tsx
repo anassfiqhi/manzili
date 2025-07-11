@@ -139,7 +139,7 @@ export default function ProductActions({
           onClick={handleAddToCart}
           disabled={!inStock || !selectedVariant || !!disabled || isAdding}
           variant="primary"
-          className="w-full h-10"
+          className="w-full h-10 flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm text-white border-black border-solid rounded-full"
           isLoading={isAdding}
           data-testid="add-product-button"
         >
