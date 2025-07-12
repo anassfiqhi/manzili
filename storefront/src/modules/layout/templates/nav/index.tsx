@@ -143,8 +143,8 @@ const CategoriesHoverCard = async () => {
                   ))}
                   {topLevelCategories.length > 4 && (
                     <li>
-                      <InteractiveLink href="/categories">
-                        Voir tout 
+                      <InteractiveLink className="w-fit" href="/categories">
+                        {'Voir tout'.toLocaleUpperCase()} 
                       </InteractiveLink>
                     </li>
                   )}
@@ -208,8 +208,8 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
                   ))}
                   {collections.length > 4 && (
                     <li>
-                      <InteractiveLink href="/collections">
-                        Voir tout 
+                      <InteractiveLink className="w-fit" href="/collections">
+                        {'Voir tout'.toLocaleUpperCase()} 
                       </InteractiveLink>
                     </li>
                   )}
