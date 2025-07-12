@@ -4,7 +4,7 @@ import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
-import { MoveDownIcon, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
+import { ChevronDown, SearchIcon, ShoppingBagIcon, UserIcon } from "lucide-react"
 import SideMenuDrawer from "@modules/layout/components/side-menu-drawer"
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card"
 import { listCategories } from "@lib/data/categories"
@@ -131,8 +131,8 @@ const CategoriesHoverCard = async () => {
           >
             Catégories
           </a>
-          <MoveDownIcon
-            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
+          <ChevronDown
+            className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
@@ -188,8 +188,8 @@ const CollectionsHoverCard = async () => {
           >
             Collections
           </a>
-          <MoveDownIcon
-            className="w-3 h-3 text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
+          <ChevronDown
+            className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
