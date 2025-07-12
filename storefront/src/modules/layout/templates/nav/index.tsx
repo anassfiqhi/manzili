@@ -107,6 +107,12 @@ export default async function Nav() {
   )
 }
 
+const chunkArray = <T,>(arr: T[], size: number): T[][] => {
+  return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
+    arr.slice(i * size, i * size + size)
+  );
+};
+
 const CategoriesHoverCard = async () => {
   const product_categories = await listCategories()
   const topLevelCategories = product_categories.filter(
@@ -116,6 +122,7 @@ const CategoriesHoverCard = async () => {
     '/menu-1.jpg',
     '/menu-2.jpg',
   ]
+  const categoryPages = chunkArray(topLevelCategories, 16)
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -137,18 +144,20 @@ const CategoriesHoverCard = async () => {
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Categories</h3>
               {topLevelCategories.length > 5 ? (
-                <Carousel opts={{ align: "start", loop: false }} className="w-full h-[336px]">
+                <Carousel orientation="vertical" className="w-80 h-[336px]">
                   <CarouselContent>
-                    {topLevelCategories.map((category, pageIndex) => (
+                    {categoryPages.map((page, pageIndex) => (
                       <CarouselItem key={pageIndex}>
                         <div className="grid grid-cols-4 grid-rows-4 gap-x-4 gap-y-2">
-                          <LocalizedClientLink
-                            key={category.id}
-                            href={`/categories/${category.handle}`}
-                            className="text-lg hover:underline transition-colors block py-2 px-2"
-                          >
-                            {category.name}
-                          </LocalizedClientLink>
+                          {page.map((category: StoreProductCategory) => (
+                            <LocalizedClientLink
+                              key={category.id}
+                              href={`/categories/${category.handle}`}
+                              className="text-lg hover:underline transition-colors block py-2 px-2"
+                            >
+                              {category.name}
+                            </LocalizedClientLink>
+                          ))}
                         </div>
                       </CarouselItem>
                     ))}
@@ -158,7 +167,7 @@ const CategoriesHoverCard = async () => {
                 </Carousel>
               ) : (
                 <ul className="space-y-3">
-                  {topLevelCategories.map((category) => (
+                  {topLevelCategories.slice(0, 4).map((category) => (
                     <li key={category.id}>
                       <a
                         href={`/categories/${category.handle}`}
@@ -168,6 +177,16 @@ const CategoriesHoverCard = async () => {
                       </a>
                     </li>
                   ))}
+                  {topLevelCategories.length > 4 && (
+                    <li>
+                      <a
+                        href="/categories" // or open a modal/drawer if you want
+                        className="text-lg text-primary hover:underline transition-colors font-semibold"
+                      >
+                        See all
+                      </a>
+                    </li>
+                  )}
                 </ul>
               )}
             </div>
@@ -196,6 +215,7 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
     '/menu-1.jpg',
     '/menu-2.jpg',
   ]
+  const collectionPages = chunkArray(collections, 16)
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -217,22 +237,21 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Collections</h3>
               {collections.length > 5 ? (
-                <Carousel
-                  opts={{ align: "start", loop: false }}
-                  className="w-full h-[336px]"
-                >
-                  <CarouselContent className="flex flex-wrap">
-                    {collections.map((collection) => (
-                      <CarouselItem
-                        key={collection.id}
-                        className="basis-1/4 max-w-[25%] flex-shrink-0 flex-grow-0"
-                      >
-                        <a
-                          href={`/collections/${collection.handle}`}
-                          className="text-lg hover:underline transition-colors block py-2 px-2"
-                        >
-                          {collection.title}
-                        </a>
+                <Carousel orientation="vertical" className="w-80 h-[336px]">
+                  <CarouselContent>
+                    {collectionPages.map((page, pageIndex) => (
+                      <CarouselItem key={pageIndex}>
+                        <div className="grid grid-cols-4 grid-rows-4 gap-x-4 gap-y-2">
+                          {page.map((collection: HttpTypes.StoreCollection) => (
+                            <a
+                              key={collection.id}
+                              href={`/collections/${collection.handle}`}
+                              className="text-lg hover:underline transition-colors block py-2 px-2"
+                            >
+                              {collection.title}
+                            </a>
+                          ))}
+                        </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
@@ -241,7 +260,7 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
                 </Carousel>
               ) : (
                 <ul className="space-y-3">
-                  {collections.map((collection) => (
+                  {collections.slice(0, 4).map((collection) => (
                     <li key={collection.id}>
                       <a
                         href={`/collections/${collection.handle}`}
@@ -251,6 +270,16 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
                       </a>
                     </li>
                   ))}
+                  {collections.length > 4 && (
+                    <li>
+                      <a
+                        href="/collections"
+                        className="text-lg text-primary hover:underline transition-colors font-semibold"
+                      >
+                        See all
+                      </a>
+                    </li>
+                  )}
                 </ul>
               )}
             </div>
