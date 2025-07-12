@@ -14,6 +14,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import Thumbnail from "@modules/products/components/thumbnail"
 import { MoveRightIcon, ShoppingBagIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import InteractiveLink from "@/modules/common/components/interactive-link"
 
 const CartDropdown = ({
   cart: cartState,
@@ -108,7 +109,7 @@ const CartDropdown = ({
         >
           <Popover.Panel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base rounded-md"
             data-testid="nav-cart-dropdown"
           >
             <div className="p-4 flex items-center justify-center">
@@ -215,12 +216,12 @@ const CartDropdown = ({
                   </div>
                   <span>Votre panier est vide.</span>
                   <div>
-                    <LocalizedClientLink href="/store">
+                    <InteractiveLink href="/store">
                       <>
                         <span className="sr-only">Aller à la page de tous les produits</span>
-                        <Button className="flex justify-center items-center text-center px-3 py-4 bg-black font-medium text-sm h-9 text-white border-black border-solid rounded-full hover:bg-white hover:text-black active:bg-white" onClick={close}>Explorer les produits <MoveRightIcon className="ml-2 h-4 w-4" /></Button>
+                        Explorer les produits
                       </>
-                    </LocalizedClientLink>
+                    </InteractiveLink>
                   </div>
                 </div>
               </div>

@@ -10,9 +10,9 @@ interface PriceFilterProps {
   currency?: string;
 }
 
-const PriceFilter = ({ 
-  min = 0, 
-  max = 1000, 
+const PriceFilter = ({
+  min = 0,
+  max = 1000,
   currency = '$'
 }: PriceFilterProps) => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const PriceFilter = ({
 
   const handlePriceChange = useCallback((values: [number, number]) => {
     const [newMin, newMax] = values;
-    
+
     // Only update if values are different from current URL params
     if (newMin !== minPrice || newMax !== maxPrice) {
       const params = new URLSearchParams(searchParams);
@@ -46,15 +46,60 @@ const PriceFilter = ({
     }
   }, [minPrice, maxPrice, searchParams, pathname, router]);
 
+  const formatLabel = (value: number | undefined) => {
+    if (value === undefined) return '';
+
+    // Transform currency codes to display characters
+    let displayCurrency = currency;
+    if (currency) {
+      const currencyCode = currency.toUpperCase();
+      switch (currencyCode) {
+        case 'MAD':
+          displayCurrency = 'DH';
+          break;
+        case 'USD':
+          displayCurrency = '$';
+          break;
+        case 'EUR':
+          displayCurrency = '€';
+          break;
+        case 'GBP':
+          displayCurrency = '£';
+          break;
+        case 'JPY':
+          displayCurrency = '¥';
+          break;
+        case 'CAD':
+          displayCurrency = 'C$';
+          break;
+        case 'AUD':
+          displayCurrency = 'A$';
+          break;
+        default:
+          displayCurrency = currency;
+      }
+    }
+
+    return <><span>{value}</span>&nbsp;<span>{displayCurrency}</span></>;
+  };
+
   return (
-    <PriceDualRangeSlider 
-      min={min}
-      max={max}
-      step={1}
-      defaultValue={[minPrice, maxPrice]}
-      currency={currency}
-      onValueChange={handlePriceChange}
-    />
+    <div className='flex justify-center items-center'>
+      {min && (
+        <span className='flex justify-center items-center'>
+          De&nbsp;{formatLabel(min)}
+        </span>
+      )}
+      <PriceDualRangeSlider
+        min={min}
+        max={max}
+        step={1}
+        defaultValue={[minPrice, maxPrice]}
+        currency={currency}
+        onValueChange={handlePriceChange}
+      />
+      {max && min !== max && <span className='flex justify-center items-center'>À&nbsp;{formatLabel(max)}</span>}
+    </div>
   );
 };
 

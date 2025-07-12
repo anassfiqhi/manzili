@@ -62,7 +62,6 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   return (
     <div className={className}>
       <DualRangeSlider
-        label={(value) => <span>{formatLabel(value)}</span>}
         value={values}
         onValueChange={handleValueChange}
         min={min}
