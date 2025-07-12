@@ -8,13 +8,15 @@ import { cn } from '@/lib/utils';
 interface DualRangeSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
   labelPosition?: 'top' | 'bottom';
   label?: (value: number | undefined) => React.ReactNode;
+  showLabelOnPress?: boolean;
 }
 
 const DualRangeSlider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   DualRangeSliderProps
->(({ className, label, labelPosition = 'top', ...props }, ref) => {
+>(({ className, label, labelPosition = 'top', showLabelOnPress = false, ...props }, ref) => {
   const initialValue = Array.isArray(props.value) ? props.value : [props.min, props.max];
+  const [pressedThumb, setPressedThumb] = React.useState<number | null>(null);
 
   return (
     <SliderPrimitive.Root
@@ -27,8 +29,13 @@ const DualRangeSlider = React.forwardRef<
       </SliderPrimitive.Track>
       {initialValue.map((value, index) => (
         <React.Fragment key={index}>
-          <SliderPrimitive.Thumb className={cn("relative block h-4 w-4 bg-white rounded-full border-2 border-primary ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50")}>
-            {label && (
+          <SliderPrimitive.Thumb 
+            className={cn("relative block h-4 w-4 bg-white rounded-full border-2 border-primary ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50")}
+            onPointerDown={showLabelOnPress ? () => setPressedThumb(index) : undefined}
+            onPointerUp={showLabelOnPress ? () => setPressedThumb(null) : undefined}
+            onPointerLeave={showLabelOnPress ? () => setPressedThumb(null) : undefined}
+          >
+            {label && (showLabelOnPress ? pressedThumb === index : true) && (
               <span
                 className={cn(
                   'absolute flex w-full justify-center',

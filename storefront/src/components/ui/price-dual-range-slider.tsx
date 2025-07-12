@@ -90,7 +90,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   };
 
   return (
-    <div className={cn('mt-5 flex justify-center items-center gap-4',className)}>
+    <div className={cn('mt-5 flex justify-center items-center gap-6',className)}>
       {min && <span className='!mt-0'>{formatLabel(min)}</span>}
       <DualRangeSlider
         label={(value) => <span>{formatLabel(value)}</span>}
@@ -100,6 +100,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         max={max}
         step={step}
         className='!mt-0'
+        showLabelOnPress
       />
       {max && <span className='!mt-0'>{formatLabel(max)}</span>}
     </div>
