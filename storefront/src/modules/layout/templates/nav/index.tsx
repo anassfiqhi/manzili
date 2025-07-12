@@ -142,7 +142,7 @@ const CategoriesHoverCard = async () => {
                     </li>
                   ))}
                   {topLevelCategories.length > 4 && (
-                    <li className="text-lg text-primary hover:underline transition-colors font-semibold">
+                    <li>
                       <InteractiveLink href="/categories">
                         Voir tout 
                       </InteractiveLink>
@@ -207,7 +207,7 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
                     </li>
                   ))}
                   {collections.length > 4 && (
-                    <li className="text-lg text-primary hover:underline transition-colors font-semibold">
+                    <li>
                       <InteractiveLink href="/collections">
                         Voir tout 
                       </InteractiveLink>
