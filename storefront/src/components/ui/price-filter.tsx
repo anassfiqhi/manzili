@@ -84,7 +84,7 @@ const PriceFilter = ({
   // };
 
   return (
-    <div className='flex justify-center items-center'>
+    <>
       {/* {min && (
         <span className='flex justify-center items-center'>
           De&nbsp;{formatLabel(min)}
@@ -99,7 +99,7 @@ const PriceFilter = ({
         onValueChange={handlePriceChange}
       />
       {/* {max && min !== max && <span className='flex justify-center items-center'>À&nbsp;{formatLabel(max)}</span>} */}
-    </div>
+    </>
   );
 };
 
