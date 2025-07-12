@@ -12,13 +12,6 @@ import { StoreProductCategory } from "@medusajs/types"
 import { getCollectionsList } from "@lib/data/collections"
 import { HttpTypes } from "@medusajs/types"
 import Image from 'next/image'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
-} from "@/components/ui/carousel";
 import InteractiveLink from "@modules/common/components/interactive-link"
 
 export default async function Nav() {
@@ -39,10 +32,10 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase pl-4 font-[outfit] text-black text-2xl"
+              className="txt-compact-xlarge-plus uppercase pl-4 font-sans text-black text-2xl"
               data-testid="nav-store-link"
             >
-              Manzili <span className="hidden md:inline">Store</span>
+              Manzili
             </LocalizedClientLink>
 
           </div>
@@ -51,7 +44,7 @@ export default async function Nav() {
 
             <LocalizedClientLink
               href="/store"
-              className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
+              className="text-sm capitalize font-sans text-black hidden lg:inline"
               data-testid="nav-store-link"
             >
               Boutique
@@ -108,12 +101,6 @@ export default async function Nav() {
   )
 }
 
-const chunkArray = <T,>(arr: T[], size: number): T[][] => {
-  return Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-    arr.slice(i * size, i * size + size)
-  );
-};
-
 const CategoriesHoverCard = async () => {
   const product_categories = await listCategories()
   const topLevelCategories = product_categories.filter(
@@ -123,16 +110,15 @@ const CategoriesHoverCard = async () => {
     '/menu-1.jpg',
     '/menu-2.jpg',
   ]
-  const categoryPages = chunkArray(topLevelCategories, 16)
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-[outfit] text-black hidden lg:flex focus:outline-none h-full items-center gap-1 group"
+          className="text-sm capitalize font-sans text-black hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-categories-link"
           type="button"
         >
-          <span className="text-sm capitalize font-[outfit] text-black hidden lg:inline">Categories</span>
+          <span className="text-sm capitalize font-sans text-black hidden lg:inline">Catégories</span>
           <ChevronDown
             className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
@@ -143,30 +129,7 @@ const CategoriesHoverCard = async () => {
           {/* Left column: categories list */}
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4">Categories</h3>
-              {topLevelCategories.length > 5 ? (
-                <Carousel orientation="vertical" className="w-80 h-[336px]">
-                  <CarouselContent>
-                    {categoryPages.map((page, pageIndex) => (
-                      <CarouselItem key={pageIndex}>
-                        <div className="grid grid-cols-4 grid-rows-4 gap-x-4 gap-y-2">
-                          {page.map((category: StoreProductCategory) => (
-                            <LocalizedClientLink
-                              key={category.id}
-                              href={`/categories/${category.handle}`}
-                              className="text-lg hover:underline transition-colors block py-2 px-2"
-                            >
-                              {category.name}
-                            </LocalizedClientLink>
-                          ))}
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-              ) : (
+              <h3 className="text-xl font-bold mb-4">Catégories</h3>
                 <ul className="space-y-3">
                   {topLevelCategories.slice(0, 4).map((category) => (
                     <li key={category.id}>
@@ -180,15 +143,12 @@ const CategoriesHoverCard = async () => {
                   ))}
                   {topLevelCategories.length > 4 && (
                     <li className="text-lg text-primary hover:underline transition-colors font-semibold">
-                      <InteractiveLink
-                        href="/categories"
-                      >
+                      <InteractiveLink href="/categories">
                         Voir tout 
                       </InteractiveLink>
                     </li>
                   )}
                 </ul>
-              )}
             </div>
           </div>
           {/* Right column: images */}
@@ -215,16 +175,15 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
     '/menu-1.jpg',
     '/menu-2.jpg',
   ]
-  const collectionPages = chunkArray(collections, 16)
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
         <button
-          className="text-sm capitalize font-[outfit] text-black hidden lg:flex focus:outline-none h-full items-center gap-1 group"
+          className="text-sm capitalize font-sans text-black hidden lg:flex focus:outline-none h-full items-center gap-1 group"
           data-testid="nav-collections-link"
           type="button"
         >
-          <span className="text-sm capitalize font-[outfit] text-black hidden lg:inline">Collections</span>
+          <span className="text-sm capitalize font-sans text-black hidden lg:inline">Collections</span>
           <ChevronDown
             className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
@@ -236,29 +195,6 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Collections</h3>
-              {collections.length > 5 ? (
-                <Carousel orientation="vertical" className="w-80 h-[336px]">
-                  <CarouselContent>
-                    {collectionPages.map((page, pageIndex) => (
-                      <CarouselItem key={pageIndex}>
-                        <div className="grid grid-cols-4 grid-rows-4 gap-x-4 gap-y-2">
-                          {page.map((collection: HttpTypes.StoreCollection) => (
-                            <a
-                              key={collection.id}
-                              href={`/collections/${collection.handle}`}
-                              className="text-lg hover:underline transition-colors block py-2 px-2"
-                            >
-                              {collection.title}
-                            </a>
-                          ))}
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <CarouselPrevious />
-                  <CarouselNext />
-                </Carousel>
-              ) : (
                 <ul className="space-y-3">
                   {collections.slice(0, 4).map((collection) => (
                     <li key={collection.id}>
@@ -278,7 +214,6 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
                     </li>
                   )}
                 </ul>
-              )}
             </div>
           </div>
           {/* Right column: images */}
