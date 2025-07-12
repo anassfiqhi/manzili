@@ -172,8 +172,8 @@ const CategoriesHoverCard = async () => {
 
 const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCollection[] }) => {
   const rightImages = [
-    '/menu-1.jpg',
-    '/menu-2.jpg',
+    '/menu-3.jpg',
+    '/menu-4.jpg',
   ]
   return (
     <HoverCard>
