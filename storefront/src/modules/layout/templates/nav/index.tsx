@@ -129,7 +129,11 @@ const CategoriesHoverCard = async () => {
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Categories</h3>
-              <ul className="space-y-3">
+              <ul
+                className={`space-y-3 ${
+                  topLevelCategories.length > 5 ? "max-h-60 overflow-y-auto pr-2" : ""
+                }`}
+              >
                 {topLevelCategories.map((category: StoreProductCategory) => (
                   <li key={category.id}>
                     <a
@@ -187,7 +191,11 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Collections</h3>
-              <ul className="space-y-3">
+              <ul
+                className={`space-y-3 ${
+                  collections.length > 5 ? "max-h-60 overflow-y-auto pr-2" : ""
+                }`}
+              >
                 {collections.map((collection: HttpTypes.StoreCollection) => (
                   <li key={collection.id}>
                     <a
