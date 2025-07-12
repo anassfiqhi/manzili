@@ -11,18 +11,11 @@ import { listCategories } from "@lib/data/categories"
 import { StoreProductCategory } from "@medusajs/types"
 import { getCollectionsList } from "@lib/data/collections"
 import { HttpTypes } from "@medusajs/types"
-import Thumbnail from "@modules/products/components/thumbnail"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
 import Image from 'next/image'
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
+  const { collections } = await getCollectionsList(0, 100)
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
@@ -57,7 +50,8 @@ export default async function Nav() {
             </LocalizedClientLink>
             {/* Categories Hover Card */}
             <CategoriesHoverCard />
-            <CollectionsHoverCard />
+            {/* Collections Hover Card */}
+            {collections.length > 0 && <CollectionsHoverCard collections={collections} />}
 
           </div>
 
@@ -123,18 +117,18 @@ const CategoriesHoverCard = async () => {
           data-testid="nav-categories-link"
           type="button"
         >
-          <span className="text-sm capitalize font-[outfit] text-black hidden lg:inline">Catégories</span>
+          <span className="text-sm capitalize font-[outfit] text-black hidden lg:inline">Categories</span>
           <ChevronDown
             className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50">
+      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50 max-h-[336px]">
         <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
           {/* Left column: categories list */}
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4">Category Page</h3>
+              <h3 className="text-xl font-bold mb-4">Categories</h3>
               <ul className="space-y-3">
                 {topLevelCategories.map((category: StoreProductCategory) => (
                   <li key={category.id}>
@@ -168,8 +162,7 @@ const CategoriesHoverCard = async () => {
   )
 }
 
-const CollectionsHoverCard = async () => {
-  const { collections } = await getCollectionsList(0, 100)
+const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCollection[] }) => {
   const rightImages = [
     '/menu-1.jpg',
     '/menu-2.jpg',
@@ -188,12 +181,12 @@ const CollectionsHoverCard = async () => {
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50">
+      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50 max-h-[336px]">
         <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
           {/* Left column: collections list */}
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
-              <h3 className="text-xl font-bold mb-4">Product Page</h3>
+              <h3 className="text-xl font-bold mb-4">Collections</h3>
               <ul className="space-y-3">
                 {collections.map((collection: HttpTypes.StoreCollection) => (
                   <li key={collection.id}>
