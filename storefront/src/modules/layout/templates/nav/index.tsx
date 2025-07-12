@@ -57,6 +57,7 @@ export default async function Nav() {
             </LocalizedClientLink>
             {/* Categories Hover Card */}
             <CategoriesHoverCard />
+            <CollectionsHoverCard />
 
           </div>
 
