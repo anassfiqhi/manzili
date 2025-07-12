@@ -19,6 +19,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import InteractiveLink from "@modules/common/components/interactive-link"
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -178,13 +179,12 @@ const CategoriesHoverCard = async () => {
                     </li>
                   ))}
                   {topLevelCategories.length > 4 && (
-                    <li>
-                      <a
-                        href="/categories" // or open a modal/drawer if you want
-                        className="text-lg text-primary hover:underline transition-colors font-semibold"
+                    <li className="text-lg text-primary hover:underline transition-colors font-semibold">
+                      <InteractiveLink
+                        href="/categories"
                       >
-                        See all
-                      </a>
+                        Voir tout
+                      </InteractiveLink>
                     </li>
                   )}
                 </ul>
@@ -271,13 +271,10 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
                     </li>
                   ))}
                   {collections.length > 4 && (
-                    <li>
-                      <a
-                        href="/collections"
-                        className="text-lg text-primary hover:underline transition-colors font-semibold"
-                      >
-                        See all
-                      </a>
+                    <li className="text-lg text-primary hover:underline transition-colors font-semibold">
+                      <InteractiveLink href="/collections">
+                        Voir tout
+                      </InteractiveLink>
                     </li>
                   )}
                 </ul>
