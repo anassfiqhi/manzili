@@ -6,6 +6,7 @@ import { listRegions } from "@lib/data/regions"
 import { StoreProductCategory, StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { Text, clx } from "@medusajs/ui"
+import Thumbnail from "@modules/products/components/thumbnail"
 
 export const dynamic = 'force-dynamic'
 
@@ -39,20 +40,26 @@ export default async function CategoriesPage({ params }: Props) {
     <div className="flex flex-col py-6 content-container">
       <div className="mb-8">
         <h1 className="text-2xl-semi mb-2" data-testid="categories-page-title">
-          All Categories
+          Toutes les catégories
         </h1>
         <p className="text-base-regular text-ui-fg-subtle">
-          Browse our complete collection of products organized by category
+          Parcourez notre collection complète de produits organisés par catégorie
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-wrap justify-center gap-8">
         {topLevelCategories.map((category: StoreProductCategory) => (
           <div
             key={category.id}
-            className="border border-ui-border-base rounded-lg p-6 hover:border-ui-border-interactive transition-colors"
+            className="border border-ui-border-base rounded-lg p-6 hover:border-ui-border-interactive transition-colors w-fit h-fit"
             data-testid="category-card"
           >
+            <Thumbnail
+              thumbnail={null}
+              size="square"
+              className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover"
+              data-testid="category-thumbnail"
+            />
             <div className="mb-4">
               <h2 className="text-lg-semi mb-2">{category.name}</h2>
               {category.description && (
@@ -67,13 +74,13 @@ export default async function CategoriesPage({ params }: Props) {
               className="text-small-regular text-ui-fg-interactive hover:text-ui-fg-interactive-hover transition-colors"
               data-testid="category-link"
             >
-              View Category →
+              Voir la catégorie →
             </LocalizedClientLink>
 
             {category.category_children && category.category_children.length > 0 && (
               <div className="mt-4">
                 <Text className="text-small-regular text-ui-fg-subtle mb-2">
-                  Subcategories:
+                  Sous-catégories :
                 </Text>
                 <ul className="grid grid-cols-1 gap-1">
                   {category.category_children.slice(0, 3).map((child) => (
@@ -91,7 +98,7 @@ export default async function CategoriesPage({ params }: Props) {
                   ))}
                   {category.category_children.length > 3 && (
                     <li className="text-small-regular text-ui-fg-subtle">
-                      +{category.category_children.length - 3} more
+                      +{category.category_children.length - 3} de plus
                     </li>
                   )}
                 </ul>
@@ -104,7 +111,7 @@ export default async function CategoriesPage({ params }: Props) {
       {topLevelCategories.length === 0 && (
         <div className="text-center py-12">
           <Text className="text-large-regular text-ui-fg-subtle">
-            No categories available at the moment.
+            Aucune catégorie disponible pour le moment.
           </Text>
         </div>
       )}
