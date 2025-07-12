@@ -19,6 +19,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import Image from 'next/image'
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -56,8 +57,6 @@ export default async function Nav() {
             </LocalizedClientLink>
             {/* Categories Hover Card */}
             <CategoriesHoverCard />
-            {/* Collections Hover Card */}
-            <CollectionsHoverCard />
 
           </div>
 
@@ -111,11 +110,10 @@ const CategoriesHoverCard = async () => {
   const topLevelCategories = product_categories.filter(
     (category: StoreProductCategory) => !category.parent_category
   )
-
-  if (topLevelCategories.length === 0) {
-    return null
-  }
-
+  const rightImages = [
+    '/menu-1.jpg',
+    '/menu-2.jpg',
+  ]
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -124,41 +122,44 @@ const CategoriesHoverCard = async () => {
           data-testid="nav-categories-link"
           type="button"
         >
-          <a
-            href="/categories"
-            className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
-            data-testid="nav-categories-link"
-          >
-            Catégories
-          </a>
+          <span className="text-sm capitalize font-[outfit] text-black hidden lg:inline">Catégories</span>
           <ChevronDown
             className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] flex items-center">
-          <div className="relative w-full overflow-hidden">
-            <Carousel opts={{ align: 'start', loop: false }}>
-              <CarouselContent className="pl-0 relative w-4/5 mx-auto">
+      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50">
+        <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
+          {/* Left column: categories list */}
+          <div className="flex-1 min-w-[220px]">
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4">Category Page</h3>
+              <ul className="space-y-3">
                 {topLevelCategories.map((category: StoreProductCategory) => (
-                  <CarouselItem key={category.id} className="basis-1/4 max-w-xs flex justify-center">
+                  <li key={category.id}>
                     <a
                       href={`/categories/${category.handle}`}
-                      className="flex flex-col items-center group w-48"
-                      data-testid="hover-category-link"
+                      className="text-lg hover:underline transition-colors"
                     >
-                      <div className="w-32 h-32 flex items-center justify-center rounded-2xl border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
-                        <Thumbnail thumbnail={undefined} size="medium" />
-                      </div>
-                      <span className="text-base font-medium text-center mt-4 truncate w-full" title={category.name}>{category.name}</span>
+                      {category.name}
                     </a>
-                  </CarouselItem>
+                  </li>
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-4" />
-              <CarouselNext className="right-4" />
-            </Carousel>
+              </ul>
+            </div>
+          </div>
+          {/* Right column: images */}
+          <div className="flex flex-row gap-8 items-start">
+            {rightImages.map((src, idx) => (
+              <Image
+                key={idx}
+                src={src}
+                alt={`Showcase ${idx + 1}`}
+                width={256}
+                height={256}
+                className="w-64 h-64 object-cover rounded-2xl shadow-md bg-white"
+              />
+            ))}
           </div>
         </div>
       </HoverCardContent>
@@ -168,11 +169,10 @@ const CategoriesHoverCard = async () => {
 
 const CollectionsHoverCard = async () => {
   const { collections } = await getCollectionsList(0, 100)
-
-  if (collections.length === 0) {
-    return null
-  }
-
+  const rightImages = [
+    '/menu-1.jpg',
+    '/menu-2.jpg',
+  ]
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
@@ -181,41 +181,44 @@ const CollectionsHoverCard = async () => {
           data-testid="nav-collections-link"
           type="button"
         >
-          <a
-            href="/collections"
-            className="text-sm capitalize font-[outfit] text-black hidden lg:inline"
-            data-testid="nav-collections-link"
-          >
-            Collections
-          </a>
+          <span className="text-sm capitalize font-[outfit] text-black hidden lg:inline">Collections</span>
           <ChevronDown
             className="w-[14px] h-[14px] text-black transition-transform duration-200 group-data-[state=open]:rotate-180"
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-none border-none">
-        <div className="p-6 w-full bg-white shadow-md outline-none border-none rounded-md h-[35vh] md:h-[40vh] lg:h-[45vh] 2xl:h-[25vh] flex items-center">
-          <div className="relative w-full">
-            <Carousel opts={{ align: 'start', loop: false }}>
-              <CarouselContent className="pl-0">
+      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50">
+        <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
+          {/* Left column: collections list */}
+          <div className="flex-1 min-w-[220px]">
+            <div className="mb-8">
+              <h3 className="text-xl font-bold mb-4">Product Page</h3>
+              <ul className="space-y-3">
                 {collections.map((collection: HttpTypes.StoreCollection) => (
-                  <CarouselItem key={collection.id} className="basis-1/4 max-w-xs flex justify-center">
+                  <li key={collection.id}>
                     <a
                       href={`/collections/${collection.handle}`}
-                      className="flex flex-col items-center group w-48"
-                      data-testid="hover-collection-link"
+                      className="text-lg hover:underline transition-colors"
                     >
-                      <div className="w-32 h-32 flex items-center justify-center rounded-2xl border-2 border-gray-200 overflow-hidden bg-gray-50 group-hover:border-black transition-all">
-                        <Thumbnail thumbnail={undefined} size="medium" />
-                      </div>
-                      <span className="text-base font-medium text-center mt-4 truncate w-full" title={collection.title}>{collection.title}</span>
+                      {collection.title}
                     </a>
-                  </CarouselItem>
+                  </li>
                 ))}
-              </CarouselContent>
-              <CarouselPrevious className="-left-4 bg-white border-b border-gray-950/5 dark:border-white/10" />
-              <CarouselNext className="-right-4 bg-white border-b border-gray-950/5 dark:border-white/10" />
-            </Carousel>
+              </ul>
+            </div>
+          </div>
+          {/* Right column: images */}
+          <div className="flex flex-row gap-8 items-start">
+            {rightImages.map((src, idx) => (
+              <Image
+                key={idx}
+                src={src}
+                alt={`Showcase ${idx + 1}`}
+                width={256}
+                height={256}
+                className="w-64 h-64 object-cover rounded-2xl shadow-md bg-white"
+              />
+            ))}
           </div>
         </div>
       </HoverCardContent>
