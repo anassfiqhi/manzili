@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { DualRangeSlider } from '@/components/ui/dual-range-slider';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { cn } from '@/lib/utils';
 
 interface PriceDualRangeSliderProps {
   min?: number;
@@ -53,21 +54,57 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
     if (labelFormatter) {
       return labelFormatter(value);
     }
-    
-    // Replace Moroccan currency code "MAD" with "DH" (case insensitive)
-    const displayCurrency = currency?.toUpperCase() === 'MAD' ? 'DH' : currency;
-    return `${value} ${displayCurrency}`;
+
+    // Transform currency codes to display characters
+    let displayCurrency = currency;
+    if (currency) {
+      const currencyCode = currency.toUpperCase();
+      switch (currencyCode) {
+        case 'MAD':
+          displayCurrency = 'DH';
+          break;
+        case 'USD':
+          displayCurrency = '$';
+          break;
+        case 'EUR':
+          displayCurrency = '€';
+          break;
+        case 'GBP':
+          displayCurrency = '£';
+          break;
+        case 'JPY':
+          displayCurrency = '¥';
+          break;
+        case 'CAD':
+          displayCurrency = 'C$';
+          break;
+        case 'AUD':
+          displayCurrency = 'A$';
+          break;
+        default:
+          displayCurrency = currency;
+      }
+    }
+
+    return <><span>{value}</span>&nbsp;<span>{displayCurrency}</span></>;
   };
 
   return (
-    <div className={className}>
+    <div className={cn('mt-5 flex justify-center items-center gap-4',className)}>
+      {min && (
+        <span className='flex justify-center items-center'>
+          {min}
+        </span>
+      )}
       <DualRangeSlider
+        label={(value) => <span>{formatLabel(value)}</span>}
         value={values}
         onValueChange={handleValueChange}
         min={min}
         max={max}
         step={step}
       />
+      {max && <span className='flex justify-center items-center'>{max}</span>}
     </div>
   );
 };
