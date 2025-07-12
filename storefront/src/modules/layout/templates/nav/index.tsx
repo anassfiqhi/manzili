@@ -12,6 +12,13 @@ import { StoreProductCategory } from "@medusajs/types"
 import { getCollectionsList } from "@lib/data/collections"
 import { HttpTypes } from "@medusajs/types"
 import Image from 'next/image'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 
 export default async function Nav() {
   const regions = await listRegions().then((regions: StoreRegion[]) => regions)
@@ -129,22 +136,37 @@ const CategoriesHoverCard = async () => {
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Categories</h3>
-              <ul
-                className={`space-y-3 ${
-                  topLevelCategories.length > 5 ? "max-h-60 overflow-y-auto pr-2" : ""
-                }`}
-              >
-                {topLevelCategories.map((category: StoreProductCategory) => (
-                  <li key={category.id}>
-                    <a
-                      href={`/categories/${category.handle}`}
-                      className="text-lg hover:underline transition-colors"
-                    >
-                      {category.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {topLevelCategories.length > 5 ? (
+                <Carousel orientation="vertical" className="h-60">
+                  <CarouselContent>
+                    {topLevelCategories.map((category) => (
+                      <CarouselItem key={category.id}>
+                        <a
+                          href={`/categories/${category.handle}`}
+                          className="text-lg hover:underline transition-colors block py-2"
+                        >
+                          {category.name}
+                        </a>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              ) : (
+                <ul className="space-y-3">
+                  {topLevelCategories.map((category) => (
+                    <li key={category.id}>
+                      <a
+                        href={`/categories/${category.handle}`}
+                        className="text-lg hover:underline transition-colors"
+                      >
+                        {category.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
           {/* Right column: images */}
@@ -191,22 +213,37 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
           <div className="flex-1 min-w-[220px]">
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Collections</h3>
-              <ul
-                className={`space-y-3 ${
-                  collections.length > 5 ? "max-h-60 overflow-y-auto pr-2" : ""
-                }`}
-              >
-                {collections.map((collection: HttpTypes.StoreCollection) => (
-                  <li key={collection.id}>
-                    <a
-                      href={`/collections/${collection.handle}`}
-                      className="text-lg hover:underline transition-colors"
-                    >
-                      {collection.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              {collections.length > 5 ? (
+                <Carousel orientation="vertical" className="h-60">
+                  <CarouselContent>
+                    {collections.map((collection) => (
+                      <CarouselItem key={collection.id}>
+                        <a
+                          href={`/collections/${collection.handle}`}
+                          className="text-lg hover:underline transition-colors block py-2"
+                        >
+                          {collection.title}
+                        </a>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </Carousel>
+              ) : (
+                <ul className="space-y-3">
+                  {collections.map((collection) => (
+                    <li key={collection.id}>
+                      <a
+                        href={`/collections/${collection.handle}`}
+                        className="text-lg hover:underline transition-colors"
+                      >
+                        {collection.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
           {/* Right column: images */}
