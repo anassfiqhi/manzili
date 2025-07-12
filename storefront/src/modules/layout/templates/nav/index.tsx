@@ -137,13 +137,19 @@ const CategoriesHoverCard = async () => {
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Categories</h3>
               {topLevelCategories.length > 5 ? (
-                <Carousel orientation="vertical" className="h-28 overflow-hidden">
-                  <CarouselContent>
+                <Carousel
+                  opts={{ align: "start", loop: false }}
+                  className="w-full h-[336px]"
+                >
+                  <CarouselContent className="flex flex-wrap">
                     {topLevelCategories.map((category) => (
-                      <CarouselItem key={category.id}>
+                      <CarouselItem
+                        key={category.id}
+                        className="basis-1/4 max-w-[25%] flex-shrink-0 flex-grow-0"
+                      >
                         <a
                           href={`/categories/${category.handle}`}
-                          className="text-lg hover:underline transition-colors block py-2"
+                          className="text-lg hover:underline transition-colors block py-2 px-2"
                         >
                           {category.name}
                         </a>
@@ -214,13 +220,19 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Collections</h3>
               {collections.length > 5 ? (
-                <Carousel orientation="vertical" className="h-28 overflow-hidden">
-                  <CarouselContent>
+                <Carousel
+                  opts={{ align: "start", loop: false }}
+                  className="w-full h-[336px]"
+                >
+                  <CarouselContent className="flex flex-wrap">
                     {collections.map((collection) => (
-                      <CarouselItem key={collection.id}>
+                      <CarouselItem
+                        key={collection.id}
+                        className="basis-1/4 max-w-[25%] flex-shrink-0 flex-grow-0"
+                      >
                         <a
                           href={`/collections/${collection.handle}`}
-                          className="text-lg hover:underline transition-colors block py-2"
+                          className="text-lg hover:underline transition-colors block py-2 px-2"
                         >
                           {collection.title}
                         </a>
