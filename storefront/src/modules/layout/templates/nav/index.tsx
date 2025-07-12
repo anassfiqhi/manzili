@@ -137,22 +137,19 @@ const CategoriesHoverCard = async () => {
             <div className="mb-8">
               <h3 className="text-xl font-bold mb-4">Categories</h3>
               {topLevelCategories.length > 5 ? (
-                <Carousel
-                  opts={{ align: "start", loop: false }}
-                  className="w-full h-[336px]"
-                >
-                  <CarouselContent className="flex flex-wrap">
-                    {topLevelCategories.map((category) => (
-                      <CarouselItem
-                        key={category.id}
-                        className="basis-1/4 max-w-[25%] flex-shrink-0 flex-grow-0"
-                      >
-                        <a
-                          href={`/categories/${category.handle}`}
-                          className="text-lg hover:underline transition-colors block py-2 px-2"
-                        >
-                          {category.name}
-                        </a>
+                <Carousel opts={{ align: "start", loop: false }} className="w-full h-[336px]">
+                  <CarouselContent>
+                    {topLevelCategories.map((category, pageIndex) => (
+                      <CarouselItem key={pageIndex}>
+                        <div className="grid grid-cols-4 grid-rows-4 gap-x-4 gap-y-2">
+                          <LocalizedClientLink
+                            key={category.id}
+                            href={`/categories/${category.handle}`}
+                            className="text-lg hover:underline transition-colors block py-2 px-2"
+                          >
+                            {category.name}
+                          </LocalizedClientLink>
+                        </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
