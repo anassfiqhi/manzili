@@ -22,7 +22,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   step = 10,
   defaultValue = [0, 1000],
   currency = '$',
-  className = "w-full space-y-5 px-10",
+  className = "w-full space-y-5 px-3",
   onValueChange,
   labelFormatter
 }) => {
