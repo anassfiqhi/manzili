@@ -4,6 +4,7 @@ import * as React from 'react';
 import { DualRangeSlider } from '@/components/ui/dual-range-slider';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
+import { formatCurrency } from "@lib/util/format-currency"
 
 interface PriceDualRangeSliderProps {
   min?: number;
@@ -55,38 +56,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
       return labelFormatter(value);
     }
 
-    // Transform currency codes to display characters
-    let displayCurrency = currency;
-    if (currency) {
-      const currencyCode = currency.toUpperCase();
-      switch (currencyCode) {
-        case 'MAD':
-          displayCurrency = 'DH';
-          break;
-        case 'USD':
-          displayCurrency = '$';
-          break;
-        case 'EUR':
-          displayCurrency = '€';
-          break;
-        case 'GBP':
-          displayCurrency = '£';
-          break;
-        case 'JPY':
-          displayCurrency = '¥';
-          break;
-        case 'CAD':
-          displayCurrency = 'C$';
-          break;
-        case 'AUD':
-          displayCurrency = 'A$';
-          break;
-        default:
-          displayCurrency = currency;
-      }
-    }
-
-    return <><span>{value}</span>&nbsp;<span>{displayCurrency}</span></>;
+    return formatCurrency(value, currency || '');
   };
 
   return (

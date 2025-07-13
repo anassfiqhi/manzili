@@ -1,6 +1,7 @@
 import { clx } from "@medusajs/ui"
 
 import { getProductPrice } from "@lib/util/get-product-price"
+import { formatCurrency } from "@lib/util/format-currency"
 import { HttpTypes } from "@medusajs/types"
 
 export default function ProductPrice({
@@ -33,7 +34,7 @@ export default function ProductPrice({
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
         >
-          {selectedPrice.calculated_price}
+          {formatCurrency(selectedPrice.calculated_price_number, selectedPrice.currency_code)}
         </span>
       </span>
       {selectedPrice.price_type === "sale" && (
@@ -45,7 +46,7 @@ export default function ProductPrice({
               data-testid="original-product-price"
               data-value={selectedPrice.original_price_number}
             >
-              {selectedPrice.original_price}
+              {formatCurrency(selectedPrice.original_price_number, selectedPrice.currency_code)}
             </span>
           </p>
           <span className="text-ui-fg-interactive">

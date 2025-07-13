@@ -1,45 +1,11 @@
 import { Text, clx } from "@medusajs/ui"
 import { VariantPrice } from "types/global"
+import { formatCurrency } from "@lib/util/format-currency"
 
 export default async function PreviewPrice({ price }: { price: VariantPrice }) {
   if (!price) {
     return null
   }
-
-  const formatPrice = (amount: number, currency: string) => {
-    // Transform currency codes to display characters
-    let displayCurrency = currency;
-    if (currency) {
-      const currencyCode = currency.toUpperCase();
-      switch (currencyCode) {
-        case 'MAD':
-          displayCurrency = 'DH';
-          break;
-        case 'USD':
-          displayCurrency = '$';
-          break;
-        case 'EUR':
-          displayCurrency = '€';
-          break;
-        case 'GBP':
-          displayCurrency = '£';
-          break;
-        case 'JPY':
-          displayCurrency = '¥';
-          break;
-        case 'CAD':
-          displayCurrency = 'C$';
-          break;
-        case 'AUD':
-          displayCurrency = 'A$';
-          break;
-        default:
-          displayCurrency = currency;
-      }
-    }
-
-    return <><span>{amount}</span>&nbsp;<span>{displayCurrency}</span></>;
-  };
 
   return (
     <>
@@ -48,7 +14,7 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
           className="line-through text-ui-fg-muted"
           data-testid="original-price"
         >
-          {formatPrice(price.original_price_number, price.currency_code)}
+          {formatCurrency(price.original_price_number, price.currency_code)}
         </Text>
       )}
       <Text
@@ -57,7 +23,7 @@ export default async function PreviewPrice({ price }: { price: VariantPrice }) {
         })}
         data-testid="price"
       >
-        {formatPrice(price.calculated_price_number, price.currency_code)}
+        {formatCurrency(price.calculated_price_number, price.currency_code)}
       </Text>
     </>
   )
