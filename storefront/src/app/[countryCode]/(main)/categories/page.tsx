@@ -37,7 +37,7 @@ export default async function CategoriesPage({ params }: Props) {
   )
 
   const categoryImageMap: Record<string, string> = {
-    "ROBINETTERIE": "bathroom_accessories.png",
+    "ROBINETTERIE": "taps.png",
     "SANITAIRE": "sanitary.png",
     "MEUBLES SALLE DE BAIN": "bathroom_furniture.png",
     "MIROIRS": "mirrors.png",
