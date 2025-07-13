@@ -2,8 +2,9 @@ import { clx } from "@medusajs/ui"
 
 import { getPercentageDiff } from "@lib/util/get-precentage-diff"
 import { getPricesForVariant } from "@lib/util/get-product-price"
-import { convertToLocale } from "@lib/util/money"
+// import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
+import { formatCurrency } from "@/lib/util/format-currency"
 
 type LineItemPriceProps = {
   item: HttpTypes.StoreCartLineItem | HttpTypes.StoreOrderLineItem
@@ -36,10 +37,11 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
                 className="line-through text-ui-fg-muted"
                 data-testid="product-original-price"
               >
-                {convertToLocale({
+                {/* {convertToLocale({
                   amount: originalPrice,
                   currency_code,
-                })}
+                })} */}
+                {formatCurrency(originalPrice, currency_code)}
               </span>
             </p>
             {style === "default" && (
@@ -55,10 +57,11 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
           })}
           data-testid="product-price"
         >
-          {convertToLocale({
+          {/* {convertToLocale({
             amount: currentPrice,
             currency_code,
-          })}
+          })} */}
+          {formatCurrency(currentPrice, currency_code)}
         </span>
       </div>
     </div>
