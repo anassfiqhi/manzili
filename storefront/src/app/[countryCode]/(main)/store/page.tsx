@@ -6,8 +6,8 @@ import StoreTemplate from "@modules/store/templates"
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: "Store",
-  description: "Explore all of our products.",
+  title: "Boutique",
+  description: "Explorez tous nos produits.",
 }
 
 type Params = {

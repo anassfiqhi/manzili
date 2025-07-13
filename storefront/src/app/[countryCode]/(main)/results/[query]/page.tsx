@@ -8,8 +8,8 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: "Search",
-  description: "Explore all of our products.",
+  title: "Recherche",
+  description: "Explorez tous nos produits.",
 }
 
 type Params = {

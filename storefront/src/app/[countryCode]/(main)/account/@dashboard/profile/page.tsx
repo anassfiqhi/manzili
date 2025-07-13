@@ -12,7 +12,7 @@ import { getCustomer } from "@lib/data/customer"
 
 export const metadata: Metadata = {
   title: "Profile",
-  description: "View and edit your Manzili Store profile.",
+  description: "Consultez et modifiez votre profil Manzili Store.",
 }
 
 export default async function Profile() {
