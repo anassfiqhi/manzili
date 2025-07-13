@@ -1,6 +1,9 @@
 import React from "react"
 
 export const formatCurrency = (amount: number, currency: string): React.ReactElement => {
+  // Round to 2 decimal places like convertToLocale
+  const roundedAmount = Math.round(amount * 100) / 100
+  
   // Transform currency codes to display characters
   let displayCurrency = currency;
   if (currency) {
@@ -33,7 +36,7 @@ export const formatCurrency = (amount: number, currency: string): React.ReactEle
   }
 
   return React.createElement(React.Fragment, null, 
-    React.createElement('span', null, amount),
+    React.createElement('span', null, roundedAmount),
     React.createElement('span', null, '\u00A0'),
     React.createElement('span', null, displayCurrency)
   );
