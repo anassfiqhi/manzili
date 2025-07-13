@@ -36,6 +36,13 @@ export default async function CategoriesPage({ params }: Props) {
     (category: StoreProductCategory) => !category.parent_category
   )
 
+  const categoryImageMap: Record<string, string> = {
+    "Bathroom Accessories": "bathroom_accessories.png",
+    "Kitchen": "kitchen.png",
+    "Mirrors": "mirrors.png",
+    // ...add all mappings
+  }
+
   return (
     <div className="flex flex-col py-6 content-container">
       <div className="mb-8">
@@ -55,7 +62,11 @@ export default async function CategoriesPage({ params }: Props) {
             data-testid="category-card"
           >
             <Thumbnail
-              thumbnail={`/categories/${category.handle}.png`}
+              thumbnail={
+                categoryImageMap[category.name]
+                  ? `/categories/${categoryImageMap[category.name]}`
+                  : undefined // fallback if not found
+              }
               size="square"
               className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover"
               data-testid="category-thumbnail"
