@@ -40,10 +40,6 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
                   amount: originalPrice,
                   currency_code,
                 })}
-                {convertToLocale({
-                  amount: originalPrice,
-                  currency_code,
-                })}
               </span>
             </p>
             {style === "default" && (
@@ -59,10 +55,6 @@ const LineItemPrice = ({ item, style = "default" }: LineItemPriceProps) => {
           })}
           data-testid="product-price"
         >
-          {convertToLocale({
-            amount: currentPrice,
-            currency_code,
-          })}
           {convertToLocale({
             amount: currentPrice,
             currency_code,
