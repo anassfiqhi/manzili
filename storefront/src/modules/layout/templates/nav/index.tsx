@@ -32,7 +32,7 @@ export default async function Nav() {
           <div className="flex items-center h-full">
             <LocalizedClientLink
               href="/"
-              className="txt-compact-xlarge-plus uppercase pl-4 font-sans text-black text-2xl"
+              className="txt-compact-xlarge-plus uppercase pl-4 font-[outfit] text-black text-2xl"
               data-testid="nav-store-link"
             >
               Manzili
