@@ -4,6 +4,9 @@ export const formatCurrency = (amount: number, currency: string): React.ReactEle
   // Round to 2 decimal places like convertToLocale
   const roundedAmount = Math.round(amount * 100) / 100
   
+  // Format to always show 2 decimal places
+  const formattedAmount = roundedAmount.toFixed(2)
+  
   // Transform currency codes to display characters
   let displayCurrency = currency;
   if (currency) {
@@ -36,7 +39,7 @@ export const formatCurrency = (amount: number, currency: string): React.ReactEle
   }
 
   return React.createElement(React.Fragment, null, 
-    React.createElement('span', null, roundedAmount),
+    React.createElement('span', null, formattedAmount),
     React.createElement('span', null, '\u00A0'),
     React.createElement('span', null, displayCurrency)
   );
