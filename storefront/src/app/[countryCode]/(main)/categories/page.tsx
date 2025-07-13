@@ -62,34 +62,36 @@ export default async function CategoriesPage({ params }: Props) {
         {topLevelCategories.map((category: StoreProductCategory) => (
           <div
             key={category.id}
-            className="border border-ui-border-base rounded-lg p-6 hover:border-ui-border-interactive transition-colors w-fit h-fit"
+            className="border border-ui-border-base rounded-lg p-6 hover:border-black transition-colors w-fit h-fit cursor-pointer"
             data-testid="category-card"
           >
-            <Thumbnail
-              thumbnail={
-                categoryImageMap[category.name]
-                  ? `/categories/${categoryImageMap[category.name]}`
-                  : undefined // fallback if not found
-              }
-              size="square"
-              className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover"
-              data-testid="category-thumbnail"
-            />
-            <div className="mb-4">
-              <h2 className="text-lg-semi mb-2">{category.name}</h2>
-              {category.description && (
-                <p className="text-small-regular text-ui-fg-subtle mb-4">
-                  {category.description}
-                </p>
-              )}
-            </div>
-
             <LocalizedClientLink
               href={`/categories/${category.handle}`}
-              className="text-small-regular text-ui-fg-interactive hover:text-ui-fg-interactive-hover transition-colors"
+              className="text-small-regular transition-colors"
               data-testid="category-link"
             >
-              Voir la catégorie →
+              <Thumbnail
+                thumbnail={
+                  categoryImageMap[category.name]
+                    ? `/categories/${categoryImageMap[category.name]}`
+                    : undefined // fallback if not found
+                }
+                size="square"
+                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover"
+                data-testid="category-thumbnail"
+              />
+              <div className="mb-4">
+                <h2 className="text-lg-semi mb-2">{category.name}</h2>
+                {category.description && (
+                  <p className="text-small-regular text-ui-fg-subtle mb-4">
+                    {category.description}
+                  </p>
+                )}
+              </div>
+
+              <div className="text-small-regular text-ui-fg-interactive hover:text-ui-fg-interactive-hover transition-colors">
+                Voir la catégorie →
+              </div>
             </LocalizedClientLink>
 
             {category.category_children && category.category_children.length > 0 && (
