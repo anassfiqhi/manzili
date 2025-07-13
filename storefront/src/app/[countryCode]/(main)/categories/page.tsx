@@ -55,7 +55,7 @@ export default async function CategoriesPage({ params }: Props) {
             data-testid="category-card"
           >
             <Thumbnail
-              thumbnail={null}
+              thumbnail={`/categories/${category.handle}.png`}
               size="square"
               className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover"
               data-testid="category-thumbnail"
