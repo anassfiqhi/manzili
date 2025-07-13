@@ -7,6 +7,7 @@ import { StoreProductCategory, StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { Text, clx } from "@medusajs/ui"
 import Thumbnail from "@modules/products/components/thumbnail"
+import { ArrowUpRightMini } from "@medusajs/icons"
 
 export const dynamic = 'force-dynamic'
 
@@ -49,7 +50,7 @@ export default async function CategoriesPage({ params }: Props) {
 
   return (
     <div className="flex flex-col py-6 content-container">
-      <div className="mb-8">
+      <div className="mb-8 content-container text-center">
         <h1 className="text-2xl-semi mb-2" data-testid="categories-page-title">
           Toutes les catégories
         </h1>
@@ -62,7 +63,7 @@ export default async function CategoriesPage({ params }: Props) {
         {topLevelCategories.map((category: StoreProductCategory) => (
           <div
             key={category.id}
-            className="border border-ui-border-base rounded-lg p-6 hover:border-black transition-colors w-fit h-fit cursor-pointer"
+            className="rounded-lg p-6 transition-colors w-fit h-fit cursor-pointer group/CategoryItem"
             data-testid="category-card"
           >
             <LocalizedClientLink
@@ -77,20 +78,19 @@ export default async function CategoriesPage({ params }: Props) {
                     : undefined // fallback if not found
                 }
                 size="square"
-                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover"
+                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg"
                 data-testid="category-thumbnail"
               />
               <div className="mb-4">
-                <h2 className="text-lg-semi mb-2">{category.name}</h2>
-                {category.description && (
+                <h2 className="text-lg text-center mb-2 border-b border-black w-fit mx-auto flex justify-center items-center gap-1">{category.name} <ArrowUpRightMini
+                  className="group-hover/CategoryItem:rotate-45 ease-in-out duration-150 text-black"
+                // color="var(--fg-interactive)"
+                /></h2>
+                {/* {category.description && (
                   <p className="text-small-regular text-ui-fg-subtle mb-4">
                     {category.description}
                   </p>
-                )}
-              </div>
-
-              <div className="text-small-regular text-ui-fg-interactive hover:text-ui-fg-interactive-hover transition-colors">
-                Voir la catégorie →
+                )} */}
               </div>
             </LocalizedClientLink>
 
