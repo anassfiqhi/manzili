@@ -124,7 +124,7 @@ const CategoriesHoverCard = async () => {
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50 max-h-[336px] overflow-hidden">
+      <HoverCardContent className="p-0 w-screen shadow-lg border-none bg-gray-50 max-h-[336px] overflow-hidden">
         <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
           {/* Left column: categories list */}
           <div className="flex-1 min-w-[220px]">
@@ -189,7 +189,7 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-none border-none bg-gray-50 max-h-[336px] overflow-hidden">
+      <HoverCardContent className="p-0 w-screen shadow-lg border-none bg-gray-50 max-h-[336px] overflow-hidden">
         <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
           {/* Left column: collections list */}
           <div className="flex-1 min-w-[220px]">
