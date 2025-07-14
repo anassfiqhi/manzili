@@ -136,11 +136,11 @@ export function HeroCarousel() {
       <div className="hidden absolute min-h-[35px] w-fit bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 md:flex md:justify-center md:items-center">
         <CarouselPrevious icon={<MoveLeftIcon
           className="w-2 h-2 text-black"
-        />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed]" />
+        />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed] shadow-lg" />
         <span className="hidden lg:inline text-[14px] min-w-11 text-center text-white">{current.toString().padStart(2, '0')}/{count.toString().padStart(2, '0')}</span>
         <CarouselNext icon={<MoveRightIcon
           className="w-2 h-2 text-black"
-        />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed]" />
+        />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed] shadow-lg" />
       </div>
     </Carousel>
   )
