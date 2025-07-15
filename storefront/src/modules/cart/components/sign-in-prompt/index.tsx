@@ -15,7 +15,7 @@ const SignInPrompt = () => {
       </div>
       <div>
         <LocalizedClientLink href="/account">
-          <Button className="h-10 flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm text-black border-black border-solid rounded-full hover:bg-transparent" data-testid="sign-in-button">
+          <Button className="h-10 flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm text-black border-black border-solid rounded-full hover:bg-transparent hover:shadow-md" data-testid="sign-in-button">
             Se connecter
             {/* <MoveRightIcon className="ml-2 h-4 w-4 text-black" /> */}
           </Button>
