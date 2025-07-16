@@ -40,7 +40,7 @@ export default async function Nav() {
 
           </div>
 
-          <div className="flex items-center h-full pl-10 gap-5">
+          <div className="flex items-center h-full gap-5 flex-1 justify-center">
 
             <LocalizedClientLink
               href="/store"
@@ -56,7 +56,7 @@ export default async function Nav() {
 
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
+          <div className="flex items-center gap-x-6 h-full justify-end">
             <div className="flex items-center gap-x-6 h-full">
               <LocalizedClientLink
                 className="hover:text-ui-fg-base"
