@@ -30,11 +30,11 @@ const CategoriesGrid = async () => {
           Explorez notre vaste sélection de produits, soigneusement classés pour répondre à toutes vos envies d'aménagement et de décoration !
         </p>
       </div>
-      <div className="flex flex-wrap justify-center gap-8">
+      <div className="flex flex-col lg:flex-row flex-wrap justify-center gap-8">
         {topLevelCategories.map((category) => (
           <div
             key={category.id}
-            className="rounded-lg p-6 transition-colors w-fit h-fit cursor-pointer group/CategoryItem"
+            className="rounded-lg p-6 transition-colors w-full lg:w-fit h-fit cursor-pointer group/CategoryItem"
           >
             <LocalizedClientLink
               href={`/categories/${category.handle}`}
@@ -47,7 +47,7 @@ const CategoriesGrid = async () => {
                     : undefined
                 }
                 size="square"
-                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg mx-auto"
+                className="mb-4 w-full lg:w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg lg:mx-auto"
               />
               <div className="mb-4">
                 <h2 className="text-lg text-center mb-2 border-b border-black w-fit mx-auto flex justify-center items-center gap-1">{category.name} <ArrowUpRightMini className="group-hover/CategoryItem:rotate-45 ease-in-out duration-150 text-black" /></h2>
