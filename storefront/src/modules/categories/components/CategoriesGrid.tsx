@@ -1,0 +1,70 @@
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Thumbnail from "@modules/products/components/thumbnail"
+import { ArrowUpRightMini } from "@medusajs/icons"
+
+interface Category {
+  id: string
+  name: string
+  handle: string
+  category_children?: Category[]
+}
+
+interface CategoriesGridProps {
+  topLevelCategories: Category[]
+  categoryImageMap: Record<string, string>
+}
+
+const CategoriesGrid: React.FC<CategoriesGridProps> = ({ topLevelCategories, categoryImageMap }) => {
+  return (
+    <div className="flex flex-wrap justify-center gap-8">
+      {topLevelCategories.map((category) => (
+        <div
+          key={category.id}
+          className="rounded-lg p-6 transition-colors w-fit h-fit cursor-pointer group/CategoryItem"
+        >
+          <LocalizedClientLink
+            href={`/categories/${category.handle}`}
+            className="text-small-regular transition-colors"
+          >
+            <Thumbnail
+              thumbnail={
+                categoryImageMap[category.name]
+                  ? `/categories/${categoryImageMap[category.name]}`
+                  : undefined
+              }
+              size="square"
+              className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg mx-auto"
+            />
+            <div className="mb-4">
+              <h2 className="text-lg text-center mb-2 border-b border-black w-fit mx-auto flex justify-center items-center gap-1">{category.name} <ArrowUpRightMini className="group-hover/CategoryItem:rotate-45 ease-in-out duration-150 text-black" /></h2>
+            </div>
+          </LocalizedClientLink>
+          {category.category_children && category.category_children.length > 0 && (
+            <div className="mt-4">
+              <span className="text-small-regular text-ui-fg-subtle mb-2">Sous-catégories :</span>
+              <ul className="grid grid-cols-1 gap-1">
+                {category.category_children.slice(0, 3).map((child) => (
+                  <li key={child.id}>
+                    <LocalizedClientLink
+                      href={`/categories/${child.handle}`}
+                      className="text-small-regular text-ui-fg-subtle hover:text-ui-fg-base transition-colors"
+                    >
+                      {child.name}
+                    </LocalizedClientLink>
+                  </li>
+                ))}
+                {category.category_children.length > 3 && (
+                  <li className="text-small-regular text-ui-fg-subtle">
+                    +{category.category_children.length - 3} de plus
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default CategoriesGrid 
