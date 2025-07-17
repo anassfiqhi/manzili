@@ -28,7 +28,7 @@ export function HeroCarousel() {
     <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
       <CarouselContent className="!ml-0">
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] relative">
+          <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] min-[1441px]:h-[calc(55vh-67px)] relative">
             <Image
               src="/banner1.png"
               alt="banner 1"
@@ -63,7 +63,7 @@ export function HeroCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] relative">
+          <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] min-[1441px]:h-[calc(55vh-67px)] relative">
             <Image
               src="/banner2.png"
               alt="banner 2"
@@ -98,7 +98,7 @@ export function HeroCarousel() {
           </div>
         </CarouselItem>
         <CarouselItem className="!pl-0 w-full">
-          <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] relative">
+          <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] min-[1441px]:h-[calc(55vh-67px)] relative">
             <Image
               src="/banner3.png"
               alt="banner 3"
