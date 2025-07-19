@@ -75,7 +75,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
 
   return (
     <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3', className, isDisabled && 'opacity-50 pointer-events-none')}>
-      {min && <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>{convertToLocale({ amount: min, currency_code: currency })}</span>}
+      {min && <span className={cn('!mt-0 hidden lg:block', isDisabled && 'text-gray-400')}>{convertToLocale({ amount: min, currency_code: currency })}</span>}
       <DualRangeSlider
         label={(value) => <span>{convertToLocale({ amount: value || 0, currency_code: currency })}</span>}
         value={values}
@@ -87,7 +87,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         showLabelOnPress
         disabled={isDisabled}
       />
-      {max && <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>{convertToLocale({ amount: max, currency_code: currency })}</span>}
+      {max && <span className={cn('!mt-0 hidden lg:block', isDisabled && 'text-gray-400')}>{convertToLocale({ amount: max, currency_code: currency })}</span>}
     </div>
   );
 };

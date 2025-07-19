@@ -8,12 +8,14 @@ interface PriceFilterProps {
   min?: number;
   max?: number;
   currency?: string;
+  title?: string;
 }
 
 const PriceFilter = ({
   min = 0,
   max = 1000,
-  currency = '$'
+  currency = '$',
+  title = 'Price Range'
 }: PriceFilterProps) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -84,7 +86,12 @@ const PriceFilter = ({
   // };
 
   return (
-    <>
+    <div className='py-4 small:px-0 pl-6 small:ml-[1.675rem]'>
+      {title && (
+        <div className="mb-4">
+          <h3 className="text-sm font-medium text-gray-900">{title}</h3>
+        </div>
+      )}
       {/* {min && (
         <span className='flex justify-center items-center'>
           De&nbsp;{formatLabel(min)}
@@ -99,7 +106,7 @@ const PriceFilter = ({
         onValueChange={handlePriceChange}
       />
       {/* {max && min !== max && <span className='flex justify-center items-center'>À&nbsp;{formatLabel(max)}</span>} */}
-    </>
+    </div>
   );
 };
 

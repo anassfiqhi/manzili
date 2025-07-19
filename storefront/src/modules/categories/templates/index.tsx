@@ -65,6 +65,7 @@ export default async function CategoryTemplate({
     >
       <div>
         <PriceFilter 
+          title="Filter by Price"
           min={priceRange?.min || 0}
           max={priceRange?.max || 1000}
           currency={priceRange?.currency_code || region?.currency_code || '$'}
