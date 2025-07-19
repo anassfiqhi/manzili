@@ -5,6 +5,7 @@ import { DualRangeSlider } from '@/components/ui/dual-range-slider';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from "@lib/util/format-currency"
+import { convertToLocale } from '@/lib/util/money';
 
 interface PriceDualRangeSliderProps {
   min?: number;
@@ -21,8 +22,8 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   min,
   max,
   step = 10,
-  defaultValue = [0, 1000],
-  currency = '$',
+  defaultValue = [0, 0],
+  currency = 'USD',
   className = "w-full space-y-5 px-4",
   onValueChange,
   labelFormatter
@@ -31,7 +32,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Check if component should be disabled
-  const isDisabled = min === undefined || min === null || max === undefined || max === null;
+  const isDisabled = min === undefined || min === null || max === undefined || max === null || min === max;
 
   // Sync with external value changes
   useEffect(() => {
@@ -64,19 +65,19 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   };
 
   // If disabled, show a disabled message
-  if (isDisabled) {
-    return (
-      <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3 opacity-50', className)}>
-        <span className="text-sm text-gray-500">Price range unavailable</span>
-      </div>
-    );
-  }
+  // if (isDisabled) {
+  //   return (
+  //     <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3 opacity-50', className)}>
+  //       <span className="text-sm text-gray-500">Price range unavailable</span>
+  //     </div>
+  //   );
+  // }
 
   return (
-    <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3',className)}>
-      {min && <span className='!mt-0'>{formatLabel(min)}</span>}
+    <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3', className, isDisabled && 'opacity-50 pointer-events-none')}>
+      {min && <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>{convertToLocale({ amount: min, currency_code: currency })}</span>}
       <DualRangeSlider
-        label={(value) => <span>{formatLabel(value)}</span>}
+        label={(value) => <span>{convertToLocale({ amount: value || 0, currency_code: currency })}</span>}
         value={values}
         onValueChange={handleValueChange}
         min={min}
@@ -86,7 +87,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         showLabelOnPress
         disabled={isDisabled}
       />
-      {max && <span className='!mt-0'>{formatLabel(max)}</span>}
+      {max && <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>{convertToLocale({ amount: max, currency_code: currency })}</span>}
     </div>
   );
 };
