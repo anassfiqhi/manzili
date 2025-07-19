@@ -133,7 +133,7 @@ export function HeroCarousel() {
           </div>
         </CarouselItem>
       </CarouselContent>
-      <div className="hidden absolute min-h-[35px] w-fit bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 md:flex md:justify-center md:items-center">
+      <div className="flex absolute min-h-[35px] w-fit bottom-0 left-1/2 -translate-x-1/2 -translate-y-1/2 justify-center items-center">
         <CarouselPrevious icon={<MoveLeftIcon
           className="w-2 h-2 text-black"
         />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed] shadow-lg" />

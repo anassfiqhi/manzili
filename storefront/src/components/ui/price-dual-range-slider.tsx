@@ -18,8 +18,8 @@ interface PriceDualRangeSliderProps {
 }
 
 const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
-  min = 0,
-  max = 1000,
+  min,
+  max,
   step = 10,
   defaultValue = [0, 1000],
   currency = '$',
@@ -29,6 +29,9 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
 }) => {
   const [values, setValues] = useState<[number, number]>(defaultValue);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Check if component should be disabled
+  const isDisabled = min === undefined || min === null || max === undefined || max === null;
 
   // Sync with external value changes
   useEffect(() => {
@@ -46,6 +49,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   }, [onValueChange]);
 
   const handleValueChange = (newValues: [number, number]) => {
+    if (isDisabled) return;
     setValues(newValues);
     debouncedOnValueChange(newValues);
   };
@@ -59,6 +63,15 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
     return formatCurrency(value, currency || '');
   };
 
+  // If disabled, show a disabled message
+  if (isDisabled) {
+    return (
+      <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3 opacity-50', className)}>
+        <span className="text-sm text-gray-500">Price range unavailable</span>
+      </div>
+    );
+  }
+
   return (
     <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3',className)}>
       {min && <span className='!mt-0'>{formatLabel(min)}</span>}
@@ -71,6 +84,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         step={step}
         className='!mt-0'
         showLabelOnPress
+        disabled={isDisabled}
       />
       {max && <span className='!mt-0'>{formatLabel(max)}</span>}
     </div>
