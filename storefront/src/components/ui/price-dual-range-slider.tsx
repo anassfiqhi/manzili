@@ -29,8 +29,8 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   className = "w-full space-y-5 px-4",
   onValueChange,
   labelFormatter,
-  showMinLabel = true,
-  showMaxLabel = true,
+  showMinLabel = false,
+  showMaxLabel = false,
 }) => {
   const [values, setValues] = useState<[number, number]>(defaultValue);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
