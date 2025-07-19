@@ -78,12 +78,8 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   // }
 
   return (
-    <div className={cn('mt-5 flex justify-center items-center gap-6 lg:gap-3', className, isDisabled && 'opacity-50 pointer-events-none')}>
-      {showMinLabel && min !== undefined && (
-        <span className={cn('!mt-0 hidden lg:block', isDisabled && 'text-gray-400')}>
-          {convertToLocale({ amount: min, currency_code: currency })}
-        </span>
-      )}
+    <div className={cn('mt-8 flex-col justify-center items-center gap-6 lg:gap-3', className, isDisabled && 'opacity-50 pointer-events-none')}>
+
       <DualRangeSlider
         label={(value) => <span>{convertToLocale({ amount: value || 0, currency_code: currency })}</span>}
         value={values}
@@ -95,11 +91,19 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         showLabelOnPress
         disabled={isDisabled}
       />
-      {showMaxLabel && max !== undefined && (
-        <span className={cn('!mt-0 hidden lg:block', isDisabled && 'text-gray-400')}>
-          {convertToLocale({ amount: max, currency_code: currency })}
-        </span>
-      )}
+      <div className='flex justify-between'>
+        {showMinLabel && min !== undefined && (
+          <span className={cn('!mt-0 hidden lg:block', isDisabled && 'text-gray-400')}>
+            {convertToLocale({ amount: min, currency_code: currency })}
+          </span>
+        )}
+        {showMaxLabel && max !== undefined && (
+          <span className={cn('!mt-0 hidden lg:block', isDisabled && 'text-gray-400')}>
+            {convertToLocale({ amount: max, currency_code: currency })}
+          </span>
+        )}
+      </div>
+
     </div>
   );
 };

@@ -104,6 +104,8 @@ const PriceFilter = ({
         defaultValue={[minPrice, maxPrice]}
         currency={currency}
         onValueChange={handlePriceChange}
+        showMinLabel
+        showMaxLabel
       />
       {/* {max && min !== max && <span className='flex justify-center items-center'>À&nbsp;{formatLabel(max)}</span>} */}
     </div>
