@@ -38,15 +38,15 @@ export function HeroCarousel() {
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
-                <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>We deliver </b>the ideal</h2>
-                <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Our carefully curated selection of bath products is designed to elevate your bathing ritual to new heights.</p>
+                <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Nous livrons </b>l'idéal</h2>
+                <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Notre sélection soigneusement choisie de produits de bain est conçue pour élever votre rituel de bain à de nouveaux sommets.</p>
                 <div className="flex flex-col min-[376px]:flex-row justify-center items-center md:justify-start gap-3">
                   <LocalizedClientLink
                     href="/categories"
                     className="flex justify-center items-center text-center px-3 py-4 bg-white font-medium text-sm h-9 text-black border border-white border-solid rounded-full"
                     data-testid="categories-link"
                   >
-                    Show our Category
+                    Voir nos Catégories
                     <MoveRight className="ml-2 h-4 w-4 text-black" />
                   </LocalizedClientLink>
                   <LocalizedClientLink
@@ -54,7 +54,7 @@ export function HeroCarousel() {
                     className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
                     data-testid="store-link"
                   >
-                    Show our products
+                    Voir nos Produits
                     <MoveRight className="ml-2 h-4 w-4 text-white" />
                   </LocalizedClientLink>
                 </div>
@@ -73,15 +73,15 @@ export function HeroCarousel() {
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
-                <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Your bathroom </b>vision made possible.</h2>
-                <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Imagine stepping into your newly renovated bathroom, greeted by the soft glow of carefully placed lighting and the soothing sound of a cascading waterfall shower.</p>
+                <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Votre vision </b>de salle de bain réalisée.</h2>
+                <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Imaginez entrer dans votre salle de bain nouvellement rénovée, accueilli par la douce lueur d'un éclairage soigneusement placé et le son apaisant d'une douche en cascade.</p>
                 <div className="flex flex-col min-[376px]:flex-row justify-center items-center md:justify-start gap-3">
                   <LocalizedClientLink
                     href="/categories"
                     className="flex justify-center items-center text-center px-3 py-4 bg-white font-medium text-sm h-9 text-black border border-white border-solid rounded-full"
                     data-testid="categories-link"
                   >
-                    Show our Category
+                    Voir nos Catégories
                     <MoveRight className="ml-2 h-4 w-4 text-black" />
                   </LocalizedClientLink>
                   <LocalizedClientLink
@@ -89,7 +89,7 @@ export function HeroCarousel() {
                     className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
                     data-testid="store-link"
                   >
-                    Show our products
+                    Voir nos Produits
                     <MoveRight className="ml-2 h-4 w-4 text-white" />
                   </LocalizedClientLink>
                 </div>
@@ -108,15 +108,15 @@ export function HeroCarousel() {
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
-                <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Bathroom design </b>showroom</h2>
-                <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>The finest materials combined with traditional manufacturing skills make for the perfect look</p>
+                <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif"><b>Showroom </b>de design de salle de bain</h2>
+                <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>Les matériaux les plus fins combinés aux compétences de fabrication traditionnelles créent le look parfait</p>
                 <div className="flex flex-col min-[376px]:flex-row justify-center items-center md:justify-start gap-3">
                   <LocalizedClientLink
                     href="/categories"
                     className="flex justify-center items-center text-center px-3 py-4 bg-white font-medium text-sm h-9 text-black border border-white border-solid rounded-full"
                     data-testid="categories-link"
                   >
-                    Show our Category
+                    Voir nos Catégories
                     <MoveRight className="ml-2 h-4 w-4 text-black" />
                   </LocalizedClientLink>
                   <LocalizedClientLink
@@ -124,7 +124,7 @@ export function HeroCarousel() {
                     className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
                     data-testid="store-link"
                   >
-                    Show our products
+                    Voir nos Produits
                     <MoveRight className="ml-2 h-4 w-4 text-white" />
                   </LocalizedClientLink>
                 </div>

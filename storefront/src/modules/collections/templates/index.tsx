@@ -54,7 +54,7 @@ export default async function CollectionTemplate({
     <div className="flex flex-col small:flex-row small:items-start py-6 content-container">
       <div>
         <PriceFilter 
-          title="Filter by Price"
+          title="Filtrer par Prix"
           min={priceRange?.min || 0}
           max={priceRange?.max || 1000}
           currency={priceRange?.currency_code || region?.currency_code || '$'}

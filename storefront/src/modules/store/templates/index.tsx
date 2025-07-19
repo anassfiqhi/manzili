@@ -49,7 +49,7 @@ const StoreTemplate = async ({
     >
       <div>
         <PriceFilter 
-          title="Filter by Price"
+          title="Filtrer par Prix"
           min={priceRange?.min || 0}
           max={priceRange?.max || 1000}
           currency={priceRange?.currency_code || region?.currency_code || '$'}

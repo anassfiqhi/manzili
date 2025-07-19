@@ -13,9 +13,9 @@ interface PriceFilterProps {
 
 const PriceFilter = ({
   min = 0,
-  max = 1000,
-  currency = '$',
-  title = 'Price Range'
+  max = 0,
+  currency = 'USD',
+  title = 'Fourchette de Prix'
 }: PriceFilterProps) => {
   const router = useRouter();
   const pathname = usePathname();
