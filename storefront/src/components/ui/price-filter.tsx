@@ -86,7 +86,7 @@ const PriceFilter = ({
   // };
 
   return (
-    <div className='py-4 small:px-0 pl-6 small:ml-[1.675rem]'>
+    <div className='py-4 small:px-0 pl-6 small:mx-[1.675rem]'>
       {title && (
         <div className="mb-4">
           <h3 className="text-sm font-medium text-gray-900">{title}</h3>
