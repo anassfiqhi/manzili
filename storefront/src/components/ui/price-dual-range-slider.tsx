@@ -21,8 +21,8 @@ interface PriceDualRangeSliderProps {
 }
 
 const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
-  min,
-  max,
+  min: initialMin,
+  max: initialMax,
   step = 10,
   defaultValue = [0, 0],
   currency = 'USD',
@@ -33,15 +33,23 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   showMaxLabel = false,
 }) => {
   const [values, setValues] = useState<[number, number]>(defaultValue);
+  const [currentMin, setCurrentMin] = useState<number | undefined>(initialMin);
+  const [currentMax, setCurrentMax] = useState<number | undefined>(initialMax);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Check if component should be disabled
-  const isDisabled = min === undefined || min === null || max === undefined || max === null || min === max;
+  const isDisabled = currentMin === undefined || currentMin === null || currentMax === undefined || currentMax === null || currentMin === currentMax;
 
   // Sync with external value changes
   useEffect(() => {
     setValues(defaultValue);
   }, [defaultValue]);
+
+  // Update min/max when initial props change
+  useEffect(() => {
+    setCurrentMin(initialMin);
+    setCurrentMax(initialMax);
+  }, [initialMin, initialMax]);
 
   // Debounced handler
   const debouncedOnValueChange = useCallback((newValues: [number, number]) => {
@@ -55,7 +63,14 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
 
   const handleValueChange = (newValues: [number, number]) => {
     if (isDisabled) return;
+    
     setValues(newValues);
+    
+    // Update min and max based on current values
+    const [minValue, maxValue] = newValues;
+    setCurrentMin(minValue);
+    setCurrentMax(maxValue);
+    
     debouncedOnValueChange(newValues);
   };
 
@@ -84,22 +99,22 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         label={(value) => <span>{convertToLocale({ amount: value || 0, currency_code: currency })}</span>}
         value={values}
         onValueChange={handleValueChange}
-        min={min}
-        max={max}
+        min={currentMin}
+        max={currentMax}
         step={step}
         className='!mt-0'
         showLabelOnPress
         disabled={isDisabled}
       />
       <div className='flex justify-between'>
-        {showMinLabel && min !== undefined && (
+        {showMinLabel && currentMin !== undefined && (
           <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>
-            {convertToLocale({ amount: min, currency_code: currency })}
+            {convertToLocale({ amount: currentMin, currency_code: currency })}
           </span>
         )}
-        {showMaxLabel && max !== undefined && (
+        {showMaxLabel && currentMax !== undefined && (
           <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>
-            {convertToLocale({ amount: max, currency_code: currency })}
+            {convertToLocale({ amount: currentMax, currency_code: currency })}
           </span>
         )}
         {/* {showMinLabel && min !== undefined && (
