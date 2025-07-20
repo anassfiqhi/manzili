@@ -92,14 +92,14 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         disabled={isDisabled}
       />
       <div className='flex justify-between'>
-        {showMinLabel && min !== undefined && (
+        {showMinLabel && values[0] !== undefined && (
           <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>
-            {convertToLocale({ amount: min, currency_code: currency })}
+            {convertToLocale({ amount: values[0], currency_code: currency })}
           </span>
         )}
-        {showMaxLabel && max !== undefined && (
+        {showMaxLabel && values[1] !== undefined && (
           <span className={cn('!mt-0', isDisabled && 'text-gray-400')}>
-            {convertToLocale({ amount: max, currency_code: currency })}
+            {convertToLocale({ amount: values[1], currency_code: currency })}
           </span>
         )}
         {/* {showMinLabel && min !== undefined && (
