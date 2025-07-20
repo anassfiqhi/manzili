@@ -78,7 +78,7 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
   // }
 
   return (
-    <div className={cn('mt-8 flex-col justify-center items-center gap-6 lg:gap-3', className, isDisabled && 'opacity-50 pointer-events-none')}>
+    <div className={cn('mt-8 flex-col justify-center items-center gap-6 lg:gap-3', className, 'px-0', isDisabled && 'opacity-50 pointer-events-none')}>
 
       <DualRangeSlider
         label={(value) => <span>{convertToLocale({ amount: value || 0, currency_code: currency })}</span>}
