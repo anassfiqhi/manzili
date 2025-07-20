@@ -70,7 +70,7 @@ export function HeroCarousel() {
                   <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto h-full w-full flex flex-col">
                     {/* Title skeleton */}
                     <div className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8">
-                      <div className="h-full w-3/4 md:w-2/3 lg:w-1/2 bg-gray-300 rounded animate-pulse" style={{height:'1em'}} />
+                      <div className="h-full w-3/4 md:w-2/3 lg:w-1/2 bg-gray-300 rounded skeleton-shimmer" style={{height:'1em'}} />
                     </div>
                     {/* Description skeleton */}
                     <div className="truncate whitespace-nowrap text-[14px] mb-8">
