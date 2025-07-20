@@ -88,7 +88,8 @@ const PriceDualRangeSlider: React.FC<PriceDualRangeSliderProps> = ({
         max={max}
         step={step}
         className='!mt-0'
-        showLabelOnPress
+        // showLabelOnPress
+        alwaysShowLabel
         disabled={isDisabled}
       />
       <div className='flex justify-between'>
