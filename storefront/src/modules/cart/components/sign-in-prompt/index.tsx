@@ -4,7 +4,7 @@ import { MoveRightIcon } from "lucide-react"
 
 const SignInPrompt = () => {
   return (
-    <div className="bg-white flex flex-col md:flex-row items-center justify-between">
+    <div className="bg-white flex flex-col gap-3 md:gap-0 md:flex-row items-center justify-between">
       <div>
         <Heading level="h2" className="txt-xlarge">
           Vous avez déjà un compte ?
