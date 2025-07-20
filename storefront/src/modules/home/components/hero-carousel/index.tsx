@@ -10,6 +10,20 @@ export function HeroCarousel() {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
+  // Add loading state for each image
+  const [imagesLoaded, setImagesLoaded] = useState([false, false, false])
+
+  // Helper to check if all images are loaded
+  const allImagesLoaded = imagesLoaded.every(Boolean)
+
+  // Handler for image load
+  const handleImageLoad = (idx: number) => {
+    setImagesLoaded((prev) => {
+      const updated = [...prev]
+      updated[idx] = true
+      return updated
+    })
+  }
 
   useEffect(() => {
     if (!api) {
@@ -24,6 +38,13 @@ export function HeroCarousel() {
     })
   }, [api])
 
+  // Skeleton placeholder
+  if (!allImagesLoaded) {
+    return (
+      <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] min-[1441px]:h-[calc(55vh-67px)] bg-gray-200 animate-pulse rounded-xl" />
+    )
+  }
+
   return (
     <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
       <CarouselContent className="!ml-0">
@@ -36,6 +57,7 @@ export function HeroCarousel() {
               sizes="100vw"
               className="object-cover"
               loading="lazy"
+              onLoadingComplete={() => handleImageLoad(0)}
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
@@ -72,6 +94,7 @@ export function HeroCarousel() {
               sizes="100vw"
               className="object-cover"
               loading="lazy"
+              onLoadingComplete={() => handleImageLoad(1)}
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
@@ -108,6 +131,7 @@ export function HeroCarousel() {
               sizes="100vw"
               className="object-cover"
               loading="lazy"
+              onLoadingComplete={() => handleImageLoad(2)}
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
