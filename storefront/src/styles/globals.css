@@ -163,11 +163,6 @@
   }
 }
 
-.skeleton-shimmer {
-  position: relative;
-  overflow: hidden;
-  background-color: #e5e7eb; /* Tailwind gray-200 */
-}
 .skeleton-shimmer::before {
   content: "";
   position: absolute;
