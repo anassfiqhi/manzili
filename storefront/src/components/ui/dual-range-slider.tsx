@@ -6,17 +6,26 @@ import * as SliderPrimitive from '@radix-ui/react-slider';
 import { cn } from '@/lib/utils';
 
 interface DualRangeSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
-  labelPosition?: 'top' | 'bottom';
-  label?: (value: number | undefined) => React.ReactNode;
+  labelPosition?: 'top' | 'bottom' | ['top' | 'bottom', 'top' | 'bottom'];
+  label?: (value: number | undefined, index: number) => React.ReactNode;
   showLabelOnPress?: boolean;
+  alwaysShowLabel?: boolean;
 }
 
 const DualRangeSlider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   DualRangeSliderProps
->(({ className, label, labelPosition = 'top', showLabelOnPress = false, ...props }, ref) => {
+>(({ className, label, labelPosition = 'top', showLabelOnPress = false, alwaysShowLabel = false, ...props }, ref) => {
   const initialValue = Array.isArray(props.value) ? props.value : [props.min, props.max];
   const [pressedThumb, setPressedThumb] = React.useState<number | null>(null);
+
+  // Helper to get label position for each thumb
+  const getLabelPosition = (index: number) => {
+    if (Array.isArray(labelPosition)) {
+      return labelPosition[index] || 'top';
+    }
+    return labelPosition;
+  };
 
   return (
     <SliderPrimitive.Root
@@ -35,15 +44,15 @@ const DualRangeSlider = React.forwardRef<
             onPointerUp={showLabelOnPress ? () => setPressedThumb(null) : undefined}
             onPointerLeave={showLabelOnPress ? () => setPressedThumb(null) : undefined}
           >
-            {label && (showLabelOnPress ? pressedThumb === index : true) && (
+            {label && ((alwaysShowLabel || (showLabelOnPress ? pressedThumb === index : true))) && (
               <span
                 className={cn(
                   'absolute flex w-full justify-center',
-                  labelPosition === 'top' && '-top-7',
-                  labelPosition === 'bottom' && 'top-4',
+                  getLabelPosition(index) === 'top' && '-top-7',
+                  getLabelPosition(index) === 'bottom' && 'top-4',
                 )}
               >
-                {label(value)}
+                {label(value, index)}
               </span>
             )}
           </SliderPrimitive.Thumb>
