@@ -35,6 +35,7 @@ export function HeroCarousel() {
               fill
               sizes="100vw"
               className="object-cover"
+              loading="lazy"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
@@ -70,6 +71,7 @@ export function HeroCarousel() {
               fill
               sizes="100vw"
               className="object-cover"
+              loading="lazy"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">
@@ -105,6 +107,7 @@ export function HeroCarousel() {
               fill
               sizes="100vw"
               className="object-cover"
+              loading="lazy"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 z-10">
               <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto">

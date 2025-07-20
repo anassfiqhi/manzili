@@ -44,7 +44,7 @@ const DualRangeSlider = React.forwardRef<
             onPointerUp={showLabelOnPress ? () => setPressedThumb(null) : undefined}
             onPointerLeave={showLabelOnPress ? () => setPressedThumb(null) : undefined}
           >
-            {label && ((alwaysShowLabel || (showLabelOnPress ? pressedThumb === index : true))) && (
+            {label && ((alwaysShowLabel || (showLabelOnPress ? pressedThumb === index : false))) && (
               <span
                 className={cn(
                   'absolute flex w-full justify-center',
