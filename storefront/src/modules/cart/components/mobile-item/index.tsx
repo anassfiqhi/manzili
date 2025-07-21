@@ -62,7 +62,7 @@ const MobileItem = ({ item }: MobileItemProps) => {
       {/* Product Details */}
       <div className="flex-1 min-w-0">
         {/* Product Name */}
-        <Text className="font-bold text-xl text-gray-900 mb-2">
+        <Text className="font-bold text-xl text-gray-900 mb-2 line-clamp-2">
           {item.product_title}
         </Text>
 
@@ -89,7 +89,7 @@ const MobileItem = ({ item }: MobileItemProps) => {
 
         {/* Remove Item Link */}
         <div className="mb-2">
-          <DeleteButton id={item.id} className="text-red-600 hover:text-red-800 text-sm underline">
+          <DeleteButton id={item.id} className="text-sm">
             Remove item
           </DeleteButton>
         </div>
