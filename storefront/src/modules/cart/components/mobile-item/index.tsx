@@ -62,7 +62,7 @@ const MobileItem = ({ item }: MobileItemProps) => {
       {/* Product Details */}
       <div className="flex-1 min-w-0">
         {/* Product Name */}
-        <Text className="font-bold text-xl text-gray-900 mb-2 line-clamp-2">
+        <Text className="font-bold text-xl text-gray-900 mb-2 line-clamp-1">
           {item.product_title}
         </Text>
 
