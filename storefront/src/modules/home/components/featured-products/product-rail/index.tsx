@@ -20,7 +20,7 @@ export default function ProductRail({
   return (
     <div className="content-container py-12 small:py-24">
       <div className="flex justify-between items-center mb-8">
-        <Text className="text-2xl-semi mb-2 font-maven">{collection.title}</Text>
+        <h1 className="text-2xl mb-2 font-maven uppercase">{collection.title}</h1>
         <InteractiveLink className="h-fit" href={`/collections/${collection.handle}`}>
           View all
         </InteractiveLink>
