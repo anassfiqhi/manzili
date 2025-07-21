@@ -6,6 +6,7 @@ import Image from "next/image"
 import LocalizedClientLink from "@/modules/common/components/localized-client-link"
 import { MoveLeftIcon, MoveRight, MoveRightIcon } from "lucide-react"
 import clsx from "clsx"
+import { Container } from "@medusajs/ui"
 
 export function HeroCarousel() {
   const [api, setApi] = useState<CarouselApi>()
@@ -83,7 +84,7 @@ export function HeroCarousel() {
                     </div>
                   </div>
                   {/* Image skeleton background */}
-                  <div className="w-full h-full absolute top-0 left-0 bg-gray-300 animate-pulse -z-10" />
+                  <Container className="w-full h-full absolute top-0 left-0 bg-gray-100 bg-ui-bg-subtle -z-10" />
                 </div>
               )}
               <Image
