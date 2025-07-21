@@ -102,7 +102,7 @@ const Item = ({ item, type = "full" }: ItemProps) => {
               </option>
             </CartItemSelect> */}
             <Counter
-              initial={item.quantity}
+              value={item.quantity}
               min={1}
               max={maxQuantity}
               onChange={(value) => changeQuantity(value)}

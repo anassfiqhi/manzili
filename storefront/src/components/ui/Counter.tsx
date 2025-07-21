@@ -2,19 +2,25 @@ import { MinusIcon, PlusIcon } from "lucide-react";
 import React, { useState } from "react";
 
 interface CounterProps {
+  value?: number;
   initial?: number;
   min?: number;
   max?: number;
   onChange?: (value: number) => void;
 }
 
-const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onChange }) => {
-  const [value, setValue] = useState(initial);
+const Counter: React.FC<CounterProps> = ({ value: controlledValue, initial = 1, min = 1, max = 99, onChange }) => {
+  const [internalValue, setInternalValue] = useState(initial);
+  
+  // Use controlled value if provided, otherwise use internal state
+  const value = controlledValue !== undefined ? controlledValue : internalValue;
 
   const handleDecrement = () => {
     if (value > min) {
       const newValue = value - 1;
-      setValue(newValue);
+      if (controlledValue === undefined) {
+        setInternalValue(newValue);
+      }
       onChange?.(newValue);
     }
   };
@@ -22,7 +28,9 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
   const handleIncrement = () => {
     if (value < max) {
       const newValue = value + 1;
-      setValue(newValue);
+      if (controlledValue === undefined) {
+        setInternalValue(newValue);
+      }
       onChange?.(newValue);
     }
   };
@@ -32,7 +40,9 @@ const Counter: React.FC<CounterProps> = ({ initial = 1, min = 1, max = 99, onCha
     if (isNaN(newValue)) newValue = min;
     if (newValue < min) newValue = min;
     if (newValue > max) newValue = max;
-    setValue(newValue);
+    if (controlledValue === undefined) {
+      setInternalValue(newValue);
+    }
     onChange?.(newValue);
   };
 

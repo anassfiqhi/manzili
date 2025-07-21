@@ -79,7 +79,7 @@ const MobileItem = ({ item }: MobileItemProps) => {
         {/* Quantity Selector */}
         <div className="flex items-center gap-3 mb-4">
           <Counter
-            initial={item.quantity}
+            value={item.quantity}
             min={1}
             max={maxQuantity}
             onChange={(value) => changeQuantity(value)}
