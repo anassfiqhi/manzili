@@ -68,7 +68,8 @@ module.exports = {
   				'Helvetica Neue',
   				'Ubuntu',
   				'sans-serif'
-  			]
+  			],
+  			maven: ['"Maven Pro"', 'Arial', 'Helvetica', 'sans-serif'],
   		},
   		keyframes: {
   			ring: {

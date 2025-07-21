@@ -25,7 +25,7 @@ const CategoriesGrid = async () => {
   return (
     <div className="py-12">
       <div className="mb-8 content-container text-center">
-        <h1 className="text-2xl-semi mb-2">Découvrez nos Catégories</h1>
+        <h1 className="text-2xl-semi mb-2 font-maven">Découvrez nos Catégories</h1>
         <p className="text-base-regular text-ui-fg-subtle">
           Explorez notre vaste sélection de produits, soigneusement classés pour répondre à toutes vos envies d'aménagement et de décoration !
         </p>
