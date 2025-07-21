@@ -14,7 +14,7 @@ const CartTemplate = ({
 }) => {
   return (
     <div className="py-12">
-      <div className="px-2 md:content-container" data-testid="cart-container">
+      <div className="px-2 sm:content-container" data-testid="cart-container">
         {cart?.items?.length ? (
           <div className="grid grid-cols-1 small:grid-cols-[2fr_1fr] gap-x-40">
             <div className="flex flex-col bg-white py-6 gap-y-6">
