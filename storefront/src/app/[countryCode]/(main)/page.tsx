@@ -1,10 +1,9 @@
+export const dynamic = 'force-dynamic'
 import { Metadata } from "next"
-
 import FeaturedProducts from "@modules/home/components/featured-products"
 import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { HeroCarousel } from "@/modules/home/components/hero-carousel"
-import { listCategories } from "@lib/data/categories"
 import CategoriesGrid from "@modules/categories/components/CategoriesGrid"
 
 export const metadata: Metadata = {
