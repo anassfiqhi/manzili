@@ -4,7 +4,7 @@ import { HttpTypes } from "@medusajs/types"
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
 
-export default function ProductRail({
+export default async function ProductRail({
   collection,
   region,
 }: {
