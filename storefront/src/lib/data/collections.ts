@@ -26,37 +26,37 @@ export const getCollectionByHandle = cache(async function (
     .then(({ collections }) => collections[0])
 })
 
-export const getCollectionsWithProducts = cache(
-  async (countryCode: string): Promise<HttpTypes.StoreCollection[] | null> => {
-    const { collections } = await getCollectionsList(0, 3)
+export const getCollectionsWithProducts = async (
+  countryCode: string
+): Promise<HttpTypes.StoreCollection[] | null> => {
+  const { collections } = await getCollectionsList(0, 3)
 
-    if (!collections) {
-      return null
-    }
-
-    const collectionIds = collections
-      .map((collection) => collection.id)
-      .filter(Boolean) as string[]
-
-    const { response } = await getProductsList({
-      queryParams: { collection_id: collectionIds },
-      countryCode,
-    })
-
-    response.products.forEach((product) => {
-      const collection = collections.find(
-        (collection) => collection.id === product.collection_id
-      )
-
-      if (collection) {
-        if (!collection.products) {
-          collection.products = []
-        }
-
-        collection.products.push(product as any)
-      }
-    })
-
-    return collections as unknown as HttpTypes.StoreCollection[]
+  if (!collections) {
+    return null
   }
-)
+
+  const collectionIds = collections
+    .map((collection) => collection.id)
+    .filter(Boolean) as string[]
+
+  const { response } = await getProductsList({
+    queryParams: { collection_id: collectionIds },
+    countryCode,
+  })
+
+  response.products.forEach((product) => {
+    const collection = collections.find(
+      (collection) => collection.id === product.collection_id
+    )
+
+    if (collection) {
+      if (!collection.products) {
+        collection.products = []
+      }
+
+      collection.products.push(product as any)
+    }
+  })
+
+  return collections as unknown as HttpTypes.StoreCollection[]
+}
