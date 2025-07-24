@@ -40,7 +40,7 @@ export const getProductByHandle = cache(async function (
     .then(({ products }) => products[0])
 })
 
-export const getProductsList = async function ({
+export const getProductsList = cache(async function ({
   pageParam = 1,
   queryParams,
   countryCode,
@@ -87,7 +87,7 @@ export const getProductsList = async function ({
         queryParams,
       }
     })
-}
+})
 
 /**
  * This will fetch 100 products to the Next.js cache and sort them based on the sortBy parameter.

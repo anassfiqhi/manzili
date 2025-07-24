@@ -9,7 +9,7 @@ export const retrieveCollection = cache(async function (id: string) {
     .then(({ collection }) => collection)
 })
 
-export const getCollectionsList = (async function (
+export const getCollectionsList = cache(async function (
   offset: number = 0,
   limit: number = 100
 ): Promise<{ collections: HttpTypes.StoreCollection[]; count: number }> {
@@ -26,9 +26,9 @@ export const getCollectionByHandle = cache(async function (
     .then(({ collections }) => collections[0])
 })
 
-export const getCollectionsWithProducts = async (
+export const getCollectionsWithProducts = cache(async function (
   countryCode: string
-): Promise<HttpTypes.StoreCollection[] | null> => {
+): Promise<HttpTypes.StoreCollection[] | null> {
   const { collections } = await getCollectionsList(0, 3)
 
   if (!collections) {
@@ -59,4 +59,4 @@ export const getCollectionsWithProducts = async (
   })
 
   return collections as unknown as HttpTypes.StoreCollection[]
-}
+})
