@@ -4,6 +4,7 @@ import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { HeroCarousel } from "@/modules/home/components/hero-carousel"
 import CategoriesGrid from "@modules/categories/components/CategoriesGrid"
+import { Suspense } from "react"
 
 export const metadata: Metadata = {
   title: "Manzili Store",
@@ -29,7 +30,9 @@ export default async function Home({
       <CategoriesGrid />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
-          <FeaturedProducts collections={collections} region={region} />
+          <Suspense fallback={<p>Loading collections</p>}>
+            <FeaturedProducts collections={collections} region={region} />
+          </Suspense>
         </ul>
       </div>
     </>
