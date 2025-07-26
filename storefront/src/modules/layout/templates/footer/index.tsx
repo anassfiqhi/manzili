@@ -143,7 +143,7 @@ export default async function Footer() {
             </div> */}
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
+        <div className="flex flex-col md:flex-row w-full mb-16 justify-center items-center md:justify-between text-ui-fg-muted">
           <Text className="txt-compact-small">
             © {new Date().getFullYear()} Manzili Store. All rights reserved.
           </Text>
