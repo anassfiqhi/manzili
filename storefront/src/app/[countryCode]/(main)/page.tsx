@@ -30,7 +30,7 @@ export default async function Home({
       <CategoriesGrid />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
-          <Suspense fallback={<p>Loading collections</p>}>
+          <Suspense fallback={<p>Loading collections ...</p>}>
             <FeaturedProducts collections={collections} region={region} />
           </Suspense>
         </ul>
