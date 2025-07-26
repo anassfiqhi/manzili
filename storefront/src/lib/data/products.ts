@@ -40,7 +40,7 @@ export const getProductByHandle = cache(async function (
     .then(({ products }) => products[0])
 })
 
-export const getProductsList = cache(async function ({
+export const getProductsList = (async function ({
   pageParam = 1,
   queryParams,
   countryCode,
