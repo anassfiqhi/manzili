@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic'
-
 import { HttpTypes } from "@medusajs/types"
 import InteractiveLink from "@modules/common/components/interactive-link"
 import ProductPreview from "@modules/products/components/product-preview"
