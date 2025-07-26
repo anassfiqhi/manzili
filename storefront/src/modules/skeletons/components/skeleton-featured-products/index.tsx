@@ -3,14 +3,6 @@ import SkeletonProductPreview from "@modules/skeletons/components/skeleton-produ
 const SkeletonFeaturedProducts = () => {
   return (
     <>
-      {/* Section heading and description skeleton */}
-      <div className="content-container">
-        <div className="mb-8 text-center">
-          <div className="h-10 w-64 bg-gray-100 animate-pulse mx-auto mb-4"></div>
-          <div className="h-6 w-96 bg-gray-100 animate-pulse mx-auto"></div>
-        </div>
-      </div>
-      
       {/* Render skeleton for multiple collections */}
       {Array.from({ length: 2 }).map((_, collectionIndex) => (
         <li key={collectionIndex}>
