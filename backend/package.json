@@ -36,6 +36,7 @@
     "@mikro-orm/postgresql": "6.4.3",
     "@react-email/components": "^0.0.26",
     "@rokmohar/medusa-plugin-meilisearch": "^1.1.4",
+    "@vonage/auth": "^1.12.0",
     "@vonage/server-sdk": "^3.22.1",
     "awilix": "^8.0.1",
     "medusajs-launch-utils": "^0.0.16",

@@ -1,99 +1,106 @@
-import { Logger, MedusaService } from "@medusajs/framework/utils"
-import { Vonage } from "@vonage/server-sdk"
+import { Logger, NotificationTypes } from '@medusajs/framework/types'
+import { AbstractNotificationProviderService, MedusaError } from '@medusajs/framework/utils'
+import { Vonage } from '@vonage/server-sdk'
+import { Auth } from '@vonage/auth'
 
 type InjectedDependencies = {
   logger: Logger
 }
 
-type SendSMSInput = {
-  to: string
-  message: string
-  from?: string
+interface VonageServiceConfig {
+  apiKey: string
+  apiSecret: string
+  from: string
 }
 
-export default class SMSService extends MedusaService({
-  inject: ["logger"],
-}) {
+export interface VonageNotificationServiceOptions {
+  api_key: string
+  api_secret: string
+  from: string
+}
+
+/**
+ * Service to handle SMS notifications using the Vonage API.
+ */
+export class VonageNotificationService extends AbstractNotificationProviderService {
+  static identifier = "VONAGE_NOTIFICATION_SERVICE"
+  protected config_: VonageServiceConfig
   protected logger_: Logger
-  private vonage: Vonage
+  protected vonage: Vonage
 
-  constructor({ logger }: InjectedDependencies) {
-    // @ts-ignore
-    super(...arguments)
+  constructor({ logger }: InjectedDependencies, options: VonageNotificationServiceOptions) {
+    super()
+    this.config_ = {
+      apiKey: options.api_key,
+      apiSecret: options.api_secret,
+      from: options.from
+    }
     this.logger_ = logger
-
-    // Initialize Vonage with API credentials
-    this.vonage = new Vonage({
-      apiKey: process.env.VONAGE_API_KEY || "4d0",
-      apiSecret: process.env.VONAGE_API_SECRET || "yVmqjtla"
+    const credentials = new Auth({
+      apiKey: this.config_.apiKey,
+      apiSecret: this.config_.apiSecret
     })
+    this.vonage = new Vonage(credentials)
   }
 
-  async sendSMS({ to, message, from = "Manzili Support" }: SendSMSInput) {
+  private isValidPhoneNumber(phone: string): boolean {
+    // Basic phone number validation - should start with + and contain only digits
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/
+    return phoneRegex.test(phone.replace(/\s/g, ''))
+  }
+
+  async send(
+    notification: NotificationTypes.ProviderSendNotificationDTO
+  ): Promise<NotificationTypes.ProviderSendNotificationResultsDTO> {
+    if (!notification) {
+      throw new MedusaError(MedusaError.Types.INVALID_DATA, `No notification information provided`)
+    }
+    if (notification.channel !== 'sms') {
+      throw new MedusaError(MedusaError.Types.INVALID_DATA, `Only SMS notifications are supported by this provider`)
+    }
+
+    // Validate phone number
+    if (!notification.to || !notification.to.trim() || !this.isValidPhoneNumber(notification.to)) {
+      throw new MedusaError(MedusaError.Types.INVALID_DATA, `Invalid phone number: ${notification.to}`)
+    }
+
+    // Get message content from notification data
+    const message = (notification.data?.message || notification.data?.text) as string
+    if (!message) {
+      throw new MedusaError(MedusaError.Types.INVALID_DATA, `No message content provided`)
+    }
+
+    // Send SMS via Vonage
     try {
-      this.logger_.info(`Sending SMS to ${to}`)
+      this.logger_.info(`Sending SMS to ${notification.to}`)
       
       const response = await this.vonage.sms.send({
-        to,
-        from,
+        to: notification.to,
+        from: notification.from?.trim() ?? this.config_.from,
         text: message
       })
 
-      this.logger_.info(`SMS sent successfully to ${to}`, { response })
-      return response
-    } catch (error) {
-      this.logger_.error(`Failed to send SMS to ${to}`, { error })
-      throw new Error(`SMS sending failed: ${error.message}`)
+      this.logger_.info(`SMS sent successfully to ${notification.to}`)
+      return {}
+    } catch (error: any) {
+      this.logger_.error(`Failed to send SMS to ${notification.to}`)
+      throw new MedusaError(
+        MedusaError.Types.UNEXPECTED_STATE,
+        `Failed to send SMS to ${notification.to}: ${error.message}`
+      )
     }
   }
 
-  async sendContactNotification(contactData: {
-    name: string
-    email: string
-    subject: string
-    message: string
-  }) {
-    const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
-    
-    const smsMessage = `
-Nouveau message de contact reçu:
-
-De: ${contactData.name} (${contactData.email})
-Sujet: ${contactData.subject}
-
-Message: ${contactData.message}
-
----
-Manzili E-commerce
-    `.trim()
-
-    return await this.sendSMS({
-      to: adminPhoneNumber,
-      message: smsMessage,
-      from: "Manzili Contact"
-    })
-  }
-
-  async sendCustomerConfirmation(customerData: {
-    name: string
-    phone: string
-    subject: string
-  }) {
-    const confirmationMessage = `
-Bonjour ${customerData.name},
-
-Merci de nous avoir contactés concernant "${customerData.subject}".
-
-Votre message a été reçu et notre équipe vous répondra dans les plus brefs délais.
-
-Cordialement,
-L'équipe Manzili
-    `.trim()
-
-    return await this.sendSMS({
-      to: customerData.phone,
-      message: confirmationMessage,
-      from: "Manzili"
-    })
+  // Helper method for direct SMS sending (backward compatibility)
+  async sendSMS(to: string, message: string, from?: string): Promise<any> {
+    return this.send({
+      to,
+      from: from || this.config_.from,
+      channel: 'sms',
+      template: 'custom',
+      data: { message }
+    } as NotificationTypes.ProviderSendNotificationDTO)
   }
 }
+
+export default VonageNotificationService

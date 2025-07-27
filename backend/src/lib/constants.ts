@@ -91,6 +91,13 @@ export const MEILISEARCH_HOST = process.env.MEILISEARCH_HOST;
 export const MEILISEARCH_ADMIN_KEY = process.env.MEILISEARCH_ADMIN_KEY;
 
 /**
+ * (optional) Vonage SMS configuration
+ */
+export const VONAGE_API_KEY = process.env.VONAGE_API_KEY;
+export const VONAGE_API_SECRET = process.env.VONAGE_API_SECRET;
+export const VONAGE_FROM = process.env.VONAGE_FROM || "Manzili";
+
+/**
  * Worker mode
  */
 export const WORKER_MODE =

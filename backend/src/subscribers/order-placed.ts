@@ -2,7 +2,6 @@ import { Modules } from '@medusajs/framework/utils'
 import { INotificationModuleService, IOrderModuleService } from '@medusajs/framework/types'
 import { SubscriberArgs, SubscriberConfig } from '@medusajs/medusa'
 import { EmailTemplates } from '../modules/email-notifications/templates'
-import SMSService from '../modules/sms/service'
 
 export default async function orderPlacedHandler({
   event: { data },
@@ -10,7 +9,6 @@ export default async function orderPlacedHandler({
 }: SubscriberArgs<any>) {
   const notificationModuleService: INotificationModuleService = container.resolve(Modules.NOTIFICATION)
   const orderModuleService: IOrderModuleService = container.resolve(Modules.ORDER)
-  const smsService: SMSService = container.resolve('sms')
 
   const order = await orderModuleService.retrieveOrder(data.id, { relations: ['items', 'summary', 'shipping_address', 'billing_address'] })
   const shippingAddress = await (orderModuleService as any).orderAddressService_.retrieve(order.shipping_address.id)
@@ -57,10 +55,13 @@ Merci pour votre confiance !
 L'équipe Manzili
       `.trim()
 
-      await smsService.sendSMS({
+      await notificationModuleService.createNotifications({
         to: customerPhone,
-        message: customerMessage,
-        from: "Manzili"
+        channel: 'sms',
+        template: 'order_confirmation',
+        data: {
+          message: customerMessage
+        }
       })
       console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
     }
@@ -79,10 +80,13 @@ Articles: ${order.items?.length || 0}
 Voir dans l'admin: ${process.env.BACKEND_URL}/admin/orders/${order.id}
     `.trim()
 
-    await smsService.sendSMS({
+    await notificationModuleService.createNotifications({
       to: adminPhoneNumber,
-      message: adminMessage,
-      from: "Manzili Admin"
+      channel: 'sms',
+      template: 'admin_order_notification',
+      data: {
+        message: adminMessage
+      }
     })
     console.log(`Order notification SMS sent to admin: ${adminPhoneNumber}`)
 

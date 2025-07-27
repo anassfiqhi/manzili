@@ -21,7 +21,10 @@ import {
   MINIO_SECRET_KEY,
   MINIO_BUCKET,
   MEILISEARCH_HOST,
-  MEILISEARCH_ADMIN_KEY
+  MEILISEARCH_ADMIN_KEY,
+  VONAGE_API_KEY,
+  VONAGE_API_SECRET,
+  VONAGE_FROM
 } from 'lib/constants';
 
 loadEnv(process.env.NODE_ENV, process.cwd());
@@ -114,6 +117,16 @@ const medusaConfig = {
               from: RESEND_FROM_EMAIL,
             },
           }] : []),
+          ...(VONAGE_API_KEY && VONAGE_API_SECRET ? [{
+            resolve: './src/modules/sms',
+            id: 'vonage',
+            options: {
+              channels: ['sms'],
+              api_key: VONAGE_API_KEY,
+              api_secret: VONAGE_API_SECRET,
+              from: VONAGE_FROM,
+            },
+          }] : []),
         ]
       }
     }] : []),
@@ -132,12 +145,7 @@ const medusaConfig = {
           },
         ],
       },
-    }] : []),
-    // SMS Module
-    {
-      resolve: './src/modules/sms',
-      key: 'sms'
-    }
+    }] : [])
   ],
   plugins: [
   ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
