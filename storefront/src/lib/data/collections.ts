@@ -9,14 +9,14 @@ export const retrieveCollection = cache(async function (id: string) {
     .then(({ collection }) => collection)
 })
 
-export const getCollectionsList = (async function (
+export const getCollectionsList = async function (
   offset: number = 0,
   limit: number = 100
 ): Promise<{ collections: HttpTypes.StoreCollection[]; count: number }> {
   return sdk.store.collection
-    .list({ limit, offset: 0 }, { next: { tags: ["collections"] } })
+    .list({ limit, offset: 0 })
     .then(({ collections }) => ({ collections, count: collections.length }))
-})
+}
 
 export const getCollectionByHandle = cache(async function (
   handle: string
@@ -26,7 +26,7 @@ export const getCollectionByHandle = cache(async function (
     .then(({ collections }) => collections[0])
 })
 
-export const getCollectionsWithProducts = (async function (
+export const getCollectionsWithProducts = async function (
   countryCode: string
 ): Promise<HttpTypes.StoreCollection[] | null> {
   const { collections } = await getCollectionsList(0, 3)
@@ -59,4 +59,4 @@ export const getCollectionsWithProducts = (async function (
   })
 
   return collections as unknown as HttpTypes.StoreCollection[]
-})
+}

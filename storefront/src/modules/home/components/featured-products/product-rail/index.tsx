@@ -20,7 +20,7 @@ export default async function ProductRail({
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl mb-2 font-maven uppercase">{collection.title}</h1>
         <InteractiveLink className="h-fit" href={`/collections/${collection.handle}`}>
-          View all
+          Voir tout
         </InteractiveLink>
       </div>
       <ul className="grid grid-cols-2 small:grid-cols-4 gap-x-6 gap-y-8 small:gap-y-8">

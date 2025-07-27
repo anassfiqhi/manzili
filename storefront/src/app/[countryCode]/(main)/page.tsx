@@ -1,6 +1,5 @@
 import { Metadata } from "next"
 import FeaturedProducts from "@modules/home/components/featured-products"
-import { getCollectionsWithProducts } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { HeroCarousel } from "@/modules/home/components/hero-carousel"
 import CategoriesGrid from "@modules/categories/components/CategoriesGrid"
@@ -18,10 +17,8 @@ export default async function Home({
 }: {
   params: { countryCode: string }
 }) {
-  const collections = await getCollectionsWithProducts(countryCode)
   const region = await getRegion(countryCode)
-  console.log('Collections : ',collections)
-  if (!collections || !region) {
+  if (!region) {
     return null
   }
 
@@ -41,7 +38,7 @@ export default async function Home({
         </div>
         <ul className="flex flex-col gap-x-6">
           <Suspense fallback={<SkeletonFeaturedProducts />}>
-            <FeaturedProducts collections={collections} region={region} />
+            <FeaturedProducts countryCode={countryCode} region={region} />
           </Suspense>
         </ul>
       </div>
