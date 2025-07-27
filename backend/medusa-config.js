@@ -132,7 +132,12 @@ const medusaConfig = {
           },
         ],
       },
-    }] : [])
+    }] : []),
+    // SMS Module
+    {
+      resolve: './src/modules/sms',
+      key: 'sms'
+    }
   ],
   plugins: [
   ...(MEILISEARCH_HOST && MEILISEARCH_ADMIN_KEY ? [{
