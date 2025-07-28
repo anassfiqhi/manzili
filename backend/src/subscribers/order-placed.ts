@@ -64,11 +64,12 @@ export default async function orderPlacedHandler({
         L'équipe Manzili
       `.trim()
 
-      await new Promise(resolve => setTimeout(resolve, 3000))
       await smsService.sendSMS(customerPhone, customerMessage)
       console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
     }
-
+    
+    await new Promise(resolve => setTimeout(resolve, 3000))
+    
     // Send SMS notification to admin/store owner
     const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
     const adminMessage = `
