@@ -80,6 +80,7 @@ export class VonageNotificationService extends AbstractNotificationProviderServi
         text: message
       })
 
+      this.logger_.info(`Response ${JSON.stringify(response)}`)
       this.logger_.info(`SMS sent successfully to ${notification.to}`)
       return {}
     } catch (error: any) {

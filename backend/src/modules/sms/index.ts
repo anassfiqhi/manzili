@@ -1,1 +1,2 @@
-export { VonageNotificationService as default } from "./service"
+export { TwilioNotificationService as default } from "./twilio-service"
+export { VonageNotificationService } from "./vonage-service"

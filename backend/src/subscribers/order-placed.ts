@@ -2,7 +2,7 @@ import { Modules } from '@medusajs/framework/utils'
 import { INotificationModuleService, IOrderModuleService } from '@medusajs/framework/types'
 import { SubscriberArgs, SubscriberConfig } from '@medusajs/medusa'
 import { EmailTemplates } from '../modules/email-notifications/templates'
-import { VonageNotificationService } from '../modules/sms/service'
+import { TwilioNotificationService } from '../modules/sms/twilio-service'
 
 export default async function orderPlacedHandler({
   event: { data },
@@ -10,12 +10,12 @@ export default async function orderPlacedHandler({
 }: SubscriberArgs<any>) {
   const notificationModuleService: INotificationModuleService = container.resolve(Modules.NOTIFICATION)
   const orderModuleService: IOrderModuleService = container.resolve(Modules.ORDER)
-  const smsService = new VonageNotificationService(
+  const smsService = new TwilioNotificationService(
     { logger: container.resolve('logger') },
     {
-      api_key: process.env.VONAGE_API_KEY || "4d0",
-      api_secret: process.env.VONAGE_API_SECRET || "yVmqjtla",
-      from: process.env.VONAGE_FROM || "Manzili"
+      account_sid: process.env.TWILIO_ACCOUNT_SID || "",
+      auth_token: process.env.TWILIO_AUTH_TOKEN || "",
+      from: process.env.TWILIO_FROM || ""
     }
   )
 
