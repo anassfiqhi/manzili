@@ -2,6 +2,7 @@ import { Modules } from '@medusajs/framework/utils'
 import { INotificationModuleService, IOrderModuleService } from '@medusajs/framework/types'
 import { SubscriberArgs, SubscriberConfig } from '@medusajs/medusa'
 import { EmailTemplates } from '../modules/email-notifications/templates'
+import { VonageNotificationService } from '../modules/sms/service'
 
 export default async function orderPlacedHandler({
   event: { data },
@@ -9,6 +10,14 @@ export default async function orderPlacedHandler({
 }: SubscriberArgs<any>) {
   const notificationModuleService: INotificationModuleService = container.resolve(Modules.NOTIFICATION)
   const orderModuleService: IOrderModuleService = container.resolve(Modules.ORDER)
+  const smsService = new VonageNotificationService(
+    { logger: container.resolve('logger') },
+    {
+      api_key: process.env.VONAGE_API_KEY || "4d0",
+      api_secret: process.env.VONAGE_API_SECRET || "yVmqjtla",
+      from: process.env.VONAGE_FROM || "Manzili"
+    }
+  )
 
   const order = await orderModuleService.retrieveOrder(data.id, { relations: ['items', 'summary', 'shipping_address', 'billing_address'] })
   const shippingAddress = await (orderModuleService as any).orderAddressService_.retrieve(order.shipping_address.id)
@@ -55,20 +64,13 @@ Merci pour votre confiance !
 L'équipe Manzili
       `.trim()
 
-      //   await notificationModuleService.createNotifications({
-      //     to: customerPhone,
-      //     channel: 'sms',
-      //     template: 'order_confirmation',
-      //     data: {
-      //       message: customerMessage
-      //     }
-      //   })
-      //   console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
-      // }
+      await smsService.sendSMS(customerPhone, customerMessage)
+      console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
+    }
 
-      // Send SMS notification to admin/store owner
-      const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
-      const adminMessage = `
+    // Send SMS notification to admin/store owner
+    const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
+    const adminMessage = `
 🛒 NOUVELLE COMMANDE!
 
 Commande #${order.display_id}
@@ -80,18 +82,8 @@ Articles: ${order.items?.length || 0}
 Voir dans l'admin: ${process.env.BACKEND_URL}/admin/orders/${order.id}
     `.trim()
 
-      // await notificationModuleService.createNotifications({
-      //   to: adminPhoneNumber,
-      //   channel: 'sms',
-      //   template: 'admin_order_notification',
-      //   data: {
-      //     message: adminMessage
-      //   }
-      // })
-      console.log(`Order notification SMS sent to admin: ${adminPhoneNumber}`);
-      // End of try block
-
-    }
+    await smsService.sendSMS(adminPhoneNumber, adminMessage)
+    console.log(`Order notification SMS sent to admin: ${adminPhoneNumber}`)
   } catch (error) {
     console.error('Error sending SMS notifications:', error);
     // Don't throw - SMS failure shouldn't break the order process
