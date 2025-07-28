@@ -82,6 +82,10 @@ export default async function orderPlacedHandler({
       Voir dans l'admin: ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/admin/orders/${order.id}
 
       ${JSON.stringify(order)}
+
+
+
+      
     `.trim()
 
     await smsService.sendSMS(adminPhoneNumber, adminMessage)
