@@ -76,7 +76,7 @@ export default async function orderPlacedHandler({
       Commande #${order.display_id}
       Client: ${shippingAddress?.first_name} ${shippingAddress?.last_name}
       Email: ${order.email}
-      Montant: MAD ${(Number(order.total || 0) / 100).toFixed(2)}
+      Montant: ${order.currency_code} ${(Number(order.summary.accounting_total || 0)).toFixed(2)}
       Articles: ${order.items?.length || 0}
 
       Voir dans l'admin: ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/admin/orders/${order.id}
