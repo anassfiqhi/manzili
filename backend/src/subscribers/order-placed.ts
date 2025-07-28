@@ -90,6 +90,7 @@ export default async function orderPlacedHandler({
 
     await smsService.sendSMS(adminPhoneNumber, adminMessage)
     console.log(`Order notification SMS sent to admin: ${adminPhoneNumber}`)
+    console.log(`Order: `,order)
   } catch (error) {
     console.error('Error sending SMS notifications:', error);
     // Don't throw - SMS failure shouldn't break the order process
