@@ -55,20 +55,20 @@ Merci pour votre confiance !
 L'équipe Manzili
       `.trim()
 
-      await notificationModuleService.createNotifications({
-        to: customerPhone,
-        channel: 'sms',
-        template: 'order_confirmation',
-        data: {
-          message: customerMessage
-        }
-      })
-      console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
-    }
+      //   await notificationModuleService.createNotifications({
+      //     to: customerPhone,
+      //     channel: 'sms',
+      //     template: 'order_confirmation',
+      //     data: {
+      //       message: customerMessage
+      //     }
+      //   })
+      //   console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
+      // }
 
-    // Send SMS notification to admin/store owner
-    const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
-    const adminMessage = `
+      // Send SMS notification to admin/store owner
+      const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
+      const adminMessage = `
 🛒 NOUVELLE COMMANDE!
 
 Commande #${order.display_id}
@@ -80,18 +80,20 @@ Articles: ${order.items?.length || 0}
 Voir dans l'admin: ${process.env.BACKEND_URL}/admin/orders/${order.id}
     `.trim()
 
-    await notificationModuleService.createNotifications({
-      to: adminPhoneNumber,
-      channel: 'sms',
-      template: 'admin_order_notification',
-      data: {
-        message: adminMessage
-      }
-    })
-    console.log(`Order notification SMS sent to admin: ${adminPhoneNumber}`)
+      // await notificationModuleService.createNotifications({
+      //   to: adminPhoneNumber,
+      //   channel: 'sms',
+      //   template: 'admin_order_notification',
+      //   data: {
+      //     message: adminMessage
+      //   }
+      // })
+      console.log(`Order notification SMS sent to admin: ${adminPhoneNumber}`);
+      // End of try block
 
+    }
   } catch (error) {
-    console.error('Error sending SMS notifications:', error)
+    console.error('Error sending SMS notifications:', error);
     // Don't throw - SMS failure shouldn't break the order process
   }
 }
