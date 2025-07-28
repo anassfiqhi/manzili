@@ -64,6 +64,7 @@ export default async function orderPlacedHandler({
         L'équipe Manzili
       `.trim()
 
+      await new Promise(resolve => setTimeout(resolve, 3000))
       await smsService.sendSMS(customerPhone, customerMessage)
       console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
     }
