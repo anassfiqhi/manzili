@@ -25,7 +25,7 @@ import {
   VONAGE_API_KEY,
   VONAGE_API_SECRET,
   VONAGE_FROM
-} from 'lib/constants';
+} from './src/lib/constants';
 
 loadEnv(process.env.NODE_ENV, process.cwd());
 
