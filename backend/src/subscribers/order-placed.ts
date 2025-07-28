@@ -49,7 +49,7 @@ export default async function orderPlacedHandler({
     const customerPhone = (shippingAddress?.phone || billingAddress?.phone)?.replace(/^\+/, '')
 
     // Send SMS to customer (if phone number available)
-    if (customerPhone) {
+    if (false && customerPhone) {
       const customerMessage = `
         Bonjour ${shippingAddress.first_name || 'Cher client'},
 
@@ -67,8 +67,6 @@ export default async function orderPlacedHandler({
       await smsService.sendSMS(customerPhone, customerMessage)
       console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
     }
-    
-    await new Promise(resolve => setTimeout(resolve, 10000))
 
     // Send SMS notification to admin/store owner
     const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
