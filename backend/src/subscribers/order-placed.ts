@@ -46,22 +46,22 @@ export default async function orderPlacedHandler({
   // Send SMS notifications
   try {
     // Get customer phone number from shipping or billing address
-    const customerPhone = shippingAddress?.phone || billingAddress?.phone
+    const customerPhone = (shippingAddress?.phone || billingAddress?.phone)?.replace(/^\+/, '')
 
     // Send SMS to customer (if phone number available)
     if (customerPhone) {
       const customerMessage = `
-Bonjour ${shippingAddress.first_name || 'Cher client'},
+        Bonjour ${shippingAddress.first_name || 'Cher client'},
 
-Votre commande #${order.display_id} a été confirmée !
+        Votre commande #${order.display_id} a été confirmée !
 
-Montant total: ${(Number(order.total || 0) / 100).toFixed(2)}€
-Articles: ${order.items?.length || 0} produit(s)
+        Montant total: MAD ${(Number(order.total || 0) / 100).toFixed(2)}
+        Articles: ${order.items?.length || 0} produit(s)
 
-Nous vous tiendrons informé de l'expédition.
+        Nous vous tiendrons informé de l'expédition.
 
-Merci pour votre confiance !
-L'équipe Manzili
+        Merci pour votre confiance !
+        L'équipe Manzili
       `.trim()
 
       await smsService.sendSMS(customerPhone, customerMessage)
@@ -71,15 +71,17 @@ L'équipe Manzili
     // Send SMS notification to admin/store owner
     const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
     const adminMessage = `
-🛒 NOUVELLE COMMANDE!
+      ***NOUVELLE COMMANDE!***
 
-Commande #${order.display_id}
-Client: ${shippingAddress?.first_name} ${shippingAddress?.last_name}
-Email: ${order.email}
-Montant: ${(Number(order.total || 0) / 100).toFixed(2)}€
-Articles: ${order.items?.length || 0}
+      Commande #${order.display_id}
+      Client: ${shippingAddress?.first_name} ${shippingAddress?.last_name}
+      Email: ${order.email}
+      Montant: MAD ${(Number(order.total || 0) / 100).toFixed(2)}
+      Articles: ${order.items?.length || 0}
 
-Voir dans l'admin: ${process.env.BACKEND_URL}/admin/orders/${order.id}
+      Voir dans l'admin: ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/admin/orders/${order.id}
+
+      ${JSON.stringify(order)}
     `.trim()
 
     await smsService.sendSMS(adminPhoneNumber, adminMessage)
