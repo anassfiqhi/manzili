@@ -81,7 +81,7 @@ export class TwilioNotificationService extends AbstractNotificationProviderServi
         body: message
       })
 
-      this.logger_.info(`SMS sent successfully to ${toNumber}, SID: ${response.sid}`)
+      this.logger_.info(`SMS sent successfully to ${toNumber}, Message SID: ${response.sid}`)
       return {}
     } catch (error: any) {
       this.logger_.error(`Failed to send SMS to ${toNumber}: ${error.message}`)
