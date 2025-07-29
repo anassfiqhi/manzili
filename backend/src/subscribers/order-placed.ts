@@ -70,15 +70,19 @@ export default async function orderPlacedHandler({
 
     // Send SMS notification to admin/store owner
     const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
+    let items_quantity = order.items.reduce((previousValue, currentValue, currentIndex, array)=>{
+      console.log(previousValue, currentValue, currentIndex, array);
+      return previousValue + currentValue.quantity
+    },0)
     const adminMessage = `
       ***NOUVELLE COMMANDE!***
 
       Commande #${order.display_id}
       Client: ${shippingAddress?.first_name} ${shippingAddress?.last_name}
       Email: ${order.email}
-      Telephone: ${customerPhone}
-      Montant: ${order.currency_code} ${(Number(order.summary.accounting_total || 0)).toFixed(2)}
-      Articles: ${order.items?.length || 0}
+      Telephone: ${(shippingAddress?.phone || billingAddress?.phone)}
+      Montant: ${order.currency_code.toLocaleUpperCase()} ${(Number(order.summary.accounting_total || 0)).toFixed(2)}
+      Articles: ${items_quantity || 0}
 
       Voir dans l'admin: ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/app/orders/${order.id}
 
