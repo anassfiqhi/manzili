@@ -48,32 +48,33 @@ export default async function orderPlacedHandler({
     // Get customer phone number from shipping or billing address
     const customerPhone = (shippingAddress?.phone || billingAddress?.phone)?.replace(/^\+/, '')
 
+    const items_quantity = order.items.reduce((previousValue, currentValue, currentIndex, array)=>{
+      return previousValue + currentValue.quantity
+    },0)
+
     // // Send SMS to customer (if phone number available)
-    // if (false && customerPhone) {
-    //   const customerMessage = `
-    //     Bonjour ${shippingAddress.first_name || 'Cher client'},
+    if (customerPhone) {
+      const customerMessage = `
+        Bonjour ${shippingAddress.first_name || 'Cher client'},
 
-    //     Votre commande #${order.display_id} a été confirmée !
+        Votre commande #${order.display_id} a été confirmée !
 
-    //     Montant total: MAD ${(Number(order.total || 0) / 100).toFixed(2)}
-    //     Articles: ${order.items?.length || 0} produit(s)
+        Montant total: ${order.currency_code.toLocaleUpperCase()} ${(Number(order.summary.accounting_total || 0)).toFixed(2)}
+        Articles: ${items_quantity || 0} produit(s)
 
-    //     Nous vous tiendrons informé de l'expédition.
+        Nous vous tiendrons informé de l'expédition.
 
-    //     Merci pour votre confiance !
-    //     L'équipe Manzili
-    //   `.trim()
+        Merci pour votre confiance !
+        L'équipe Manzili
+      `.trim()
 
-    //   await smsService.sendSMS(customerPhone, customerMessage)
-    //   console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
-    // }
+      await smsService.sendSMS(customerPhone, customerMessage)
+      console.log(`Order confirmation SMS sent to customer: ${customerPhone}`)
+    }
 
     // Send SMS notification to admin/store owner
     const adminPhoneNumber = process.env.ADMIN_PHONE_NUMBER || "212770362167"
-    let items_quantity = order.items.reduce((previousValue, currentValue, currentIndex, array)=>{
-      console.log(previousValue, currentValue, currentIndex, array);
-      return previousValue + currentValue.quantity
-    },0)
+
     const adminMessage = `
       ***NOUVELLE COMMANDE!***
 
