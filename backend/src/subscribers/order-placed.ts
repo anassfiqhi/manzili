@@ -80,7 +80,7 @@ export default async function orderPlacedHandler({
       Montant: ${order.currency_code} ${(Number(order.summary.accounting_total || 0)).toFixed(2)}
       Articles: ${order.items?.length || 0}
 
-      Voir dans l'admin: ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/admin/orders/${order.id}
+      Voir dans l'admin: ${process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL}/app/orders/${order.id}
 
 
       
