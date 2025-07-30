@@ -78,7 +78,7 @@ export default async function CategoriesPage({ params }: Props) {
                     : undefined // fallback if not found
                 }
                 size="square"
-                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg mx-auto"
+                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-md mx-auto"
                 data-testid="category-thumbnail"
               />
               <div className="mb-4">
