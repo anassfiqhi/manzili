@@ -78,7 +78,7 @@ const CartDropdown = ({
       onMouseEnter={openAndCancel}
       onMouseLeave={close}
     >
-      <Popover className="relative h-full backdrop-blur-xl">
+      <Popover className="relative h-full">
         <Popover.Button className="h-full">
           <LocalizedClientLink
             className="hover:text-ui-fg-base"
