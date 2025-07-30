@@ -1,6 +1,6 @@
 export default function BackgroundOverlay() {
   return (
-    <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
+    <div className="absolute z-20 h-full top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none">
       <div className="w-[108rem] flex-none flex justify-end">
         <picture>
           <source srcSet="/img/docs@30.8b9a76a2.avif" type="image/avif" />
