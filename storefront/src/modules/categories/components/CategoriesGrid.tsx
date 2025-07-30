@@ -47,7 +47,7 @@ const CategoriesGrid = async () => {
                     : undefined
                 }
                 size="square"
-                className="mb-4 w-full lg:w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-md lg:mx-auto"
+                className="mb-4 w-full lg:w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg lg:mx-auto"
               />
               <div className="mb-4">
                 <h2 className="text-lg text-center mb-2 border-b border-black w-fit mx-auto flex justify-center items-center gap-1">{category.name} <ArrowUpRightMini className="group-hover/CategoryItem:rotate-45 ease-in-out duration-150 text-black" /></h2>
