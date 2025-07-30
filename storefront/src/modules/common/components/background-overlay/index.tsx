@@ -9,7 +9,7 @@ export default function BackgroundOverlay() {
           alt=""
           width={1148}
           height={800}
-          className="w-[71.75rem] flex-none max-w-none hidden"
+          className="w-[71.75rem] flex-none max-w-none block dark:hidden"
           priority
         />
         <Image
@@ -17,7 +17,7 @@ export default function BackgroundOverlay() {
           alt=""
           width={1440}
           height={800}
-          className="w-[90rem] flex-none max-w-none block dark:block"
+          className="w-[90rem] flex-none max-w-none hidden dark:block"
           priority
         />
       </div>

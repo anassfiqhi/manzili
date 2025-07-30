@@ -20,7 +20,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-[67px] mx-auto duration-200 bg-gray-50 border-b border-gray-950/5 dark:border-white/10 shadow-lg">
+      <header className="relative h-[67px] mx-auto duration-200 bg-gray-50/50 backdrop-blur-2xl border-b border-gray-950/5 dark:border-white/10 shadow-lg">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular 2xl:max-w-5xl">
           <div className="h-full flex items-center">
             <div className="h-full">
@@ -124,7 +124,7 @@ const CategoriesHoverCard = async () => {
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-lg border-none bg-gray-50 max-h-[336px] overflow-hidden">
+      <HoverCardContent className="p-0 w-screen shadow-lg border-none bg-gray-50/90 backdrop-blur-lg max-h-[336px] overflow-hidden">
         <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
           {/* Left column: categories list */}
           <div className="flex-1 min-w-[220px]">
@@ -189,7 +189,7 @@ const CollectionsHoverCard = ({ collections }: { collections: HttpTypes.StoreCol
           />
         </button>
       </HoverCardTrigger>
-      <HoverCardContent className="p-0 w-screen shadow-lg border-none bg-gray-50 max-h-[336px] overflow-hidden">
+      <HoverCardContent className="p-0 w-screen shadow-lg border-none bg-gray-50/90 backdrop-blur-lg max-h-[336px] overflow-hidden">
         <div className="flex flex-row w-full max-w-6xl mx-auto py-10 px-8 gap-12">
           {/* Left column: collections list */}
           <div className="flex-1 min-w-[220px]">

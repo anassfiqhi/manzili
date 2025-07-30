@@ -60,7 +60,7 @@ export function HeroCarousel() {
   }, [api])
 
   return (
-    <Carousel className="w-full" setApi={setApi} opts={{ loop: true }}>
+    <Carousel className="w-[97%] mx-auto mt-4 rounded-lg overflow-hidden" setApi={setApi} opts={{ loop: true }}>
       <CarouselContent className="!ml-0">
         {carouselItems.map((item, idx) => (
           <CarouselItem className="!pl-0 w-full" key={item.src}>
@@ -84,7 +84,7 @@ export function HeroCarousel() {
                     </div>
                   </div>
                   {/* Image skeleton background */}
-                  <Container className="w-full h-full absolute top-0 left-0 bg-gray-100 bg-ui-bg-subtle -z-10" />
+                  <Container className="w-full h-full absolute top-0 left-0 bg-gray-100/90 -z-10 shadow-2xl backdrop-blur-lg" />
                 </div>
               )}
               <Image
