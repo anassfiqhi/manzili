@@ -20,7 +20,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-[67px] mx-auto duration-200 bg-gray-50/50 backdrop-blur-2xl border-b border-gray-950/5 dark:border-white/10 shadow-lg">
+      <header className="relative h-[67px] mx-auto duration-200 bg-gray-50/50 backdrop-blur-lg border-b border-gray-950/5 dark:border-white/10 shadow-lg">
         <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular 2xl:max-w-5xl">
           <div className="h-full flex items-center">
             <div className="h-full">
