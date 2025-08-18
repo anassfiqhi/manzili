@@ -8,8 +8,8 @@ const MedusaCTA = () => {
   return (
     <Text className="flex gap-x-2 txt-compact-small-plus items-center">
       Powered by
-      <a href="https://linkedin.com/in/fiqhianass" target="_blank" rel="noreferrer" className="flex justify-center items-center gap-2">
-        Anass<Linkedin fill="#9ca3af" className="fill-[#9ca3af]" />
+      <a href="https://anassfiqhi.dev" target="_blank" rel="noreferrer" className="flex justify-center items-center gap-2">
+        anassfiqhi.dev
       </a>
       {/* &
       <a href="https://nextjs.org" target="_blank" rel="noreferrer">
