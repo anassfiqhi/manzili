@@ -19,7 +19,7 @@ const ExternalLink = ({
   return (
     <a
       className={cn(
-        "flex gap-x-1 items-center group/InteractiveLink text-black border-b border-black border-solid",
+        "flex gap-x-1 items-center group/InteractiveLink text-blue-600 hover:text-blue-800 border-b border-blue-600 hover:border-blue-800 border-solid",
         className
       )}
       href={href}
@@ -30,7 +30,7 @@ const ExternalLink = ({
     >
       <Text className="text-ui-fg-interactive">{children}</Text>
       <ArrowUpRightMini
-        className="group-hover/InteractiveLink:rotate-45 ease-in-out duration-150 text-black"
+        className="group-hover/InteractiveLink:rotate-45 ease-in-out duration-150 text-blue-600 hover:text-blue-800"
       />
     </a>
   )
