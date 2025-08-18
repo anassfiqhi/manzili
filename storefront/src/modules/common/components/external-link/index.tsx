@@ -19,7 +19,7 @@ const ExternalLink = ({
   return (
     <a
       className={cn(
-        "flex gap-x-1 items-center group/InteractiveLink text-blue-600 hover:text-blue-800 border-b border-blue-600 hover:border-blue-800 border-solid",
+        "flex gap-x-1 items-center group/ExternalLink text-blue-600 hover:text-blue-800 border-b border-blue-600 hover:border-blue-800 border-solid",
         className
       )}
       href={href}
@@ -28,9 +28,9 @@ const ExternalLink = ({
       rel="noreferrer"
       {...props}
     >
-      <Text className="text-blue-600 group-hover/InteractiveLink:text-blue-800">{children}</Text>
+      <Text className="text-blue-600 group-hover/ExternalLink:text-blue-800">{children}</Text>
       <ArrowUpRightMini
-        className="group-hover/InteractiveLink:rotate-45 ease-in-out duration-150 text-blue-600 group-hover/InteractiveLink:text-blue-800"
+        className="group-hover/ExternalLink:rotate-45 ease-in-out duration-150 text-blue-600 group-hover/ExternalLink:text-blue-800"
       />
     </a>
   )
