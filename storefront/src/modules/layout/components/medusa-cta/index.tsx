@@ -4,7 +4,7 @@ import Medusa from "../../../common/icons/medusa"
 import NextJs from "../../../common/icons/nextjs"
 import { Linkedin } from "@medusajs/icons"
 
-const MedusaCTA = () => {
+const ManziliCTA = () => {
   return (
     <Text className="flex gap-x-2 txt-compact-small-plus items-center">
       Powered by
@@ -19,4 +19,4 @@ const MedusaCTA = () => {
   )
 }
 
-export default MedusaCTA
+export default ManziliCTA
