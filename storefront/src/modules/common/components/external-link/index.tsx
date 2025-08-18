@@ -28,7 +28,7 @@ const ExternalLink = ({
       rel="noreferrer"
       {...props}
     >
-      <Text className="text-ui-fg-interactive text-black">{children}</Text>
+      <Text className="text-ui-fg-interactive">{children}</Text>
       <ArrowUpRightMini
         className="group-hover/InteractiveLink:rotate-45 ease-in-out duration-150 text-black"
       />
