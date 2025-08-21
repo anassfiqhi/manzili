@@ -18,7 +18,7 @@ export default async function Footer() {
               href="/"
               className=""
             >
-              Manzili Store
+              Sweet Nest Store
             </LocalizedClientLink>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
@@ -145,7 +145,7 @@ export default async function Footer() {
         </div>
         <div className="flex flex-col md:flex-row w-full mb-16 justify-center items-center md:justify-between text-ui-fg-muted">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Manzili Store. All rights reserved.
+            © {new Date().getFullYear()} Sweet Nest Store. All rights reserved.
           </Text>
           <ManziliCTA />
         </div>

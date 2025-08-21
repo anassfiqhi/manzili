@@ -13,7 +13,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
-    title: "Collections | Manzili Store",
+    title: "Collections | Sweet Nest Store",
     description: "Parcourez toutes les collections de produits disponibles dans notre boutique.",
     alternates: {
       canonical: "/collections",

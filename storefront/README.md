@@ -9,7 +9,7 @@
 </p>
 
 <h1 align="center">
-  Medusa Manzili Next.js Starter Template
+  Medusa Sweet Nest Next.js Starter Template
 </h1>
 
 <p align="center">

@@ -65,7 +65,7 @@ export default async function orderPlacedHandler({
         Nous vous tiendrons informé de l'expédition.
 
         Merci pour votre confiance !
-        L'équipe Manzili
+        L'équipe Sweet Nest
       `.trim()
 
       await smsService.sendSMS(customerPhone, customerMessage)

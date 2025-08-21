@@ -35,7 +35,7 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus uppercase pl-4 font-[outfit] text-black text-2xl"
               data-testid="nav-store-link"
             >
-              Manzili
+              Sweet Nest
             </LocalizedClientLink>
 
           </div>

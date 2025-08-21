@@ -95,7 +95,7 @@ export const MEILISEARCH_ADMIN_KEY = process.env.MEILISEARCH_ADMIN_KEY;
  */
 export const VONAGE_API_KEY = process.env.VONAGE_API_KEY;
 export const VONAGE_API_SECRET = process.env.VONAGE_API_SECRET;
-export const VONAGE_FROM = process.env.VONAGE_FROM || "Manzili";
+export const VONAGE_FROM = process.env.VONAGE_FROM || "Sweet Nest";
 
 /**
  * Worker mode

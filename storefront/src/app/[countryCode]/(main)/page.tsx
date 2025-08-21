@@ -7,7 +7,7 @@ import SkeletonFeaturedProducts from "@modules/skeletons/components/skeleton-fea
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
-  title: "Manzili Store",
+  title: "Sweet Nest Store",
   description:
     "Boutique en ligne performante avec Next.js 14 et Medusa.",
 }

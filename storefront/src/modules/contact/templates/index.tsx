@@ -140,7 +140,7 @@ const ContactTemplate = () => {
               E-mail
             </Heading>
             <Text className="text-ui-fg-subtle">
-              support@manzili.com
+              support@Sweet Nest.com
             </Text>
           </div>
           

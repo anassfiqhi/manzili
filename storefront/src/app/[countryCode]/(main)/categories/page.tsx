@@ -17,7 +17,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
-    title: "Catégories | Manzili Store",
+    title: "Catégories | Sweet Nest Store",
     description: "Parcourez toutes les catégories de produits disponibles dans notre boutique.",
     alternates: {
       canonical: "/categories",

@@ -47,7 +47,7 @@ Sujet: ${subject}
 Message: ${message}
 
 ---
-Manzili E-commerce
+Sweet Nest E-commerce
       `.trim()
 
       await notificationService.createNotifications({
@@ -75,7 +75,7 @@ Merci de nous avoir contactés concernant "${subject}".
 Votre message a été reçu et notre équipe vous répondra dans les plus brefs délais.
 
 Cordialement,
-L'équipe Manzili
+L'équipe Sweet Nest
         `.trim()
 
         await notificationService.createNotifications({
