@@ -5,6 +5,18 @@ import "styles/globals.css"
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
+  icons: {
+    icon: [
+      {
+        url: '/sweethome-black.ico',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/sweethome-white.ico',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+  },
 }
 
 export default function RootLayout(props: { children: React.ReactNode }) {
