@@ -1,4 +1,5 @@
 import { Suspense } from "react"
+import { unstable_cache } from "next/cache"
 
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
 import RefinementList from "@modules/store/components/refinement-list"
@@ -8,6 +9,32 @@ import PriceFilter from "@/components/ui/price-filter"
 import { getProductsList } from "@lib/data/products"
 import { getPriceRangeFromProducts, filterProductsByPriceRange } from "@lib/util/get-price-range"
 import { getRegion } from "@lib/data/regions"
+
+const getCachedStoreData = unstable_cache(
+  async (countryCode: string) => {
+    // Fetch products to calculate price range
+    const { response: { products } } = await getProductsList({
+      queryParams: { 
+        limit: 100 // Get more products to have a better price range
+      },
+      countryCode,
+    })
+
+    const priceRange = getPriceRangeFromProducts(products)
+    const region = await getRegion(countryCode)
+
+    return {
+      products,
+      priceRange,
+      region,
+    }
+  },
+  [],
+  {
+    tags: ["products", "regions"],
+    revalidate: 60, // Cache for 10 minutes
+  }
+)
 
 const StoreTemplate = async ({
   sortBy,
@@ -23,16 +50,7 @@ const StoreTemplate = async ({
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
 
-  // Fetch products to calculate price range
-  const { response: { products } } = await getProductsList({
-    queryParams: { 
-      limit: 100 // Get more products to have a better price range
-    },
-    countryCode,
-  })
-
-  const priceRange = getPriceRangeFromProducts(products)
-  const region = await getRegion(countryCode)
+  const { products, priceRange, region } = await getCachedStoreData(countryCode)
 
   // Apply price filtering if parameters are provided
   let filteredProducts = products
