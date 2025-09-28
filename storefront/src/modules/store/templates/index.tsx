@@ -32,7 +32,7 @@ const getCachedStoreData = unstable_cache(
   [],
   {
     tags: ["products", "regions"],
-    revalidate: 60, // Cache for 10 minutes
+    revalidate: 60, // Cache for 1 minutes
   }
 )
 
