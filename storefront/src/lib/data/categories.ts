@@ -23,7 +23,7 @@ export const getCategoriesList = cache(async function (
     // TODO: Look into fixing the type
     // @ts-ignore
     { limit, offset },
-    { next: { tags: ["categories"] } }
+    { next: { tags: ["categories-list"] } }
   )
 })
 

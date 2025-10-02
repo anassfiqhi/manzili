@@ -1,4 +1,4 @@
-import { getCategoriesList } from "@lib/data/categories"
+import { getCategoriesList, listCategories } from "@lib/data/categories"
 import { getCollectionsList } from "@lib/data/collections"
 import { Text, clx } from "@medusajs/ui"
 
@@ -7,7 +7,7 @@ import ManziliCTA from "@modules/layout/components/medusa-cta"
 
 export default async function Footer() {
   const { collections } = await getCollectionsList(0, 10000)
-  const { product_categories } = await getCategoriesList(0, 10000)
+  const product_categories = await listCategories()
 
   return (
     <footer className="border-t border-ui-border-base w-full">
@@ -18,7 +18,7 @@ export default async function Footer() {
               href="/"
               className=""
             >
-              Sweet Nest Store
+              Sweet Nest Storeee
             </LocalizedClientLink>
           </div>
           <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
