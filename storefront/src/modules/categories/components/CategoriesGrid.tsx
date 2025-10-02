@@ -2,14 +2,35 @@ import { listCategories } from "@lib/data/categories"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { ArrowUpRightMini } from "@medusajs/icons"
+import { unstable_cache } from "next/cache"
+
+// Cached categories grid component
+const getCachedTopLevelCategories = unstable_cache(
+  async () => {
+    const product_categories = await listCategories()
+    
+    if (!product_categories) {
+      return []
+    }
+
+    // Filter out categories that have parent categories (only show top-level categories)
+    return product_categories.filter(
+      (category) => !category.parent_category
+    )
+  },
+  ["top-level-categories"],
+  {
+    tags: ["categories"],
+    revalidate: 300, // 5 minutes
+  }
+)
 
 const CategoriesGrid = async () => {
-  const product_categories = await listCategories()
+  const topLevelCategories = await getCachedTopLevelCategories()
 
-  // Filter out categories that have parent categories (only show top-level categories)
-  const topLevelCategories = product_categories.filter(
-    (category) => !category.parent_category
-  )
+  if (!topLevelCategories || topLevelCategories.length === 0) {
+    return <div>Loading categories...</div>
+  }
 
   const categoryImageMap = {
     "ROBINETTERIE": "taps.png",

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
+import { unstable_cache } from "next/cache"
 
 import InteractiveLink from "@modules/common/components/interactive-link"
 import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
@@ -16,6 +17,25 @@ import { getRegion } from "@lib/data/regions"
 type StoreProductParamsWithCategory = HttpTypes.StoreProductParams & {
   category_id?: string[]
 }
+
+// Cached function to get products for a category
+const getCachedCategoryProducts = unstable_cache(
+  async (categoryId: string, countryCode: string) => {
+    const { response: { products } } = await getProductsList({
+      queryParams: { 
+        category_id: [categoryId],
+        limit: 100 // Get more products to have a better price range
+      } as StoreProductParamsWithCategory,
+      countryCode,
+    })
+    return products
+  },
+  (categoryId: string, countryCode: string) => ["category-products", categoryId, countryCode],
+  {
+    tags: ["products", "categories"],
+    revalidate: 180, // 3 minutes for products (more frequent than categories)
+  }
+)
 
 export default async function CategoryTemplate({
   categories,
@@ -38,14 +58,8 @@ export default async function CategoryTemplate({
 
   if (!category || !countryCode) notFound()
 
-  // Fetch products for this category to calculate price range
-  const { response: { products } } = await getProductsList({
-    queryParams: { 
-      category_id: [category.id],
-      limit: 100 // Get more products to have a better price range
-    } as StoreProductParamsWithCategory,
-    countryCode,
-  })
+  // Fetch products for this category to calculate price range (cached)
+  const products = await getCachedCategoryProducts(category.id, countryCode)
 
   const priceRange = getPriceRangeFromProducts(products)
   const region = await getRegion(countryCode)

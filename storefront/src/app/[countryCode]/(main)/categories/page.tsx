@@ -10,6 +10,7 @@ import Thumbnail from "@modules/products/components/thumbnail"
 import { ArrowUpRightMini } from "@medusajs/icons"
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 300 // 5 minutes
 
 type Props = {
   params: { countryCode: string }
