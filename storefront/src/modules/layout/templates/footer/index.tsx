@@ -6,8 +6,8 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import ManziliCTA from "@modules/layout/components/medusa-cta"
 
 export default async function Footer() {
-  const { collections } = await getCollectionsList(0, 6)
-  const { product_categories } = await getCategoriesList(0, 6)
+  const { collections } = await getCollectionsList(0)
+  const { product_categories } = await getCategoriesList(0)
 
   return (
     <footer className="border-t border-ui-border-base w-full">
