@@ -140,6 +140,57 @@ export default class CarouselService extends MedusaService({
     return { ...carousel, is_active: !carousel.is_active }
   }
 
+  @InjectTransactionManager()
+  async setCarouselActive(id: string, @MedusaContext() shared?: Context<EntityManager>) {
+    // First, deactivate all carousels
+    const allCarousels = await this.carouselRepository_.find({}, shared)
+    
+    if (allCarousels.length > 0) {
+      const deactivateUpdates = allCarousels.map((carousel: any) => ({
+        entity: carousel,
+        update: { is_active: false }
+      }))
+      await this.carouselRepository_.update(deactivateUpdates, shared)
+    }
+
+    // Then activate the specified carousel
+    const targetCarousel = (await this.carouselRepository_.find({
+      where: { id }
+    }, shared))[0]
+
+    if (!targetCarousel) {
+      throw new Error(`Carousel with id ${id} not found`)
+    }
+
+    await this.carouselRepository_.update([{
+      entity: targetCarousel,
+      update: { is_active: true }
+    }], shared)
+
+    return { ...targetCarousel, is_active: true }
+  }
+
+  async getActiveCarousel(@MedusaContext() shared?: Context<EntityManager>) {
+    const result = await this.carouselRepository_.find({ 
+      where: { is_active: true },
+      options: { limit: 1 }
+    }, shared)
+    return result[0] || null
+  }
+
+  async getActiveCarouselWithSlides(@MedusaContext() shared?: Context<EntityManager>) {
+    const activeCarousel = await this.getActiveCarousel(shared)
+    if (!activeCarousel) {
+      return null
+    }
+
+    const slides = await this.getSlidesByCarouselId(activeCarousel.id, false, shared)
+    return {
+      carousel: activeCarousel,
+      slides: slides
+    }
+  }
+
   // ===== CAROUSEL SLIDE METHODS =====
 
   @InjectTransactionManager()

@@ -92,23 +92,6 @@ export const PUT = async (req: MedusaRequest<UpdateCarouselRequest>, res: Medusa
       carousel: {
         id: carousel.id,
         title: carousel.title,
-        description: carousel.description,
-        image_url: carousel.image_url,
-        alt_text: carousel.alt_text,
-        order: carousel.order,
-        is_active: carousel.is_active,
-        primary_button_text: carousel.primary_button_text,
-        primary_button_url: carousel.primary_button_url,
-        secondary_button_text: carousel.secondary_button_text,
-        secondary_button_url: carousel.secondary_button_url,
-        created_at: carousel.created_at,
-        updated_at: carousel.updated_at,
-      }
-    })
-    res.json({
-      carousel: {
-        id: carousel.id,
-        title: carousel.title,
         handle: carousel.handle,
         description: carousel.description,
         is_active: carousel.is_active,
