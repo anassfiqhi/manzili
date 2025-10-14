@@ -8,7 +8,7 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   const { id: slideId, media_id } = req.params
 
   try {
-    const media = await carouselService.setSlideMediaThumbnail(slideId, media_id)
+    const media = await carouselService.setThumbnail(slideId, media_id)
 
     res.json({
       media: {

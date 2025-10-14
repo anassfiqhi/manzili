@@ -103,7 +103,7 @@ export default class CarouselService extends MedusaService({
     }
   }
 
-  async listCarousels(filters: any = {}, config: any = {}, @MedusaContext() sharedContext?: Context<EntityManager>) {
+  async listAllCarousels(filters: any = {}, config: any = {}, @MedusaContext() sharedContext?: Context<EntityManager>) {
     const { include_inactive, ...restFilters } = filters
     const includeInactive = include_inactive || false
     const whereClause = includeInactive ? {} : { is_active: true }

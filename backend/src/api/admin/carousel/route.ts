@@ -16,7 +16,7 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
   const includeInactive = req.query.include_inactive === 'true'
 
   try {
-    const carousels = await carouselService.listCarousels({ include_inactive: includeInactive })
+    const carousels = await carouselService.listAllCarousels({ include_inactive: includeInactive })
     
     res.json({
       carousels: carousels.map(item => ({

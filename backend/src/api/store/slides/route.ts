@@ -1,5 +1,6 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import CarouselSlideService from "../../../modules/carousel-slide/service"
+import { CAROUSEL_MODULE } from "../../../modules/carousel"
+import CarouselService from "../../../modules/carousel/service"
 
 interface SlideListQuery {
   limit?: number
@@ -8,29 +9,31 @@ interface SlideListQuery {
 
 // GET /store/slides - List active slides for public display
 export const GET = async (req: MedusaRequest<SlideListQuery>, res: MedusaResponse) => {
-  const slideService: CarouselSlideService = req.scope.resolve("carouselSlideService")
+  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
 
   try {
     const { limit = 20, offset = 0 } = req.query || {}
 
     // Only return active slides for store
-    const slides = await slideService.listSlides(
+    const slides = await carouselService.listSlides(
       { include_inactive: false },
       { take: limit, skip: offset }
     )
 
     const transformedSlides = slides.map((item: any) => ({
       id: item.id,
+      carousel_id: item.carousel_id,
       title: item.title,
       description: item.description,
-      image_url: item.image_url,
-      alt_text: item.alt_text,
       primary_button_text: item.primary_button_text,
       primary_button_url: item.primary_button_url,
       secondary_button_text: item.secondary_button_text,
       secondary_button_url: item.secondary_button_url,
       rank: item.rank,
+      is_active: item.is_active,
       metadata: item.metadata,
+      created_at: item.created_at,
+      updated_at: item.updated_at,
     }))
 
     res.json({

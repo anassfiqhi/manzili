@@ -8,20 +8,16 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 
   try {
     // Only return active carousels for the store
-    const carousels = await carouselService.listActiveCarousels(undefined, false)
+    const carousels = await carouselService.listAllCarousels({ include_inactive: false })
     
     res.json({
       carousels: carousels.map(item => ({
         id: item.id,
         title: item.title,
+        handle: item.handle,
         description: item.description,
-        image_url: item.image_url,
-        alt_text: item.alt_text,
-        order: item.order,
-        primary_button_text: item.primary_button_text,
-        primary_button_url: item.primary_button_url,
-        secondary_button_text: item.secondary_button_text,
-        secondary_button_url: item.secondary_button_url,
+        is_active: item.is_active,
+        metadata: item.metadata,
         created_at: item.created_at,
         updated_at: item.updated_at,
       }))

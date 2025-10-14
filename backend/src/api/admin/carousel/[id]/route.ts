@@ -4,15 +4,10 @@ import CarouselService from "../../../../modules/carousel/service"
 
 interface UpdateCarouselRequest {
   title?: string
+  handle?: string
   description?: string
-  image_url?: string
-  alt_text?: string
-  order?: number
   is_active?: boolean
-  primary_button_text?: string
-  primary_button_url?: string
-  secondary_button_text?: string
-  secondary_button_url?: string
+  metadata?: any
 }
 
 // GET /admin/carousel/:id
@@ -35,15 +30,10 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
       carousel: {
         id: carousel.id,
         title: carousel.title,
+        handle: carousel.handle,
         description: carousel.description,
-        image_url: carousel.image_url,
-        alt_text: carousel.alt_text,
-        order: carousel.order,
         is_active: carousel.is_active,
-        primary_button_text: carousel.primary_button_text,
-        primary_button_url: carousel.primary_button_url,
-        secondary_button_text: carousel.secondary_button_text,
-        secondary_button_url: carousel.secondary_button_url,
+        metadata: carousel.metadata,
         created_at: carousel.created_at,
         updated_at: carousel.updated_at,
       }
@@ -78,37 +68,24 @@ export const PUT = async (req: MedusaRequest<UpdateCarouselRequest>, res: Medusa
   
   const { 
     title, 
+    handle,
     description, 
-    image_url, 
-    alt_text, 
-    order, 
-    is_active, 
-    primary_button_text, 
-    primary_button_url, 
-    secondary_button_text, 
-    secondary_button_url 
+    is_active,
+    metadata
   } = parsedBody
 
   if (!id) {
     return res.status(400).json({ error: "Carousel ID is required" })
   }
 
-  if (order !== undefined && (typeof order !== 'number' || order < 0)) {
-    return res.status(400).json({ error: "Order must be a non-negative number" })
-  }
 
   try {
     const carousel = await carouselService.updateCarousel(id, {
       title,
+      handle,
       description,
-      image_url,
-      alt_text,
-      order,
       is_active,
-      primary_button_text,
-      primary_button_url,
-      secondary_button_text,
-      secondary_button_url,
+      metadata,
     })
 
     res.json({
@@ -124,6 +101,18 @@ export const PUT = async (req: MedusaRequest<UpdateCarouselRequest>, res: Medusa
         primary_button_url: carousel.primary_button_url,
         secondary_button_text: carousel.secondary_button_text,
         secondary_button_url: carousel.secondary_button_url,
+        created_at: carousel.created_at,
+        updated_at: carousel.updated_at,
+      }
+    })
+    res.json({
+      carousel: {
+        id: carousel.id,
+        title: carousel.title,
+        handle: carousel.handle,
+        description: carousel.description,
+        is_active: carousel.is_active,
+        metadata: carousel.metadata,
         created_at: carousel.created_at,
         updated_at: carousel.updated_at,
       }
