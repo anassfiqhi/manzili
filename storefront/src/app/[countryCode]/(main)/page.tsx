@@ -4,14 +4,27 @@ import { getRegion } from "@lib/data/regions"
 import { HeroCarousel } from "@/modules/home/components/hero-carousel"
 import CategoriesGrid from "@modules/categories/components/CategoriesGrid"
 import SkeletonFeaturedProducts from "@modules/skeletons/components/skeleton-featured-products"
-import { getCarousels } from "@lib/data/carousel"
+import { getCarouselItemsWithMedia } from "@lib/data/carousel-media"
 import { Suspense } from "react"
+import { unstable_cache } from "next/cache"
 
 export const metadata: Metadata = {
   title: "Sweet Nest Store",
   description:
     "Boutique en ligne performante avec Next.js 14 et Medusa.",
 }
+
+// Cached carousel items with media
+const getCachedCarouselItems = unstable_cache(
+  async () => {
+    return await getCarouselItemsWithMedia()
+  },
+  ["active-carousel-with-media"],
+  {
+    tags: ["carousel", "carousel-media"],
+    revalidate: 300, // 5 minutes
+  }
+)
 
 export default async function Home({
   params: { countryCode },
@@ -23,8 +36,9 @@ export default async function Home({
     return null
   }
 
-  // Fetch carousel data
-  const carousels = await getCarousels()
+  // Fetch cached carousel items with media
+  const carousels = await getCachedCarouselItems()
+  console.log("Page: cached carousel items with media:", carousels)
 
   return (
     <>
