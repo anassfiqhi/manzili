@@ -26,6 +26,8 @@ import {
   VONAGE_API_SECRET,
   VONAGE_FROM
 } from './src/lib/constants';
+import { CATEGORY_MEDIA_MODULE } from './src/modules/category-media';
+import { CAROUSEL_MODULE } from './src/modules/carousel';
 
 loadEnv(process.env.NODE_ENV, process.cwd());
 
@@ -53,6 +55,14 @@ const medusaConfig = {
     disable: SHOULD_DISABLE_ADMIN,
   },
   modules: [
+    {
+        key: CATEGORY_MEDIA_MODULE,
+        resolve: './src/modules/category-media',
+    },
+    {
+        key: CAROUSEL_MODULE,
+        resolve: './src/modules/carousel',
+    },
     {
       key: Modules.FILE,
       resolve: '@medusajs/file',
