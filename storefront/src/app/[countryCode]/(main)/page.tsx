@@ -4,6 +4,7 @@ import { getRegion } from "@lib/data/regions"
 import { HeroCarousel } from "@/modules/home/components/hero-carousel"
 import CategoriesGrid from "@modules/categories/components/CategoriesGrid"
 import SkeletonFeaturedProducts from "@modules/skeletons/components/skeleton-featured-products"
+import { getCarousels } from "@lib/data/carousel"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
@@ -22,9 +23,12 @@ export default async function Home({
     return null
   }
 
+  // Fetch carousel data
+  const carousels = await getCarousels()
+
   return (
     <>
-      <HeroCarousel />
+      <HeroCarousel carousels={carousels} />
       {/* <Hero /> */}
       <CategoriesGrid />
       <div className="py-12">

@@ -7,33 +7,65 @@ import LocalizedClientLink from "@/modules/common/components/localized-client-li
 import { MoveLeftIcon, MoveRight, MoveRightIcon } from "lucide-react"
 import clsx from "clsx"
 import { Container } from "@medusajs/ui"
+import { CarouselItem as CarouselItemType } from "@/lib/data/carousel"
 
-export function HeroCarousel() {
+interface HeroCarouselProps {
+  carousels?: CarouselItemType[]
+}
+
+export function HeroCarousel({ carousels }: HeroCarouselProps) {
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
 
-  // Carousel data array
-  const carouselItems = [
+  // Static fallback data
+  const staticCarouselItems = [
     {
-      src: "/banner1.png",
-      alt: "banner 1",
+      id: "static-1",
+      image_url: "/banner1.png",
+      alt_text: "banner 1",
       title: "<b>Nous livrons </b>l'idéal",
       description: "Notre sélection soigneusement choisie de produits de bain est conçue pour élever votre rituel de bain à de nouveaux sommets.",
+      primary_button_text: "Voir nos Catégories",
+      primary_button_url: "/categories",
+      secondary_button_text: "Voir nos Produits",
+      secondary_button_url: "/store",
+      order: 0,
+      created_at: "",
+      updated_at: "",
     },
     {
-      src: "/banner2.png",
-      alt: "banner 2",
+      id: "static-2",
+      image_url: "/banner2.png",
+      alt_text: "banner 2",
       title: "<b>Votre vision </b>de salle de bain réalisée.",
       description: "Imaginez entrer dans votre salle de bain nouvellement rénovée, accueilli par la douce lueur d'un éclairage soigneusement placé et le son apaisant d'une douche en cascade.",
+      primary_button_text: "Voir nos Catégories",
+      primary_button_url: "/categories",
+      secondary_button_text: "Voir nos Produits",
+      secondary_button_url: "/store",
+      order: 1,
+      created_at: "",
+      updated_at: "",
     },
     {
-      src: "/banner3.png",
-      alt: "banner 3",
+      id: "static-3",
+      image_url: "/banner3.png",
+      alt_text: "banner 3",
       title: "<b>Showroom </b>de design de salle de bain",
       description: "Les matériaux les plus fins combinés aux compétences de fabrication traditionnelles créent le look parfait",
+      primary_button_text: "Voir nos Catégories",
+      primary_button_url: "/categories",
+      secondary_button_text: "Voir nos Produits",
+      secondary_button_url: "/store",
+      order: 2,
+      created_at: "",
+      updated_at: "",
     },
   ]
+
+  // Use dynamic carousels if available, otherwise fall back to static
+  const carouselItems = carousels && carousels.length > 0 ? carousels : staticCarouselItems
 
   // Dynamic loading state
   const [imageLoaded, setImageLoaded] = useState(Array(carouselItems.length).fill(false))
@@ -63,7 +95,7 @@ export function HeroCarousel() {
     <Carousel className="w-[97%] mx-auto mt-4 rounded-lg overflow-hidden" setApi={setApi} opts={{ loop: true }}>
       <CarouselContent className="!ml-0">
         {carouselItems.map((item, idx) => (
-          <CarouselItem className="!pl-0 w-full" key={item.src}>
+          <CarouselItem className="!pl-0 w-full" key={item.id}>
             <div className="w-full h-[50vh] min-[320px]:h-[344px] min-[375px]:h-[344px] min-[425px]:h-[299px] md:h-[498px] lg:h-[calc(85vh-67px)] min-[1441px]:h-[calc(55vh-67px)] relative">
               {/* Skeleton */}
               {!imageLoaded[idx] && (
@@ -88,8 +120,8 @@ export function HeroCarousel() {
                 </div>
               )}
               <Image
-                src={item.src}
-                alt={item.alt}
+                src={item.image_url}
+                alt={item.alt_text || item.title}
                 fill
                 sizes="100vw"
                 className={clsx("object-cover", !imageLoaded[idx] && "invisible")}
@@ -102,22 +134,26 @@ export function HeroCarousel() {
                     <h2 className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8 text-white font-serif" dangerouslySetInnerHTML={{ __html: item.title }} />
                     <p className="truncate whitespace-nowrap text-[14px] mb-8 text-white" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif' }}>{item.description}</p>
                     <div className="flex flex-col min-[376px]:flex-row justify-center items-center md:justify-start gap-3">
-                      <LocalizedClientLink
-                        href="/categories"
-                        className="flex justify-center items-center text-center px-3 py-4 bg-white font-medium text-sm h-9 text-black border border-white border-solid rounded-full"
-                        data-testid="categories-link"
-                      >
-                        Voir nos Catégories
-                        <MoveRight className="ml-2 h-4 w-4 text-black" />
-                      </LocalizedClientLink>
-                      <LocalizedClientLink
-                        href="/store"
-                        className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
-                        data-testid="store-link"
-                      >
-                        Voir nos Produits
-                        <MoveRight className="ml-2 h-4 w-4 text-white" />
-                      </LocalizedClientLink>
+                      {item.primary_button_text && item.primary_button_url && (
+                        <LocalizedClientLink
+                          href={item.primary_button_url}
+                          className="flex justify-center items-center text-center px-3 py-4 bg-white font-medium text-sm h-9 text-black border border-white border-solid rounded-full"
+                          data-testid="primary-button"
+                        >
+                          {item.primary_button_text}
+                          <MoveRight className="ml-2 h-4 w-4 text-black" />
+                        </LocalizedClientLink>
+                      )}
+                      {item.secondary_button_text && item.secondary_button_url && (
+                        <LocalizedClientLink
+                          href={item.secondary_button_url}
+                          className="flex justify-center items-center text-center px-3 py-4 bg-transparent font-medium text-sm h-9 text-white border border-white border-solid rounded-full"
+                          data-testid="secondary-button"
+                        >
+                          {item.secondary_button_text}
+                          <MoveRight className="ml-2 h-4 w-4 text-white" />
+                        </LocalizedClientLink>
+                      )}
                     </div>
                   </div>
                 </div>)}

@@ -1,11 +1,12 @@
 import { listCategories } from "@lib/data/categories"
+import { getCategoriesThumbnails, getCategoryDisplayImage } from "@lib/data/category-media"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { ArrowUpRightMini } from "@medusajs/icons"
 import { unstable_cache } from "next/cache"
 
-// Cached categories grid component
-const getCachedTopLevelCategories = unstable_cache(
+// Cached categories with thumbnails
+const getCachedTopLevelCategoriesWithMedia = unstable_cache(
   async () => {
     const product_categories = await listCategories()
     
@@ -14,34 +15,32 @@ const getCachedTopLevelCategories = unstable_cache(
     }
 
     // Filter out categories that have parent categories (only show top-level categories)
-    return product_categories.filter(
+    const topLevelCategories = product_categories.filter(
       (category) => !category.parent_category
     )
+
+    // Fetch thumbnails for all categories
+    const thumbnails = await getCategoriesThumbnails(topLevelCategories)
+
+    // Combine categories with their thumbnails
+    return topLevelCategories.map(category => ({
+      ...category,
+      thumbnail: thumbnails[category.id]
+    }))
   },
-  ["top-level-categories"],
+  ["top-level-categories-with-media"],
   {
-    tags: ["categories"],
+    tags: ["categories", "category-media"],
     revalidate: 300, // 5 minutes
   }
 )
 
 const CategoriesGrid = async () => {
-  const topLevelCategories = await getCachedTopLevelCategories()
+  const topLevelCategories = await getCachedTopLevelCategoriesWithMedia()
 
   if (!topLevelCategories || topLevelCategories.length === 0) {
     return <div>Loading categories...</div>
   }
-
-  const categoryImageMap = {
-    "ROBINETTERIE": "taps.png",
-    "SANITAIRE": "sanitary.png",
-    "MEUBLES SALLE DE BAIN": "bathroom_furniture.png",
-    "MIROIRS": "mirrors.png",
-    "ACCESOIRES SALLE DE BAIN": "bathroom_accessories.png",
-    "FILTRE À EAU": "water_filter.png",
-    "CUISINE": "kitchen.png",
-    // ...add all mappings as needed
-  } as Record<string, string>
 
   return (
     <div className="py-12">
@@ -62,11 +61,11 @@ const CategoriesGrid = async () => {
               className="text-small-regular transition-colors"
             >
               <Thumbnail
-                thumbnail={
-                  categoryImageMap[category.name]
-                    ? `/categories/${categoryImageMap[category.name]}`
-                    : undefined
-                }
+                thumbnail={getCategoryDisplayImage(
+                  category.name, 
+                  category.thumbnail, 
+                  category.category_children
+                )}
                 size="square"
                 className="mb-4 w-full lg:w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg lg:mx-auto"
               />
