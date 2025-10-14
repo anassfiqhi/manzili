@@ -143,7 +143,7 @@ export default class CarouselService extends MedusaService({
   @InjectTransactionManager()
   async setCarouselActive(id: string, @MedusaContext() shared?: Context<EntityManager>) {
     // First, deactivate all carousels
-    const allCarousels = await this.carouselRepository_.find({}, shared)
+    const allCarousels = await this.carouselRepository_.find({ where: {} }, shared)
     
     if (allCarousels.length > 0) {
       const deactivateUpdates = allCarousels.map((carousel: any) => ({
