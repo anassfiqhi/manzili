@@ -155,7 +155,7 @@ class SlidesService extends MedusaService({
       throw new Error(`Slide with id ${id} not found`)
     }
 
-    await this.slideRepository_.delete([slide.id], shared)
+    await this.slideRepository_.delete({ id: slide.id }, shared)
     return { id, deleted: true }
   }
 
