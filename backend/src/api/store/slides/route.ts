@@ -1,6 +1,6 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { CAROUSEL_MODULE } from "../../../modules/carousel"
-import CarouselService from "../../../modules/carousel/service"
+import { SLIDES_MODULE } from "../../../modules/slides"
+import SlidesService from "../../../modules/slides/service"
 
 interface SlideListQuery {
   limit?: number
@@ -9,38 +9,55 @@ interface SlideListQuery {
 
 // GET /store/slides - List active slides for public display
 export const GET = async (req: MedusaRequest<SlideListQuery>, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
 
   try {
     const { limit = 20, offset = 0 } = req.query || {}
 
-    // Only return active slides for store
-    const slides = await carouselService.listSlides(
-      { include_inactive: false },
-      { take: limit, skip: offset }
-    )
+    console.log("=== STORE SLIDES API CALLED ===")
+    console.log("limit:", limit, "offset:", offset)
 
-    const transformedSlides = slides.map((item: any) => ({
-      id: item.id,
-      carousel_id: item.carousel_id,
-      title: item.title,
-      description: item.description,
-      primary_button_text: item.primary_button_text,
-      primary_button_url: item.primary_button_url,
-      secondary_button_text: item.secondary_button_text,
-      secondary_button_url: item.secondary_button_url,
-      rank: item.rank,
-      is_active: item.is_active,
-      metadata: item.metadata,
-      created_at: item.created_at,
-      updated_at: item.updated_at,
+    // Only return active slides for store
+    const slides = await slidesService.listSlides({ include_inactive: false })
+    
+    // Apply pagination
+    const startIndex = Number(offset) || 0
+    const limitNumber = Number(limit) || 20
+    const paginatedSlides = slides.slice(startIndex, startIndex + limitNumber)
+
+    const transformedSlides = paginatedSlides.map((slide: any) => ({
+      id: slide.id,
+      title: slide.title,
+      description: slide.description,
+      primary_button_text: slide.primary_button_text,
+      primary_button_url: slide.primary_button_url,
+      primary_button_active: slide.primary_button_active,
+      secondary_button_text: slide.secondary_button_text,
+      secondary_button_url: slide.secondary_button_url,
+      secondary_button_active: slide.secondary_button_active,
+      rank: slide.rank,
+      is_active: slide.is_active,
+      metadata: slide.metadata,
+      // Include media with proper structure
+      media: slide.media || [],
+      thumbnail: slide.thumbnail || null,
+      order: slide.rank, // Map rank to order for compatibility
+      created_at: slide.created_at,
+      updated_at: slide.updated_at,
     }))
+
+    console.log("Store slides response:", {
+      count: transformedSlides.length,
+      total: slides.length,
+      slides: transformedSlides
+    })
 
     res.json({
       slides: transformedSlides,
-      count: slides.length,
-      offset,
-      limit,
+      count: transformedSlides.length,
+      total: slides.length,
+      offset: startIndex,
+      limit: limitNumber,
     })
   } catch (error: any) {
     console.error("Error listing store slides:", error)

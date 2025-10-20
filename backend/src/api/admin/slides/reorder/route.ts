@@ -1,6 +1,6 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { CAROUSEL_MODULE } from "../../../../modules/carousel"
-import CarouselService from "../../../../modules/carousel/service"
+import { SLIDES_MODULE } from "../../../../modules/slides"
+import SlidesService from "../../../../modules/slides/service"
 
 interface ReorderSlidesRequest {
   slide_ids: string[]
@@ -8,7 +8,7 @@ interface ReorderSlidesRequest {
 
 // POST /admin/slides/reorder
 export const POST = async (req: MedusaRequest<ReorderSlidesRequest>, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
   
   let parsedBody: ReorderSlidesRequest
   
@@ -36,7 +36,7 @@ export const POST = async (req: MedusaRequest<ReorderSlidesRequest>, res: Medusa
   }
 
   try {
-    await carouselService.reorderSlides(slide_ids)
+    await slidesService.reorderSlides(slide_ids)
     res.json({ message: "Slides reordered successfully" })
   } catch (error) {
     console.error("Error reordering slides:", error)

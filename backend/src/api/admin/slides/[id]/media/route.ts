@@ -1,128 +1,58 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { CAROUSEL_MODULE } from "../../../../../modules/carousel"
-import CarouselService from "../../../../../modules/carousel/service"
+import { SLIDES_MODULE } from "../../../../../modules/slides"
+import SlidesService from "../../../../../modules/slides/service"
 
-interface CreateSlideMediaRequest {
-  file_id?: string
-  url?: string
-  alt_text?: string
-  mime_type?: string
-  size?: number
-  width?: number
-  height?: number
-  order?: number
-  is_thumbnail?: boolean
-}
-
-// GET /admin/slides/:id/media
+// GET /admin/slides/:id/media - returns slide with images/thumbnail
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
-  const { id: slideId } = req.params
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
+  const { id } = req.params
+
+  if (!id) {
+    return res.status(400).json({ error: "Slide ID is required" })
+  }
 
   try {
-    const media = await carouselService.listSlideMedia(slideId)
+    const slide = await slidesService.getSlide(id)
     
     res.json({
-      media: media.map(item => ({
-        id: item.id,
-        slide_id: item.slide_id,
-        file_id: item.file_id,
-        url: item.url,
-        alt_text: item.alt_text,
-        mime_type: item.mime_type,
-        size: item.size,
-        width: item.width,
-        height: item.height,
-        order: item.order,
-        is_thumbnail: item.is_thumbnail,
-        created_at: item.created_at,
-        updated_at: item.updated_at,
-      }))
+      slide: {
+        id: slide.id,
+        media: slide.media || [],
+        thumbnail: slide.thumbnail || null,
+      }
     })
   } catch (error) {
-    console.error("Error fetching slide media:", error)
-    res.status(500).json({ error: "Failed to fetch slide media" })
+    console.error("Error fetching slide:", error)
+    res.status(500).json({ error: "Failed to fetch slide" })
   }
 }
 
-// POST /admin/slides/:id/media
-export const POST = async (req: MedusaRequest<CreateSlideMediaRequest>, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
-  const { id: slideId } = req.params
+// PUT /admin/slides/:id/media - updates slide images/thumbnail
+export const PUT = async (req: MedusaRequest, res: MedusaResponse) => {
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
+  const { id } = req.params
   
-  let parsedBody: CreateSlideMediaRequest
-  
-  try {
-    if (req.body && typeof req.body === 'object') {
-      parsedBody = req.body as CreateSlideMediaRequest
-    } else {
-      let rawBody: string = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {})
-      
-      console.log("Raw body received:", rawBody)
-      
-      if (rawBody.startsWith('"') && rawBody.endsWith('"')) {
-        rawBody = rawBody.slice(1, -1).replace(/\\"/g, '"')
-        console.log("Unescaped body:", rawBody)
-      }
-      
-      parsedBody = JSON.parse(rawBody)
-      console.log("Parsed body:", parsedBody)
-    }
-  } catch (parseError) {
-    console.error("JSON parsing error:", parseError)
-    console.error("Request body was:", req.body)
-    return res.status(400).json({ error: "Invalid JSON in request body" })
-  }
-  
-  const { 
-    file_id,
-    url,
-    alt_text,
-    mime_type,
-    size,
-    width,
-    height,
-    order,
-    is_thumbnail
-  } = parsedBody
-
-  if (!file_id && !url) {
-    return res.status(400).json({ error: "Either file_id or url is required" })
+  if (!id) {
+    return res.status(400).json({ error: "Slide ID is required" })
   }
 
   try {
-    const media = await carouselService.createSlideMedia({
-      slide_id: slideId,
-      file_id,
-      url,
-      alt_text,
-      mime_type,
-      size,
-      width,
-      height,
-      order,
-      is_thumbnail,
+    const { media, thumbnail } = req.body as { media?: any[], thumbnail?: string }
+    
+    const updatedSlide = await slidesService.updateSlide(id, {
+      media,
+      thumbnail,
     })
 
-    res.status(201).json({
-      media: {
-        id: media.id,
-        slide_id: media.slide_id,
-        file_id: media.file_id,
-        url: media.url,
-        alt_text: media.alt_text,
-        mime_type: media.mime_type,
-        size: media.size,
-        width: media.width,
-        height: media.height,
-        order: media.order,
-        is_thumbnail: media.is_thumbnail,
-        created_at: media.created_at,
-        updated_at: media.updated_at,
+    res.json({
+      slide: {
+        id: updatedSlide.id,
+        images: updatedSlide.images || [],
+        thumbnail: updatedSlide.thumbnail || null,
       }
     })
   } catch (error) {
-    console.error("Error creating slide media:", error)
-    res.status(500).json({ error: "Failed to create slide media" })
+    console.error("Error updating slide media:", error)
+    res.status(500).json({ error: "Failed to update slide media" })
   }
 }

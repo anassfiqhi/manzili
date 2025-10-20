@@ -1,77 +1,102 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { CAROUSEL_MODULE } from "../../../../modules/carousel"
-import CarouselService from "../../../../modules/carousel/service"
+import { SLIDES_MODULE } from "../../../../modules/slides"
+import SlidesService from "../../../../modules/slides/service"
 
 interface UpdateSlideRequest {
   title?: string
   description?: string
   primary_button_text?: string
   primary_button_url?: string
+  primary_button_active?: boolean
   secondary_button_text?: string
   secondary_button_url?: string
+  secondary_button_active?: boolean
   rank?: number
   is_active?: boolean
+  media?: Array<{ id?: string; url: string }>
+  thumbnail?: string | null
   metadata?: any
 }
 
-// GET /admin/slides/:id
+// GET /admin/slides/[id]
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
   const { id } = req.params
 
   try {
-    const slide = await carouselService.getSlideById(id)
+    const slide = await slidesService.getSlide(id)
     
-    if (!slide) {
-      return res.status(404).json({ error: "Slide not found" })
-    }
-
     res.json({
       slide: {
         id: slide.id,
-        carousel_id: slide.carousel_id,
         title: slide.title,
         description: slide.description,
         primary_button_text: slide.primary_button_text,
         primary_button_url: slide.primary_button_url,
+        primary_button_active: slide.primary_button_active,
         secondary_button_text: slide.secondary_button_text,
         secondary_button_url: slide.secondary_button_url,
+        secondary_button_active: slide.secondary_button_active,
         rank: slide.rank,
         is_active: slide.is_active,
         metadata: slide.metadata,
+        media: slide.media || [],
+        thumbnail: slide.thumbnail || null,
         created_at: slide.created_at,
         updated_at: slide.updated_at,
       }
     })
   } catch (error) {
     console.error("Error fetching slide:", error)
-    res.status(500).json({ error: "Failed to fetch slide" })
+    res.status(404).json({ error: "Slide not found" })
   }
 }
 
-// PATCH /admin/slides/:id
-export const PATCH = async (req: MedusaRequest<UpdateSlideRequest>, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+// PUT /admin/slides/[id]
+export const PUT = async (req: MedusaRequest<UpdateSlideRequest>, res: MedusaResponse) => {
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
   const { id } = req.params
+  
+  let parsedBody: UpdateSlideRequest
+  
+  try {
+    if (req.body && typeof req.body === 'object') {
+      parsedBody = req.body as UpdateSlideRequest
+    } else {
+      let rawBody: string = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {})
+      
+      if (rawBody.startsWith('"') && rawBody.endsWith('"')) {
+        rawBody = rawBody.slice(1, -1).replace(/\\"/g, '"')
+      }
+      
+      parsedBody = JSON.parse(rawBody)
+    }
+  } catch (parseError) {
+    console.error("JSON parsing error:", parseError)
+    return res.status(400).json({ error: "Invalid JSON in request body" })
+  }
 
   try {
-    const updatedSlide = await carouselService.updateSlide(id, req.body)
+    const slide = await slidesService.updateSlide(id, parsedBody)
 
     res.json({
       slide: {
-        id: updatedSlide.id,
-        carousel_id: updatedSlide.carousel_id,
-        title: updatedSlide.title,
-        description: updatedSlide.description,
-        primary_button_text: updatedSlide.primary_button_text,
-        primary_button_url: updatedSlide.primary_button_url,
-        secondary_button_text: updatedSlide.secondary_button_text,
-        secondary_button_url: updatedSlide.secondary_button_url,
-        rank: updatedSlide.rank,
-        is_active: updatedSlide.is_active,
-        metadata: updatedSlide.metadata,
-        created_at: updatedSlide.created_at,
-        updated_at: updatedSlide.updated_at,
+        id: slide.id,
+        title: slide.title,
+        description: slide.description,
+        primary_button_text: slide.primary_button_text,
+        primary_button_url: slide.primary_button_url,
+        primary_button_active: slide.primary_button_active,
+        secondary_button_text: slide.secondary_button_text,
+        secondary_button_url: slide.secondary_button_url,
+        secondary_button_active: slide.secondary_button_active,
+        rank: slide.rank,
+        is_active: slide.is_active,
+        metadata: slide.metadata,
+        media: slide.media || [],
+        thumbnail: slide.thumbnail || null,
+        created_at: slide.created_at,
+        updated_at: slide.updated_at,
       }
     })
   } catch (error) {
@@ -80,14 +105,14 @@ export const PATCH = async (req: MedusaRequest<UpdateSlideRequest>, res: MedusaR
   }
 }
 
-// DELETE /admin/slides/:id
+// DELETE /admin/slides/[id]
 export const DELETE = async (req: MedusaRequest, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
   const { id } = req.params
 
   try {
-    await carouselService.deleteSlide(id)
-    res.status(204).send()
+    const result = await slidesService.deleteSlide(id)
+    res.json(result)
   } catch (error) {
     console.error("Error deleting slide:", error)
     res.status(500).json({ error: "Failed to delete slide" })

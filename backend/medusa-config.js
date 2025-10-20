@@ -28,6 +28,7 @@ import {
 } from './src/lib/constants';
 import { CATEGORY_MEDIA_MODULE } from './src/modules/category-media';
 import { CAROUSEL_MODULE } from './src/modules/carousel';
+import { SLIDES_MODULE } from './src/modules/slides';
 
 loadEnv(process.env.NODE_ENV, process.cwd());
 
@@ -62,6 +63,10 @@ const medusaConfig = {
     {
         key: CAROUSEL_MODULE,
         resolve: './src/modules/carousel',
+    },
+    {
+        key: SLIDES_MODULE,
+        resolve: './src/modules/slides',
     },
     {
       key: Modules.FILE,

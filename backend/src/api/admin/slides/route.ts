@@ -1,15 +1,16 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import { CAROUSEL_MODULE } from "../../../modules/carousel"
-import CarouselService from "../../../modules/carousel/service"
+import { SLIDES_MODULE } from "../../../modules/slides"
+import SlidesService from "../../../modules/slides/service"
 
 interface CreateSlideRequest {
-  carousel_id: string
   title: string
   description?: string
   primary_button_text?: string
   primary_button_url?: string
+  primary_button_active?: boolean
   secondary_button_text?: string
   secondary_button_url?: string
+  secondary_button_active?: boolean
   rank?: number
   is_active?: boolean
   metadata?: any
@@ -17,34 +18,38 @@ interface CreateSlideRequest {
 
 // GET /admin/slides
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
   const includeInactive = req.query.include_inactive === 'true'
-  const carouselId = req.query.carousel_id as string
+
+  console.log("=== SLIDES LIST API CALLED ===")
+  console.log("includeInactive:", includeInactive)
+  console.log("req.query:", req.query)
 
   try {
-    let slides
-    if (carouselId) {
-      slides = await carouselService.getSlidesByCarouselId(carouselId, includeInactive)
-    } else {
-      slides = await carouselService.listSlides({ include_inactive: includeInactive })
-    }
+    console.log("Calling slidesService.listSlides...")
+    const slides = await slidesService.listSlides({ include_inactive: includeInactive })
+    console.log("slides returned from service:", slides)
     
     res.json({
-      slides: slides.map(item => ({
-        id: item.id,
-        carousel_id: item.carousel_id,
-        title: item.title,
-        description: item.description,
-        primary_button_text: item.primary_button_text,
-        primary_button_url: item.primary_button_url,
-        secondary_button_text: item.secondary_button_text,
-        secondary_button_url: item.secondary_button_url,
-        rank: item.rank,
-        is_active: item.is_active,
-        metadata: item.metadata,
-        created_at: item.created_at,
-        updated_at: item.updated_at,
-      }))
+      slides: slides.map(slide => ({
+        id: slide.id,
+        title: slide.title,
+        description: slide.description,
+        primary_button_text: slide.primary_button_text,
+        primary_button_url: slide.primary_button_url,
+        primary_button_active: slide.primary_button_active,
+        secondary_button_text: slide.secondary_button_text,
+        secondary_button_url: slide.secondary_button_url,
+        secondary_button_active: slide.secondary_button_active,
+        rank: slide.rank,
+        is_active: slide.is_active,
+        metadata: slide.metadata,
+        media: slide.media || [],
+        thumbnail: slide.thumbnail || null,
+        created_at: slide.created_at,
+        updated_at: slide.updated_at,
+      })),
+      count: slides.length
     })
   } catch (error) {
     console.error("Error fetching slides:", error)
@@ -54,7 +59,7 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 
 // POST /admin/slides
 export const POST = async (req: MedusaRequest<CreateSlideRequest>, res: MedusaResponse) => {
-  const carouselService = req.scope.resolve(CAROUSEL_MODULE) as CarouselService
+  const slidesService = req.scope.resolve(SLIDES_MODULE) as SlidesService
   
   let parsedBody: CreateSlideRequest
   
@@ -76,35 +81,33 @@ export const POST = async (req: MedusaRequest<CreateSlideRequest>, res: MedusaRe
   }
   
   const { 
-    carousel_id,
     title,
     description, 
     primary_button_text,
     primary_button_url,
+    primary_button_active,
     secondary_button_text,
     secondary_button_url,
+    secondary_button_active,
     rank,
     is_active,
     metadata
   } = parsedBody
-
-  if (!carousel_id) {
-    return res.status(400).json({ error: "carousel_id is required" })
-  }
 
   if (!title) {
     return res.status(400).json({ error: "Title is required" })
   }
 
   try {
-    const slide = await carouselService.createSlide({
-      carousel_id,
+    const slide = await slidesService.createSlide({
       title,
       description,
       primary_button_text,
       primary_button_url,
+      primary_button_active,
       secondary_button_text,
       secondary_button_url,
+      secondary_button_active,
       rank,
       is_active,
       metadata,
@@ -113,13 +116,14 @@ export const POST = async (req: MedusaRequest<CreateSlideRequest>, res: MedusaRe
     res.status(201).json({
       slide: {
         id: slide.id,
-        carousel_id: slide.carousel_id,
         title: slide.title,
         description: slide.description,
         primary_button_text: slide.primary_button_text,
         primary_button_url: slide.primary_button_url,
+        primary_button_active: slide.primary_button_active,
         secondary_button_text: slide.secondary_button_text,
         secondary_button_url: slide.secondary_button_url,
+        secondary_button_active: slide.secondary_button_active,
         rank: slide.rank,
         is_active: slide.is_active,
         metadata: slide.metadata,
