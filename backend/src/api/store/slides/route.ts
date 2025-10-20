@@ -18,7 +18,7 @@ export const GET = async (req: MedusaRequest<SlideListQuery>, res: MedusaRespons
     console.log("limit:", limit, "offset:", offset)
 
     // Only return active slides for store
-    const slides = await slidesService.listSlides({ include_inactive: false })
+    const slides = await slidesService.listSlidesCustom({ include_inactive: false })
     
     // Apply pagination
     const startIndex = Number(offset) || 0

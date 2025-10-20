@@ -18,12 +18,12 @@ class SlidesService extends MedusaService({
     super(...arguments)
     this.slideRepository_ = slideRepository
   }
-  // List all slides
+  // List all slides with custom options
   @InjectTransactionManager()
-  async listSlides(options: { include_inactive?: boolean } = {}, @MedusaContext() shared?: Context<EntityManager>) {
+  async listSlidesCustom(options: { include_inactive?: boolean } = {}, @MedusaContext() shared?: Context<EntityManager>) {
     const { include_inactive = false } = options
     
-    console.log("=== SlidesService.listSlides called ===")
+    console.log("=== SlidesService.listSlidesCustom called ===")
     console.log("options:", options)
     console.log("include_inactive:", include_inactive)
     
@@ -49,7 +49,7 @@ class SlidesService extends MedusaService({
       return slides
     } catch (error) {
       // Return empty array if tables don't exist yet
-      console.error("Error in listSlides:", error)
+      console.error("Error in listSlidesCustom:", error)
       console.log("Slides table not found, returning empty array")
       return []
     }
@@ -155,7 +155,7 @@ class SlidesService extends MedusaService({
       throw new Error(`Slide with id ${id} not found`)
     }
 
-    await this.slideRepository_.delete([slide], shared)
+    await this.slideRepository_.delete([slide.id], shared)
     return { id, deleted: true }
   }
 

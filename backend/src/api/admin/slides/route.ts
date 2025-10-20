@@ -26,8 +26,8 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
   console.log("req.query:", req.query)
 
   try {
-    console.log("Calling slidesService.listSlides...")
-    const slides = await slidesService.listSlides({ include_inactive: includeInactive })
+    console.log("Calling slidesService.listSlidesCustom...")
+    const slides = await slidesService.listSlidesCustom({ include_inactive: includeInactive })
     console.log("slides returned from service:", slides)
     
     res.json({

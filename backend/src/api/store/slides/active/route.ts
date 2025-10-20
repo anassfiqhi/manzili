@@ -10,7 +10,7 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
     console.log("=== STORE ACTIVE SLIDES API CALLED ===")
 
     // Get only active slides
-    const slides = await slidesService.listSlides({ include_inactive: false })
+    const slides = await slidesService.listSlidesCustom({ include_inactive: false })
     
     console.log("Active slides found:", slides.length)
 
