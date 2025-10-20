@@ -9,8 +9,10 @@ export interface CarouselItem {
   order: number
   primary_button_text?: string
   primary_button_url?: string
+  primary_button_active?: boolean
   secondary_button_text?: string
   secondary_button_url?: string
+  secondary_button_active?: boolean
   created_at: string
   updated_at: string
 }
@@ -22,8 +24,10 @@ export interface CarouselSlide {
   description?: string
   primary_button_text?: string
   primary_button_url?: string
+  primary_button_active?: boolean
   secondary_button_text?: string
   secondary_button_url?: string
+  secondary_button_active?: boolean
   rank: number
   is_active: boolean
   metadata?: any
@@ -146,8 +150,10 @@ export const convertSlidesToCarouselItems = (slides: CarouselSlide[]): CarouselI
       order: slide.rank,
       primary_button_text: slide.primary_button_text,
       primary_button_url: slide.primary_button_url,
+      primary_button_active: slide.primary_button_active,
       secondary_button_text: slide.secondary_button_text,
       secondary_button_url: slide.secondary_button_url,
+      secondary_button_active: slide.secondary_button_active,
       created_at: slide.created_at,
       updated_at: slide.updated_at,
     }

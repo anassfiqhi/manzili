@@ -5,6 +5,7 @@ import { HeroCarousel } from "@/modules/home/components/hero-carousel"
 import CategoriesGrid from "@modules/categories/components/CategoriesGrid"
 import SkeletonFeaturedProducts from "@modules/skeletons/components/skeleton-featured-products"
 import { getCarouselItemsWithMedia } from "@lib/data/carousel-media"
+import { getSlidesAsCarouselItems } from "@lib/data/slides"
 import { Suspense } from "react"
 import { unstable_cache } from "next/cache"
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     "Boutique en ligne performante avec Next.js 14 et Medusa.",
 }
 
-// Cached carousel items with media
+// Cached carousel items with media (legacy carousel system)
 const getCachedCarouselItems = unstable_cache(
   async () => {
     return await getCarouselItemsWithMedia()
@@ -22,6 +23,18 @@ const getCachedCarouselItems = unstable_cache(
   ["active-carousel-with-media"],
   {
     tags: ["carousel", "carousel-media"],
+    revalidate: 300, // 5 minutes
+  }
+)
+
+// Cached slides as carousel items (new slides system)
+const getCachedSlidesAsCarouselItems = unstable_cache(
+  async () => {
+    return await getSlidesAsCarouselItems()
+  },
+  ["active-slides-as-carousel"],
+  {
+    tags: ["slides", "slide-media"],
     revalidate: 300, // 5 minutes
   }
 )
@@ -36,13 +49,23 @@ export default async function Home({
     return null
   }
 
-  // Fetch cached carousel items with media
-  const carousels = await getCachedCarouselItems()
+  // Fetch both carousel systems and merge them
+  const [carousels, slidesAsCarousels] = await Promise.all([
+    getCachedCarouselItems(),
+    getCachedSlidesAsCarouselItems()
+  ])
+  
   console.log("Page: cached carousel items with media:", carousels)
+  console.log("Page: cached slides as carousel items:", slidesAsCarousels)
+  
+  // Use slides if available, otherwise fall back to carousel system
+  const displayCarousels = slidesAsCarousels && slidesAsCarousels.length > 0 
+    ? slidesAsCarousels 
+    : carousels
 
   return (
     <>
-      <HeroCarousel carousels={carousels} />
+      <HeroCarousel carousels={displayCarousels} />
       {/* <Hero /> */}
       <CategoriesGrid />
       <div className="py-12">
