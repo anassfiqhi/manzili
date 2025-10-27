@@ -2,12 +2,13 @@ import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import { listCategories } from "@lib/data/categories"
-import { listRegions } from "@lib/data/regions"
-import { StoreProductCategory, StoreRegion } from "@medusajs/types"
+import { getCategoriesThumbnails, getCategoryDisplayImage } from "@lib/data/category-media"
+import { StoreProductCategory } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { Text, clx } from "@medusajs/ui"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { ArrowUpRightMini } from "@medusajs/icons"
+import { unstable_cache } from "next/cache"
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 300 // 5 minutes
@@ -26,27 +27,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function CategoriesPage({ params }: Props) {
-  const product_categories = await listCategories()
+// Cached categories with thumbnails
+const getCachedTopLevelCategoriesWithMedia = unstable_cache(
+  async () => {
+    const product_categories = await listCategories()
+    
+    if (!product_categories) {
+      return []
+    }
 
-  if (!product_categories) {
-    notFound()
+    // Filter out categories that have parent categories (only show top-level categories)
+    const topLevelCategories = product_categories.filter(
+      (category) => !category.parent_category
+    )
+
+    // Fetch thumbnails for all categories
+    const thumbnails = await getCategoriesThumbnails(topLevelCategories)
+
+    // Combine categories with their thumbnails
+    return topLevelCategories.map(category => ({
+      ...category,
+      thumbnail: thumbnails[category.id]
+    }))
+  },
+  ["top-level-categories-with-media"],
+  {
+    tags: ["categories", "category-media"],
+    revalidate: 300, // 5 minutes
   }
+)
 
-  // Filter out categories that have parent categories (only show top-level categories)
-  const topLevelCategories = product_categories.filter(
-    (category: StoreProductCategory) => !category.parent_category
-  )
+export default async function CategoriesPage({ params }: Props) {
+  const topLevelCategories = await getCachedTopLevelCategoriesWithMedia()
 
-  const categoryImageMap: Record<string, string> = {
-    "ROBINETTERIE": "taps.png",
-    "SANITAIRE": "sanitary.png",
-    "MEUBLES SALLE DE BAIN": "bathroom_furniture.png",
-    "MIROIRS": "mirrors.png",
-    "ACCESOIRES SALLE DE BAIN": "bathroom_accessories.png",
-    "FILTRE À EAU": "water_filter.png",
-    "CUISINE": "kitchen.png",
-    // ...add all mappings
+  if (!topLevelCategories || topLevelCategories.length === 0) {
+    notFound()
   }
 
   return (
@@ -60,11 +75,11 @@ export default async function CategoriesPage({ params }: Props) {
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-center gap-8">
-        {topLevelCategories.map((category: StoreProductCategory) => (
+      <div className="flex flex-col lg:flex-row flex-wrap justify-center gap-8">
+        {topLevelCategories.map((category) => (
           <div
             key={category.id}
-            className="rounded-lg p-6 transition-colors w-fit h-fit cursor-pointer group/CategoryItem"
+            className="rounded-lg p-6 transition-colors w-full lg:w-fit h-fit cursor-pointer group/CategoryItem"
             data-testid="category-card"
           >
             <LocalizedClientLink
@@ -73,25 +88,19 @@ export default async function CategoriesPage({ params }: Props) {
               data-testid="category-link"
             >
               <Thumbnail
-                thumbnail={
-                  categoryImageMap[category.name]
-                    ? `/categories/${categoryImageMap[category.name]}`
-                    : undefined // fallback if not found
-                }
+                thumbnail={getCategoryDisplayImage(
+                  category.name, 
+                  category.thumbnail, 
+                  category.category_children
+                )}
                 size="square"
-                className="mb-4 w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg mx-auto"
+                className="mb-4 w-full lg:w-[200px] h-[200px] aspect-square rounded-xl object-cover group-hover/CategoryItem:shadow-lg lg:mx-auto"
                 data-testid="category-thumbnail"
               />
               <div className="mb-4">
                 <h2 className="text-lg text-center mb-2 border-b border-black w-fit mx-auto flex justify-center items-center gap-1">{category.name} <ArrowUpRightMini
                   className="group-hover/CategoryItem:rotate-45 ease-in-out duration-150 text-black"
-                // color="var(--fg-interactive)"
                 /></h2>
-                {/* {category.description && (
-                  <p className="text-small-regular text-ui-fg-subtle mb-4">
-                    {category.description}
-                  </p>
-                )} */}
               </div>
             </LocalizedClientLink>
 

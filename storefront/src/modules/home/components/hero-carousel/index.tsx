@@ -72,13 +72,13 @@ export function HeroCarousel({ carousels }: HeroCarouselProps) {
   ]
 
   // Use dynamic carousels if available, otherwise fall back to static
-  console.log("HeroCarousel: received carousels prop:", carousels)
-  console.log("HeroCarousel: carousels length:", carousels?.length)
-  console.log("HeroCarousel: carousels with images:", carousels?.filter(c => c.image_url))
+  // console.log("HeroCarousel: received carousels prop:", carousels)
+  // console.log("HeroCarousel: carousels length:", carousels?.length)
+  // console.log("HeroCarousel: carousels with images:", carousels?.filter(c => c.image_url))
   
   const carouselItems = carousels && carousels.length > 0 ? carousels : staticCarouselItems
-  console.log("HeroCarousel: using carouselItems:", carouselItems)
-  console.log("HeroCarousel: final items with images:", carouselItems.filter(c => c.image_url))
+  // console.log("HeroCarousel: using carouselItems:", carouselItems)
+  // console.log("HeroCarousel: final items with images:", carouselItems.filter(c => c.image_url))
 
   // Dynamic loading state
   const [imageLoaded, setImageLoaded] = useState(Array(carouselItems.length).fill(false))
