@@ -140,7 +140,7 @@ const ContactTemplate = () => {
               E-mail
             </Heading>
             <Text className="text-ui-fg-subtle">
-              support@Sweet Nest.com
+              {process.env.NEXT_PUBLIC_CONTACT_EMAIL || "contact@sweet-nest.com"}
             </Text>
           </div>
           
@@ -149,7 +149,7 @@ const ContactTemplate = () => {
               Téléphone
             </Heading>
             <Text className="text-ui-fg-subtle">
-              +33 1 23 45 67 89
+              {process.env.NEXT_PUBLIC_CONTACT_PHONE || "+33 1 23 45 67 89"}
             </Text>
           </div>
           
@@ -158,8 +158,8 @@ const ContactTemplate = () => {
               Heures d'ouverture
             </Heading>
             <Text className="text-ui-fg-subtle">
-              Lun-Ven: 9h-18h<br />
-              Sam: 10h-16h
+              {process.env.NEXT_PUBLIC_BUSINESS_HOURS_WEEKDAYS || "Lun-Ven: 9h-18h"}<br />
+              {process.env.NEXT_PUBLIC_BUSINESS_HOURS_WEEKEND || "Sam: 10h-16h"}
             </Text>
           </div>
         </div>
