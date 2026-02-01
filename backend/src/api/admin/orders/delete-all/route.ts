@@ -5,7 +5,7 @@ import { Modules } from "@medusajs/framework/utils"
 export async function DELETE(
     req: MedusaRequest,
     res: MedusaResponse
-): Promise<void> {
+): Promise<MedusaResponse> {
     // Authentication is enforced by middleware (see src/api/middlewares.ts)
     const orderModuleService = req.scope.resolve(Modules.ORDER)
 
@@ -17,12 +17,11 @@ export async function DELETE(
 
         if (orders.length === 0) {
             logger.info("No orders to delete")
-            res.json({
+            return res.json({
                 success: true,
                 message: "No orders to delete",
                 deleted_count: 0
             })
-            return
         }
 
         // Delete all orders
@@ -31,13 +30,13 @@ export async function DELETE(
 
         logger.info(`Deleted ${orderIds.length} orders`)
 
-        res.json({
+        return res.json({
             success: true,
             message: `Successfully deleted ${orderIds.length} orders`,
             deleted_count: orderIds.length
         })
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: error instanceof Error ? error.message : "Failed to delete orders"
         })
