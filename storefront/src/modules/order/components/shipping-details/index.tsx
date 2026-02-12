@@ -47,7 +47,7 @@ const ShippingDetails = ({ order }: ShippingDetailsProps) => {
           <Text className="txt-medium text-ui-fg-subtle">
             {order.shipping_address?.phone}
           </Text>
-          <Text className="txt-medium text-ui-fg-subtle">{order.email}</Text>
+          {order.email && !order.email.includes("@noemail.fake") && <Text className="txt-medium text-ui-fg-subtle">{order.email}</Text>}
         </div>
 
         <div
