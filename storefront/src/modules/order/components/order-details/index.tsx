@@ -15,6 +15,16 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
 
   return (
     <div>
+      {order.customer?.phone && <Text>
+        We will confirm your order details via WhatsApp or SMS or call at{" "}
+        <span
+          className="text-ui-fg-medium-plus font-semibold"
+          data-testid="order-phone"
+        >
+          {order.customer.phone}
+        </span>
+        .
+      </Text>}
       {order.email && !order.email.includes("@noemail.fake") && <Text>
         We have sent the order confirmation details to{" "}
         <span
