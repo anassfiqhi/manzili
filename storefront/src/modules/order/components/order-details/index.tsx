@@ -33,7 +33,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
       </Text>
       <Text className="mt-2 text-ui-fg-interactive">
         {/* Order number: <span data-testid="order-id">{order.display_id}</span> */}
-        Order ID: <span data-testid="order-id">{order.id}</span>
+        Order ID: <span data-testid="order-id">{order.id.slice(6).toUpperCase()}</span>
       </Text>
 
       <div className="flex items-center text-compact-small gap-x-4 mt-4">
