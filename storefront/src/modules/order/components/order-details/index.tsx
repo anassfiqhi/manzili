@@ -15,7 +15,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
 
   return (
     <div>
-      <Text>
+      {order.email && !order.email.includes("@noemail.fake") && <Text>
         We have sent the order confirmation details to{" "}
         <span
           className="text-ui-fg-medium-plus font-semibold"
@@ -24,7 +24,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
           {order.email}
         </span>
         .
-      </Text>
+      </Text>}
       <Text className="mt-2">
         Order date:{" "}
         <span data-testid="order-date">
