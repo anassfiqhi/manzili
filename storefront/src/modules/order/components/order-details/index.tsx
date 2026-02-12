@@ -15,14 +15,13 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
 
   return (
     <div>
-      {JSON.stringify(order)}
-      {order.customer?.phone && <Text>
+      {order.shipping_address?.phone && <Text>
         We will confirm your order details via WhatsApp or SMS or call at{" "}
         <span
           className="text-ui-fg-medium-plus font-semibold"
           data-testid="order-phone"
         >
-          {order.customer.phone}
+          {order.shipping_address?.phone}
         </span>
         .
       </Text>}
