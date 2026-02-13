@@ -16,7 +16,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
   return (
     <div>
       {order.shipping_address?.phone && <Text>
-        We will confirm your order details via WhatsApp or SMS or call at{" "}
+        Nous confirmerons les détails de votre commande via WhatsApp, SMS ou par téléphone au{" "}
         <span
           className="text-ui-fg-medium-plus font-semibold"
           data-testid="order-phone"
@@ -26,7 +26,7 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
         .
       </Text>}
       {order.email && !order.email.includes("@noemail.fake") && <Text>
-        We have sent the order confirmation details to{" "}
+        Nous avons envoyé les détails de confirmation de la commande à{" "}
         <span
           className="text-ui-fg-medium-plus font-semibold"
           data-testid="order-email"
@@ -36,28 +36,28 @@ const OrderDetails = ({ order, showStatus }: OrderDetailsProps) => {
         .
       </Text>}
       <Text className="mt-2">
-        Order date:{" "}
+        Date de la commande :{" "}
         <span data-testid="order-date">
-          {new Date(order.created_at).toDateString()}
+          {new Date(order.created_at).toLocaleDateString('fr-FR')}
         </span>
       </Text>
       <Text className="mt-2 text-ui-fg-interactive">
         {/* Order number: <span data-testid="order-id">{order.display_id}</span> */}
-        Order ID: <span data-testid="order-id">{order.id.slice(6).toUpperCase()}</span>
+        Référence commande : <span data-testid="order-id">{order.id.slice(6).toUpperCase()}</span>
       </Text>
 
       <div className="flex items-center text-compact-small gap-x-4 mt-4">
         {showStatus && (
           <>
             <Text>
-              Order status:{" "}
+              Statut de la commande :{" "}
               <span className="text-ui-fg-subtle " data-testid="order-status">
                 {/* TODO: Check where the statuses should come from */}
                 {/* {formatStatus(order.fulfillment_status)} */}
               </span>
             </Text>
             <Text>
-              Payment status:{" "}
+              Statut du paiement :{" "}
               <span
                 className="text-ui-fg-subtle "
                 sata-testid="order-payment-status"
