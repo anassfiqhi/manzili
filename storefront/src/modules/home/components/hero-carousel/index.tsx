@@ -75,7 +75,7 @@ export function HeroCarousel({ carousels }: HeroCarouselProps) {
   // console.log("HeroCarousel: received carousels prop:", carousels)
   // console.log("HeroCarousel: carousels length:", carousels?.length)
   // console.log("HeroCarousel: carousels with images:", carousels?.filter(c => c.image_url))
-  
+
   const carouselItems = carousels && carousels.length > 0 ? carousels : staticCarouselItems
   // console.log("HeroCarousel: using carouselItems:", carouselItems)
   // console.log("HeroCarousel: final items with images:", carouselItems.filter(c => c.image_url))
@@ -116,11 +116,11 @@ export function HeroCarousel({ carousels }: HeroCarouselProps) {
                   <div className="mx-auto px-4 py-[40px] sm:py-[60px] md:py-[100px] xl:pt-[170px] md:max-w-5xl md:px-6 md:ml-0 xl:mx-auto h-full w-full flex flex-col">
                     {/* Title skeleton */}
                     <div className="truncate whitespace-nowrap text-[26px] max-[425px]:text-[26px] md:text-[41px] lg:text-[56px] min-[1440px]:text-[70px] mb-4 md:mb-6 lg:mb-8">
-                      <div className="h-full w-3/4 md:w-2/3 lg:w-1/2 bg-gray-300 rounded animate-pulse" style={{height:'1em'}} />
+                      <div className="h-full w-3/4 md:w-2/3 lg:w-1/2 bg-gray-300 rounded animate-pulse" style={{ height: '1em' }} />
                     </div>
                     {/* Description skeleton */}
                     <div className="truncate whitespace-nowrap text-[14px] mb-8">
-                      <div className="h-full w-1/2 md:w-1/3 bg-gray-200 rounded animate-pulse" style={{height:'1em'}} />
+                      <div className="h-full w-1/2 md:w-1/3 bg-gray-200 rounded animate-pulse" style={{ height: '1em' }} />
                     </div>
                     {/* Buttons skeleton - only show if item has button data */}
                     {hasVisibleButtons(item.primary_button_text, item.primary_button_url, item.secondary_button_text, item.secondary_button_url, item.primary_button_active, item.secondary_button_active) && (
@@ -187,7 +187,7 @@ export function HeroCarousel({ carousels }: HeroCarouselProps) {
         <CarouselPrevious icon={<MoveLeftIcon
           className="w-2 h-2 text-black"
         />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed] shadow-lg" />
-        <span className="hidden lg:inline text-[14px] min-w-11 text-center text-white">{current.toString().padStart(2, '0')}/{count.toString().padStart(2, '0')}</span>
+        <span className="hidden lg:flex lg:items-center lg:justify-center text-[14px] min-w-11 text-center text-white">{current.toString().padStart(2, '0')}/{count.toString().padStart(2, '0')}</span>
         <CarouselNext icon={<MoveRightIcon
           className="w-2 h-2 text-black"
         />} className="min-w-[35px] min-h-[35px] md:min-w-[40px] md:min-h-[40px] bg-[#ededed] shadow-lg" />
