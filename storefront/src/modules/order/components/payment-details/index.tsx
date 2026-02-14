@@ -46,7 +46,7 @@ const PaymentDetails = ({ order }: PaymentDetailsProps) => {
                     : `${convertToLocale({
                       amount: payment.amount,
                       currency_code: order.currency_code,
-                    })} payé le ${new Date(
+                    })} ${isManual(payment.provider_id) ? `commandé le` : `payé le`} ${new Date(
                       payment.created_at ?? ""
                     ).toLocaleString('fr-FR')}`}
                 </Text>
